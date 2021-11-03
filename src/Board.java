@@ -114,12 +114,25 @@ public class Board extends JPanel {
             for(int k = 0; k < m_pieces.size(); k++){
 
                 if(m_pieces.get(k).getPositionX() == tempx && m_pieces.get(k).getPositionY() == tempy){
-                    g.drawImage(BKnight, tempx, tempy, null);
+
+                    if(m_pieces.get(k).toString().contains("Pawn")){
+                        g.drawImage(BPawn, tempx*100 + 20, tempy*100 + 20, null);
+                    } else if (m_pieces.get(k).toString().contains("King")){
+                        g.drawImage(BKing, tempx*100 + 20, tempy*100 + 20, null);
+                    } else if (m_pieces.get(k).toString().contains("Knight")){
+                        g.drawImage(BKnight, tempx*100 + 20, tempy*100 + 20, null);
+                    } else if (m_pieces.get(k).toString().contains("Queen")){
+                        g.drawImage(BQueen, tempx*100 + 20, tempy*100 + 20, null);
+                    } else if (m_pieces.get(k).toString().contains("Bishop")){
+                        g.drawImage(BBishop, tempx*100 + 20, tempy*100 + 20, null);
+                    } else if (m_pieces.get(k).toString().contains("Rook")){
+                        g.drawImage(BRook, tempx*100 + 20, tempy*100 + 20, null);
+                    } 
+
                 }
             }
-            g.drawImage(BKnight, 500, 500, null);
 
-            if(tempx == 8){
+            if(tempx == 7){
                 tempy++;
                 tempx = 0;
             } else{
