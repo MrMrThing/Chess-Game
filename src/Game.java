@@ -1,14 +1,11 @@
-
-
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
     float m_round;
-    ArrayList<Point> m_positionsTaken = new ArrayList<>(); //all the positions taken arranged in a certain order
-    ArrayList<Piece> m_pieces = new ArrayList<>(); //all pieces on the board
+    public ArrayList<Point> m_positionsTaken = new ArrayList<>(); //all the positions taken arranged in a certain order
+    public ArrayList<Piece> m_pieces = new ArrayList<>(); //all pieces on the board
     //when a piece is taken of the board, we just delete it from the arrayList
 
     public Game(){
@@ -68,7 +65,10 @@ public class Game {
             this.m_positionsTaken.add(new Point(i, 0));
         }
         System.out.println("The pieces have been initialized. Let's see what the board looks like.");
+
+      
     }
 
     ArrayList<Point> getPositionsTaken(){return this.m_positionsTaken; }
+    ArrayList<Piece> getPieces(){return this.m_pieces; }
 }

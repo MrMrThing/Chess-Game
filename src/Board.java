@@ -8,15 +8,44 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class Board extends JPanel {
 
-    int clicked = 27;
+
+
+    ArrayList<Piece> m_pieces = new ArrayList<>();
+    int clicked = 0;
     int size = 100;
     int clickedX = 0;
     int clickedY = 0;
 
     private BufferedImage BKnight;
+
+    public Board(JFrame frame){
+        Game g = new Game();
+        try{
+            BKnight = ImageIO.read(getClass().getResource("/BKing.png"));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        addMouseListener(new MouseAdapter() { 
+            public void mousePressed(MouseEvent me) { 
+                m_pieces = g.getPieces();
+                clickedX = me.getX()/100;
+                clickedY = me.getY()/100;
+                clicked = (clickedX + 1) + (clickedY + 1)*8 - 8;
+                System.out.println("X " + clickedX);
+                System.out.println("Y " + clickedY);
+                System.out.println(clicked);
+                frame.repaint();
+            } 
+          }); 
+    }
+
+
+
     
     
     public void paint(Graphics g){
@@ -53,45 +82,21 @@ public class Board extends JPanel {
                 else
                     color = true;
             }
-        g.drawImage(BKnight, 100, 100, null);
+            g.drawImage(BKnight, x, y, null);
+
+
+            for(int k = 0; k < m_pieces.size(); k++){
+           
+            }
 
         }
+        
 
     }
 
     public static void main(String[] args){
-
-        
-
-        JFrame frame = new JFrame();
-        
-        frame.setSize(1000,1000);
-        frame.getContentPane().add(new Board(frame));
-        frame.setBackground(Color.LIGHT_GRAY);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-
         
 
     }
-    public Board(JFrame frame){
-
-        try{
-            BKnight = ImageIO.read(getClass().getResource("/BKing.png"));
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-
-        addMouseListener(new MouseAdapter() { 
-            public void mousePressed(MouseEvent me) { 
-                clickedX = me.getX()/100;
-                clickedY = me.getY()/100;
-                clicked = (clickedX + 1) + (clickedY + 1)*8 - 8;
-                System.out.println("X " + clickedX);
-                System.out.println("Y " + clickedY);
-                System.out.println(clicked);
-                frame.repaint();
-            } 
-          }); 
-    }
+   
 }

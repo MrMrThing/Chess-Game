@@ -1,10 +1,19 @@
-
+import javax.swing.JFrame;
 import java.awt.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
 
-        Game g = new Game();
+        JFrame frame = new JFrame();
+        
+        frame.setSize(1000,1000);
+        frame.getContentPane().add(new Board(frame));
+        frame.setBackground(Color.LIGHT_GRAY);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
+        
+        Board Board = new Board(frame);
 /*
         //Setting a new Point
         Point thing = new Point(2,5);
