@@ -117,6 +117,7 @@ public class Board extends JPanel {
                     g.drawImage(BKnight, tempx, tempy, null);
                 }
             }
+            g.drawImage(BKnight, 500, 500, null);
 
             if(tempx == 8){
                 tempy++;
