@@ -12,7 +12,19 @@ import java.util.ArrayList;
 
 public class Board extends JPanel {
 
-
+    private BufferedImage BKnight;
+    private BufferedImage BBishop;
+    private BufferedImage BKing;
+    private BufferedImage BPawn;
+    private BufferedImage BQueen;
+    private BufferedImage BRook;
+    
+    private BufferedImage WKnight;
+    private BufferedImage WBishop;
+    private BufferedImage WKing;
+    private BufferedImage WPawn;
+    private BufferedImage WQueen;
+    private BufferedImage WRook;
 
     ArrayList<Piece> m_pieces = new ArrayList<>();
     int clicked = 0;
@@ -20,12 +32,24 @@ public class Board extends JPanel {
     int clickedX = 0;
     int clickedY = 0;
 
-    private BufferedImage BKnight;
+    
 
     public Board(JFrame frame){
         Game g = new Game();
         try{
-            BKnight = ImageIO.read(getClass().getResource("/BKing.png"));
+            BKnight = ImageIO.read(getClass().getResource("/BKnight.png"));
+            BBishop = ImageIO.read(getClass().getResource("/BBishop.png"));
+            BKing = ImageIO.read(getClass().getResource("/BKing.png"));
+            BPawn = ImageIO.read(getClass().getResource("/BPawn.png"));
+            BQueen = ImageIO.read(getClass().getResource("/BQueen.png"));
+            BRook = ImageIO.read(getClass().getResource("/BRook.png"));
+
+            WKnight = ImageIO.read(getClass().getResource("/WKnight.png"));
+            WBishop = ImageIO.read(getClass().getResource("/WBishop.png"));
+            WKing = ImageIO.read(getClass().getResource("/WKing.png"));
+            WPawn = ImageIO.read(getClass().getResource("/WPawn.png"));
+            WQueen = ImageIO.read(getClass().getResource("/WQueen.png"));
+            WRook = ImageIO.read(getClass().getResource("/WRook.png"));
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -55,11 +79,15 @@ public class Board extends JPanel {
         Color black = new Color(118,134,71);
         int x = 0;
         int y = 0;
-        
+        int tempx = 0;
+        int tempy = 0;
     
         
 
         for(int i = 1; i < 65; i++){
+    
+
+
             if(i == clicked){
                 g.setColor(Color.ORANGE);
                 color = !color;
@@ -82,12 +110,21 @@ public class Board extends JPanel {
                 else
                     color = true;
             }
-            g.drawImage(BKnight, x, y, null);
-
-
+            
             for(int k = 0; k < m_pieces.size(); k++){
-           
+
+                if(m_pieces.get(k).getPositionX() == tempx && m_pieces.get(k).getPositionY() == tempy){
+                    g.drawImage(BKnight, tempx, tempy, null);
+                }
             }
+
+            if(tempx == 8){
+                tempy++;
+                tempx = 0;
+            } else{
+                tempx++;
+            }
+            
 
         }
         
