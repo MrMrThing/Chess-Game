@@ -1,21 +1,30 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 
 public class Player {
     Scanner in;
-    String m_name, m_password;
+    String m_name;
     boolean m_turn;
     int m_win;
-    public Player(String name, String password){
-        this.m_name=name;
-        this.m_password=password;
+    boolean m_exists;
+    ArrayList<Piece> p= new ArrayList<>();
+    Vector<String> players= new Vector<>();
+    public Player(){
+        in = new Scanner(System.in);
+        System.out.println("What's your username? ");
+        this.m_name=in.nextLine();
+        for (int i = 0; i < players.size(); i++) {
+            if (players.contains(this.m_name)) {
+                this.m_exists = true;
+            }
+        }
+        save_vector(this.players);
     }
 
     public String getM_name() {
@@ -23,13 +32,6 @@ public class Player {
     }
     public void setM_name(String name) {
         this.m_name = name;
-    }
-
-    public String getM_password() {
-        return m_password;
-    }
-    public void setM_password(String password) {
-        this.m_password = password;
     }
 
     boolean getTurn(){
@@ -49,8 +51,8 @@ public class Player {
 
     void save_vector(Vector<String> profile) {
         String name="";
-        Vector<String> temp_profile= new Vector<>();
-        boolean exists = false;
+        //Vector<String> temp_profile= new Vector<>();
+        //boolean exists = false;
         int i;
         //Create file for players profile
         try {
@@ -67,22 +69,38 @@ public class Player {
         //Write in file
         try {
             FileWriter myW = new FileWriter("profile.txt");
-            for (i = 0; i < temp_profile.size(); i++) {
-                if (temp_profile.contains(name)) {
-                    exists = true;
-                }
-            }
-            if (exists == true) {
+            if (this.m_exists == true) {
                 System.out.println("Profile name already exists sorry");
             }
             //we put everything to play here
             else {
-                temp_profile.add(name);
+                profile.add(name);
 
             }
             myW.write(name);
+            myW.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        //Read txt
+        FileReader reader = null;
+        try {
+            reader = new FileReader("profile.txt");
+            for (i = 0; i < profile.size(); i++) {
+                if (profile.contains(name)) {
+                    this.m_exists = true;
+                }
+            }
+            int ch;
+            while ((ch = reader.read()) != -1) {
+                System.out.print((char) ch);
+            }
+
+            // close the reader
+            reader.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
