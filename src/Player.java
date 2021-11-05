@@ -85,21 +85,19 @@ public class Player {
         }
 
         //Read txt
-        FileReader reader = null;
+        //FileReader reader = null;
         try {
-            reader = new FileReader("profile.txt");
-            for (i = 0; i < profile.size(); i++) {
-                if (profile.contains(name)) {
-                    this.m_exists = true;
-                }
-            }
-            int ch;
-            while ((ch = reader.read()) != -1) {
-                System.out.print((char) ch);
+            // create a reader
+            BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+
+            // read until end of file
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
             }
 
             // close the reader
-            reader.close();
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
