@@ -1,6 +1,3 @@
-import com.company.Game;
-import com.company.Piece;
-
 import java.awt.Color;
 import java.awt.Graphics;
 
