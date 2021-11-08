@@ -261,6 +261,16 @@ class Bishop extends Piece {
                 for (Piece p : pieces) {
                     //if there is a piece at one of the possible positions
                     if (p.getPosition() == this.possiblePositions.get(i).getLocation()) {
+
+                        //regardless of the color, we delete all positions that come after
+                        for(int h = i+1; h <= this.possiblePositions.size(); h++){
+
+                          //not sure about this if... mathematically it's fine but still some kind of doubt
+                                if (Math.abs(p.getPositionX() - h) == Math.abs(p.getPositionY() - h)) {
+                                    //We delete the position from the array of possible positions
+                                    this.possiblePositions.remove(new Point(h, h));
+                                }
+                        }
                         //if it's the same color
                         if (p.getColor() == this.color) {
                             this.possiblePositions.remove(i); //we remove that position from the possibilities
@@ -297,6 +307,33 @@ class Bishop extends Piece {
 
         void move(Game g) {
 
+            //if there is an obstacle we can't go further
+
+            this.loadPossiblePositions(); //we start by getting the positions our piece can take in this move
+
+            ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
+
+
+            for (int i = 0; i < this.possiblePositions.size(); i++) {
+                for (Piece p : pieces) {
+                    //if there is a piece at one of the possible positions
+                    if (p.getPosition() == this.possiblePositions.get(i).getLocation()) {
+
+                        //regardless of the color, we delete all positions that come after <-- not sure about this
+                        for(int h = i+1; h <= this.possiblePositions.size(); h++){
+
+                            //if the position h shares its x or y with the piece in i
+                            if(p.getPositionX() + h == this.possiblePositions.get(h).getX() || p.getPositionY() + h == this.possiblePositions.get(h).getY()){
+                                this.possiblePositions.remove(h);
+                            }
+                        }
+                        //If there is a same color piece on one of the possible positions, it's not a possible one anymore
+                        if (p.getColor() == this.color) {
+                            this.possiblePositions.remove(i); //we remove that position from the possibilities
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -359,7 +396,28 @@ class Bishop extends Piece {
         }
 
         void move(Game g) {
+            this.loadPossiblePositions(); //we start by getting the positions our piece can take in this move
 
+            ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
+
+            //If there is a same color piece on one of the possible positions, it's not a possible one anymore
+            for (int i = 0; i < this.possiblePositions.size(); i++) {
+                for (Piece p : pieces) {
+                    //if there is a piece at one of the possible positions
+                    if (p.getPosition() == this.possiblePositions.get(i).getLocation()) {
+
+                        //regardless of the color, we need to remove all positions that come after this one
+
+
+
+
+                        //if it's the same color, the current i position is not available either
+                        if (p.getColor() == this.color) {
+                            this.possiblePositions.remove(i); //we remove that position from the possibilities
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -404,7 +462,23 @@ class Bishop extends Piece {
         }
 
         void move(Game g) {
+            this.loadPossiblePositions(); //we start by getting the positions our piece can take in this move
 
+            ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
+
+            //If there is a same color piece on one of the possible positions, it's not a possible one anymore
+            for (int i = 0; i < this.possiblePositions.size(); i++) {
+                for (Piece p : pieces) {
+                    //if there is a piece at one of the possible positions
+                    if (p.getPosition() == this.possiblePositions.get(i).getLocation()) {
+
+                        //if it's the same color
+                        if (p.getColor() == this.color) {
+                            this.possiblePositions.remove(i); //we remove that position from the possibilities
+                        }
+                    }
+                }
+            }
         }
     }
 
