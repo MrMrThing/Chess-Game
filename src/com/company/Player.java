@@ -15,18 +15,16 @@ public class Player {
     boolean m_exists;
     ArrayList<Piece> p= new ArrayList<>();
     Vector<String> players= new Vector<>();
-
     public Player(){
-        String name="";
         in = new Scanner(System.in);
         System.out.println("What's your username? ");
         name=in.nextLine();
         for (int i = 0; i < players.size(); i++) {
-            if (this.players.get(i)==name){
+            if (players.contains(this.m_name)) {
                 this.m_exists = true;
             }
         }
-        save_vector();
+        save_vector(this.players);
     }
 
     public String getM_name() {
@@ -51,50 +49,7 @@ public class Player {
         this.m_win = win;
     }
 
-    void writeFile(){
-        //Write in file
-        try {
-            FileWriter myW = new FileWriter("profile.txt");
-            if (this.m_exists == true) {
-                System.out.println("Profile name already exists sorry");
-                myW.close();
-            }
-            //we put everything to play here
-            else {
-                this.players.add(this.m_name);
-                myW.write(this.m_name,0,this.m_name.length());
-                myW.close();
-            }
-
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
-
-    void readFile(){
-        //Read txt
-        //FileReader reader = null;
-        try {
-            // create a reader
-            BufferedReader br = new BufferedReader(new FileReader("profile.txt"));
-
-            // read until end of file
-            String line;
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-            }
-            // close the reader
-            br.close();
-
-            /*for (int i=0; i<this.players.size();i++)
-                System.out.println(this.players.get(i));*/
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    void save_vector() {
+    void save_vector(Vector<String> profile) {
         String name="";
         //Vector<String> temp_profile= new Vector<>();
         //boolean exists = false;
@@ -106,10 +61,44 @@ public class Player {
                 System.out.println("File" + myF.getName() + "created");
             else
                 System.out.println("File already exists");
-            writeFile();
-            readFile();
         } catch (IOException e) {
             System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        //Write in file
+        try {
+            FileWriter myW = new FileWriter("profile.txt");
+            if (this.m_exists == true) {
+                System.out.println("Profile name already exists sorry");
+            }
+            //we put everything to play here
+            else {
+                profile.add(name);
+
+            }
+            myW.write(name);
+            myW.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        //Read txt
+        //FileReader reader = null;
+        try {
+            // create a reader
+            BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+
+            // read until end of file
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            // close the reader
+            br.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

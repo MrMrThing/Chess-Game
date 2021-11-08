@@ -5,7 +5,7 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         Player p=new Player();
-       /*JFrame frame = new JFrame();
+       JFrame frame = new JFrame();
         frame.setSize(1000,1000);
         frame.getContentPane().add(new Board(frame));
         frame.setBackground(Color.LIGHT_GRAY);
@@ -13,7 +13,7 @@ public class App {
         frame.setVisible(true);
 
         
-        Board Board = new Board(frame);*/
+        Board Board = new Board(frame);
 /*
         //Setting a new Point
         Point thing = new Point(2,5);
@@ -57,7 +57,7 @@ public class App {
 
 
     //Method for checking if an Array contains an value
-    /*public static boolean contains (Integer[] array, Integer x){
+    public static boolean contains (Integer[] array, Integer x){
 
         boolean result = false;
     
@@ -70,7 +70,7 @@ public class App {
     
         return result;
     
-    }*/
+    }
 
 
 }
