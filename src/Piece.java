@@ -46,7 +46,18 @@ public abstract class Piece{
 
     abstract void move(Game g); //the method where we will code the movements of each different piece
 
-    
+    public boolean contains(Point pos, ArrayList<Point> points){
+        boolean result = false;
+
+        for(int i = 0; i < points.size(); i++){
+
+            if(points.get(i).equals(pos)){
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }   
 
 }
 
