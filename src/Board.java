@@ -167,9 +167,9 @@ public class Board extends JPanel {
     public void move(){
         
 
-        if(selected != null){
+        if(selected != null){ //if selected square has a piece on it
 
-            if(selected.toString().contains("Knight")){
+            if(selected.toString().contains("Knight")){ //if the piece is a knight
 
                 //if()
                 for(int k = 0; k < m_pieces.size(); k++){

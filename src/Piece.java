@@ -6,6 +6,7 @@ public abstract class Piece{
     Point position;
     double value;
     Boolean color;
+    String pieceName;
     ArrayList<Point> possiblePositions = new ArrayList<>(); //this is the array where we'll put the positions our piece
     //can take regardless of the positions already taken
 
@@ -54,6 +55,7 @@ class Pawn extends Piece {
     public Pawn(Point pos, boolean color) { //creation of a Pawn
         super(pos, color);
         this.value = 1;
+        this.pieceName = "Pawn";
     }
 
     @Override
@@ -71,7 +73,6 @@ class Pawn extends Piece {
                 }
             }
         }
-
     }
 
     //Here we take into account the state of the current game
@@ -151,6 +152,7 @@ class Knight extends Piece {
     public Knight(Point pos, boolean color) {
         super(pos, color);
         this.value = 3;
+        this.pieceName = "Knight";
     }
 
 
@@ -228,14 +230,17 @@ class Bishop extends Piece {
         public Bishop(Point pos, boolean color) {
             super(pos, color);
             this.value = 3;
+            this.pieceName = "Bishop";
 
             this.loadPossiblePositions();
 
         }
 
+
         //So we don't have to include the loop each time
         void loadPossiblePositions() {
             //for every position on the board
+            /*
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     //If the position x=i and y=j is diagonal to the current position
@@ -245,9 +250,75 @@ class Bishop extends Piece {
                         this.possiblePositions.add(new Point(i, j));
                     }
                 }
+            }*/
+        }
+
+        //attempt with maria's advice, in a world where i don't use loadPossiblePieces before calling this
+        void move(Game g){
+            ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
+
+            for(int a = 0; a < pieces.size(); a++){
+                //loops for the upper right diagonal
+                for(int i = this.position.x; i < 8; i++){
+                    for(int j = this.position.y; j < 8; j++){
+                        Point pos = new Point(i,j);
+
+                        if(pos == pieces.get(a).getPosition()){ //if there is a piece in this position
+                            break; //we get out of this loop
+                        } else{
+                            this.possiblePositions.add(pos); //we add this position to the possible ones
+                        }
+                    }
+                }
+            }
+
+            for(int a = 0; a < pieces.size(); a++){
+                //loops for the down right diagonal
+                for(int i = this.position.x; i < 8; i++){
+                    for(int j = this.position.y; j == 0; j--){
+                        Point pos = new Point(i,j);
+
+                        if(pos == pieces.get(a).getPosition()){ //if there is a piece in this position
+                            break; //we get out of this loop
+                        } else{
+                            this.possiblePositions.add(pos); //we add this position to the possible ones
+                        }
+                    }
+                }
+            }
+
+            for(int a = 0; a < pieces.size(); a++){
+                //loops for the down left diagonal
+                for(int i = this.position.x; i == 0; i--){
+                    for(int j = this.position.y; j < 8; j++){
+                        Point pos = new Point(i,j);
+
+                        if(pos == pieces.get(a).getPosition()){ //if there is a piece in this position
+                            break; //we get out of this loop
+                        } else{
+                            this.possiblePositions.add(pos); //we add this position to the possible ones
+                        }
+                    }
+                }
+            }
+
+            for(int a = 0; a < pieces.size(); a++){
+                //loops for the upper left diagonal
+                for(int i = this.position.x; i == 0; i--){
+                    for(int j = this.position.y; j == 0; j--){
+                        Point pos = new Point(i,j);
+
+                        if(pos == pieces.get(a).getPosition()){ //if there is a piece in this position
+                            break; //we get out of this loop
+                        } else{
+                            this.possiblePositions.add(pos); //we add this position to the possible ones
+                        }
+                    }
+                }
             }
         }
 
+        /*
         //The bishop can only move in diagonals until it encounters another piece OR the end of the board
         void move(Game g) {
             this.loadPossiblePositions(); //we start by getting the positions our piece can take in this move
@@ -276,7 +347,7 @@ class Bishop extends Piece {
                     }
                 }
             }
-        }
+        }*/
     }
 
 
@@ -285,6 +356,7 @@ class Bishop extends Piece {
         public Rook(Point pos, boolean color) {
             super(pos, color);
             this.value = 5;
+            this.pieceName = "Rook";
         }
 
 
@@ -340,6 +412,7 @@ class Bishop extends Piece {
         public Queen(Point pos, boolean color) {
             super(pos, color);
             this.value = 9;
+            this.pieceName = "Queen";
         }
 
 
@@ -424,6 +497,7 @@ class Bishop extends Piece {
         public King(Point pos, boolean color) {
             super(pos, color);
             this.value = Double.POSITIVE_INFINITY; //the king's value is infinite
+            this.pieceName = "King";
         }
 
         @Override

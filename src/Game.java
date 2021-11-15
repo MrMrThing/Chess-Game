@@ -20,13 +20,13 @@ public class Game {
         choice = input.nextInt();
         if(choice == 1){
             color = true;
-            //this.player1.color = true;
-            //this.player2.color = false;
+            this.player1.m_color = true;
+            this.player2.m_color = false;
         }
         else if(choice == 2){
             color = false;
-            //this.player1.color = false;
-            //this.player2.color = true;
+            this.player1.m_color = false;
+            this.player2.m_color = true;
         }
 
         //We place every piece on their starting spot

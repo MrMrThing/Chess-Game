@@ -9,6 +9,7 @@ public class Player {
     boolean m_turn;
     int m_win;
     boolean m_exists=false, m_c=false;
+    boolean m_color = false;
     ArrayList<Piece> p= new ArrayList<>();
     Vector<String> players= new Vector<>();
     public Player(){
