@@ -262,7 +262,7 @@ class Bishop extends Piece {
                     }
                 }
             }*/
-        }
+        } //pls
 
         //attempt with maria's advice, in a world where i don't use loadPossiblePieces before calling this
         void move(Game g){
