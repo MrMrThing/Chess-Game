@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -32,6 +33,7 @@ public class Board extends JPanel {
     int clickedX = 0;
     int clickedY = 0;
     Piece selected = null;
+    Point tempPoint = new Point(0,0);
 
     
 
@@ -61,7 +63,7 @@ public class Board extends JPanel {
                 clickedX = me.getX()/100;
                 clickedY = me.getY()/100;
                 clicked = (clickedX + 1) + (clickedY + 1)*8 - 8;
-
+                tempPoint.setLocation(clickedX,clickedY);
                 move();
 
                 frame.repaint();
@@ -168,30 +170,36 @@ public class Board extends JPanel {
         
 
         if(selected != null){
-
+            System.out.println(selected.toString());
             if(selected.toString().contains("Knight")){
+                selected.loadPossiblePositions();
 
-                //if()
-                for(int k = 0; k < m_pieces.size(); k++){
-                    if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
-                        
-                        System.out.println(m_pieces.get(k).getColor());
-                        System.out.println(selected.getColor());
-    
-                        if(m_pieces.get(k).getColor() != selected.getColor()){
-                            m_pieces.remove(m_pieces.get(k));
+                if(contains(tempPoint)){
+                    for(int k = 0; k < m_pieces.size(); k++){
+                        if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
+                            
+                            System.out.println(m_pieces.get(k).getColor());
+                            System.out.println(selected.getColor());
+        
+                            if(m_pieces.get(k).getColor() != selected.getColor()){
+                                m_pieces.remove(m_pieces.get(k));
+                                selected.setPosition(clickedX, clickedY);
+        
+                            } 
+                        } else {
                             selected.setPosition(clickedX, clickedY);
-    
-                        } 
-                    } else {
-                        selected.setPosition(clickedX, clickedY);
-                    }
-                } 
+                        }
+                    } 
+                    
+                }
+
                 
-                
+                selected = null;
+            } else{
+                selected = null;
             }
 
-            selected = null;
+            
         }else{
 
             for(int k = 0; k < m_pieces.size(); k++){
@@ -199,8 +207,7 @@ public class Board extends JPanel {
                     selected = m_pieces.get(k);
                 }
             }
-            
         }
-        System.out.println(selected.toString());
+
    }
 }
