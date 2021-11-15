@@ -188,10 +188,10 @@ public class Board extends JPanel {
                     }
                 } 
                 
-                selected = null;
+                
             }
 
-            
+            selected = null;
         }else{
 
             for(int k = 0; k < m_pieces.size(); k++){
@@ -199,7 +199,8 @@ public class Board extends JPanel {
                     selected = m_pieces.get(k);
                 }
             }
-
+            
         }
+        System.out.println(selected.toString());
    }
 }

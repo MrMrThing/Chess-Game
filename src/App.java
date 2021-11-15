@@ -4,8 +4,8 @@ import java.awt.*;
 public class App {
     public static void main(String[] args) throws Exception {
 
-        Player p=new Player();
-       JFrame frame = new JFrame();
+        //Player p=new Player();
+        JFrame frame = new JFrame();
         frame.setSize(1000,1000);
         frame.getContentPane().add(new Board(frame));
         frame.setBackground(Color.LIGHT_GRAY);
