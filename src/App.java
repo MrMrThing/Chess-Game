@@ -2,7 +2,7 @@ import javax.swing.JFrame;
 import java.awt.*;
 
 public class App {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
        JFrame frame = new JFrame();
         frame.setSize(1000,1000);
         frame.getContentPane().add(new Board(frame));

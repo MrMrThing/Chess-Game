@@ -2,7 +2,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
@@ -16,44 +15,40 @@ public class Player {
     boolean m_color;
 
     boolean m_exists=false, m_c=false;
-    ArrayList<Piece> p= new ArrayList<>();
     Vector<String> players= new Vector<>();
     public Player(){
         in = new Scanner(System.in);
         String choice;
         boolean menu=true;
-        while (menu == true){
+        while (menu){
             System.out.println("If you want to create a new user tap 1 if you want to access an existing one click 2?");
             choice=in.nextLine();
-            switch (choice){
-                case "1":
-                    this.m_c=true;
+            switch (choice) {
+                case "1" -> {
+                    this.m_c = true;
                     upload();
-                    menu=false;
-                    break;
-                case "2":
-                    this.m_c=true;
+                    menu = false;
+                }
+                case "2" -> {
+                    this.m_c = true;
                     collect();
-                    menu=false;
-                    break;
-                default:
-                    menu=true;
-                    System.out.println("You didn't click the correct number, try again");
-                    break;
+                    menu = false;
+                }
+                default -> System.out.println("You didn't click the correct number, try again");
             }
         }
     }
 
     void upload(){
-        if(this.m_c==true) {
+        if(this.m_c) {
             System.out.println("What's your username? ");
             m_name = in.nextLine();
         }
-            if (this.m_exists != true) {
+            if (!this.m_exists) {
                 CreateFile();
                 ReadFile();
                 WriteFile();
-                if (this.m_help==true) {
+                if (this.m_help) {
                     System.out.println("Nice you now have an account and your Username is: " + this.m_name);
                     CreateEachProfileFile();
                     this.m_help=false;
@@ -62,13 +57,13 @@ public class Player {
     }
 
     void collect(){
-        if(this.m_c==true){
+        if(this.m_c){
             System.out.println("What's your username? ");
             m_name=in.nextLine();
         }
         CreateFile();
         ReadFile();
-        if(this.m_exists==true){
+        if(this.m_exists){
             System.out.println("Nice you already have an account and your Username is: "+ this.m_name);
             ReadEachFile(this.m_name+ ".txt");
             TestPsw();
@@ -76,26 +71,23 @@ public class Player {
         else {
             String choice;
             boolean menu=true;
-            while (menu == true){
+            while (menu){
                 System.out.println("Profile name doesn't exists sorry... Do you want to load an other one (tap 1) or create a new one (tap 2) ?");
                 choice=in.nextLine();
-                switch (choice){
-                    case "1":
-                        this.m_c=true;
-                        this.m_exists=false;
+                switch (choice) {
+                    case "1" -> {
+                        this.m_c = true;
+                        this.m_exists = false;
                         collect();
-                        menu=false;
-                        break;
-                    case "2":
-                        this.m_name="";
-                        this.m_exists=false;
+                        menu = false;
+                    }
+                    case "2" -> {
+                        this.m_name = "";
+                        this.m_exists = false;
                         upload();
-                        menu=false;
-                        break;
-                    default:
-                        menu=true;
-                        System.out.println("You didn't click the correct number, try again");
-                        break;
+                        menu = false;
+                    }
+                    default -> System.out.println("You didn't click the correct number, try again");
                 }
             }
 
@@ -116,30 +108,27 @@ public class Player {
         try {
             //Write in file
             FileWriter myW = new FileWriter("profile.txt",true);
-            if (this.m_exists == true) {
+            if (this.m_exists) {
                 String choice;
                 boolean menu=true;
-                while (menu == true){
+                while (menu){
                     System.out.println("Profile name already exists sorry... Do you want to load that one (tap 1) or create a new one(tap 2)?");
                     choice=in.nextLine();
-                    switch (choice){
-                        case "1":
-                            this.m_exists=true;
-                            this.m_c=false;
-                            this.m_help=false;
+                    switch (choice) {
+                        case "1" -> {
+                            this.m_exists = true;
+                            this.m_c = false;
+                            this.m_help = false;
                             collect();
-                            menu=false;
-                            break;
-                        case "2":
-                            this.m_name="";
-                            this.m_exists=false;
+                            menu = false;
+                        }
+                        case "2" -> {
+                            this.m_name = "";
+                            this.m_exists = false;
                             upload();
-                            menu=false;
-                            break;
-                        default:
-                            menu=true;
-                            System.out.println("You didn't click the correct number, try again");
-                            break;
+                            menu = false;
+                        }
+                        default -> System.out.println("You didn't click the correct number, try again");
                     }
                 }
             }
@@ -166,10 +155,11 @@ public class Player {
                 for (int i=0; i<this.players.size(); i++){
                     if (players.contains(this.m_name)) {
                         this.m_exists = true;
+                        break;
                     }
                 }
             }
-            if((line = br.readLine()) == null) {
+            if(br.readLine() == null) {
                 this.players.add(this.m_name);
             }
             // close the reader
@@ -204,7 +194,7 @@ public class Player {
                 // and do what you want with the results, e.g. create an edge of the graph
                 this.m_password= lineValues[0];
                 this.m_pointsString= lineValues[1];
-                this.m_points=Integer.valueOf(this.m_pointsString);
+                this.m_points=Integer.parseInt(this.m_pointsString);
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -230,7 +220,7 @@ public class Player {
         boolean menu = true;
         int i = 0;
         System.out.println("What is your password? ");
-        while (menu != false) {
+        while (menu) {
             test_password = in.nextLine();
             if (this.m_password.equals(test_password)) {
                 System.out.println("Hi " + this.m_name + " it's nice to see you again!\nYou currently have " + this.m_pointsString + " points\n\n");
@@ -263,8 +253,8 @@ public class Player {
     void WriteEachFileWin(){
         try {
             String doc= this.m_name+ ".txt";
-            FileWriter myW = new FileWriter(doc,true);
-            if(m_win==true){
+            FileWriter myW = new FileWriter(doc,false);
+            if(m_win){
                 ReadEachFile(doc);
                 this.m_points+=10;
                 myW.write(this.m_password + " " + this.m_points);
