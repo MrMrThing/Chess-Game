@@ -1,15 +1,21 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
+import java.io.IOException;
 
 public class Player {
     Scanner in;
-    String m_name;
-    boolean m_turn;
-    int m_win;
+    String m_name, m_password, m_pointsString;
+    int m_points;
+    boolean m_turn, m_win, m_help=true;
+    boolean m_color;
+
     boolean m_exists=false, m_c=false;
-    boolean m_color = false;
     ArrayList<Piece> p= new ArrayList<>();
     Vector<String> players= new Vector<>();
     public Player(){
@@ -21,6 +27,7 @@ public class Player {
             choice=in.nextLine();
             switch (choice){
                 case "1":
+                    this.m_c=true;
                     upload();
                     menu=false;
                     break;
@@ -37,29 +44,25 @@ public class Player {
         }
     }
 
-    boolean getTurn(){
-        return m_turn;
-    }
-    public void setM_turn(boolean turn) {
-        this.m_turn = turn;
-    }
-
-    public int getM_win() {
-        return m_win;
-    }
-
-    public void setM_win(int win) {
-        this.m_win = win;
-    }
-
     void upload(){
-        System.out.println("What's your username? ");
-        m_name=in.nextLine();
-        save_vector();
+        if(this.m_c==true) {
+            System.out.println("What's your username? ");
+            m_name = in.nextLine();
+        }
+            if (this.m_exists != true) {
+                CreateFile();
+                ReadFile();
+                WriteFile();
+                if (this.m_help==true) {
+                    System.out.println("Nice you now have an account and your Username is: " + this.m_name);
+                    CreateEachProfileFile();
+                    this.m_help=false;
+                }
+            }
     }
 
     void collect(){
-        if(m_c==true){
+        if(this.m_c==true){
             System.out.println("What's your username? ");
             m_name=in.nextLine();
         }
@@ -67,6 +70,8 @@ public class Player {
         ReadFile();
         if(this.m_exists==true){
             System.out.println("Nice you already have an account and your Username is: "+ this.m_name);
+            ReadEachFile(this.m_name+ ".txt");
+            TestPsw();
         }
         else {
             String choice;
@@ -77,6 +82,7 @@ public class Player {
                 switch (choice){
                     case "1":
                         this.m_c=true;
+                        this.m_exists=false;
                         collect();
                         menu=false;
                         break;
@@ -100,7 +106,7 @@ public class Player {
         File myF = new File("profile.txt");
         try {
             if (myF.createNewFile())
-                System.out.println("File" + myF.getName() + "created");
+                System.out.println("File " + myF.getName() + " created");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -118,8 +124,9 @@ public class Player {
                     choice=in.nextLine();
                     switch (choice){
                         case "1":
-                            this.m_exists=false;
+                            this.m_exists=true;
                             this.m_c=false;
+                            this.m_help=false;
                             collect();
                             menu=false;
                             break;
@@ -138,7 +145,7 @@ public class Player {
             }
             //we put everything to play here
             else {
-                myW.write(m_name+"\n");
+                myW.write(this.m_name+"\n");
             }
             myW.close();
         } catch (IOException e) {
@@ -172,11 +179,102 @@ public class Player {
             e.printStackTrace();
         }
     }
-
-    void save_vector() {
-        CreateFile();
-        ReadFile();
-        WriteFile();
+    //Once you create a new user
+    void CreateEachProfileFile(){
+        String doc=this.m_name + ".txt";
+        File EachFile= new File(doc);
+        try {
+            if (EachFile.createNewFile())
+                System.out.println("File " + EachFile.getName() + " created");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ReadEachFile(doc);
+        InitializeEachFile(doc);
     }
+
+    void ReadEachFile(String doc) {
+        Path filePath = Paths.get(doc);
+        List<String> lines;
+        try {
+            lines = Files.readAllLines(filePath);
+            lines.forEach(line -> {
+                // split each line by an arbitrary number of whitespaces
+                String[] lineValues = line.split("\\s+");
+                // and do what you want with the results, e.g. create an edge of the graph
+                this.m_password= lineValues[0];
+                this.m_pointsString= lineValues[1];
+                this.m_points=Integer.valueOf(this.m_pointsString);
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void InitializeEachFile(String doc){
+        try {
+            FileWriter myW = new FileWriter(doc,true);
+            System.out.println("Initialise your password: ");
+            this.m_password=in.nextLine();
+            this.m_points=0;
+            myW.write(this.m_password + " " + this.m_points);
+            myW.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void TestPsw() {
+        String doc = this.m_name + ".txt";
+        String test_password;
+        boolean menu = true;
+        int i = 0;
+        System.out.println("What is your password? ");
+        while (menu != false) {
+            test_password = in.nextLine();
+            if (this.m_password.equals(test_password)) {
+                System.out.println("Hi " + this.m_name + " it's nice to see you again!\nYou currently have " + this.m_pointsString + " points\n\n");
+                menu = false;
+            } else {
+                if(i<2)
+                {
+                    System.out.println("Incorrect password... Try again: ");
+                    i++;
+                }
+                else if (i == 2) {
+                    System.out.println("You have forgotten your password... ");
+                    try {
+                        FileWriter myW = new FileWriter(doc, false);
+                        System.out.println("Choose a new password: ");
+                        this.m_password = in.nextLine();
+                        myW.write(this.m_password + " " + this.m_points);
+                        myW.close();
+                        menu = false;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+    }
+
+    //Use this once the game is over to update the point system
+    void WriteEachFileWin(){
+        try {
+            String doc= this.m_name+ ".txt";
+            FileWriter myW = new FileWriter(doc,true);
+            if(m_win==true){
+                ReadEachFile(doc);
+                this.m_points+=10;
+                myW.write(this.m_password + " " + this.m_points);
+                myW.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 }
