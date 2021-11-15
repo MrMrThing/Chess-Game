@@ -1,6 +1,3 @@
-import com.company.Game;
-import com.company.Piece;
-
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -34,6 +31,7 @@ public class Board extends JPanel {
     int size = 100;
     int clickedX = 0;
     int clickedY = 0;
+    Piece selected = null;
 
     
 
@@ -63,9 +61,9 @@ public class Board extends JPanel {
                 clickedX = me.getX()/100;
                 clickedY = me.getY()/100;
                 clicked = (clickedX + 1) + (clickedY + 1)*8 - 8;
-                System.out.println("X " + clickedX);
-                System.out.println("Y " + clickedY);
-                System.out.println(clicked);
+
+                move();
+
                 frame.repaint();
             } 
           }); 
@@ -118,19 +116,37 @@ public class Board extends JPanel {
 
                 if(m_pieces.get(k).getPositionX() == tempx && m_pieces.get(k).getPositionY() == tempy){
 
-                    if(m_pieces.get(k).toString().contains("Pawn")){
-                        g.drawImage(BPawn, tempx*100 + 20, tempy*100 + 20, null);
-                    } else if (m_pieces.get(k).toString().contains("King")){
-                        g.drawImage(BKing, tempx*100 + 20, tempy*100 + 20, null);
-                    } else if (m_pieces.get(k).toString().contains("Knight")){
-                        g.drawImage(BKnight, tempx*100 + 20, tempy*100 + 20, null);
-                    } else if (m_pieces.get(k).toString().contains("Queen")){
-                        g.drawImage(BQueen, tempx*100 + 20, tempy*100 + 20, null);
-                    } else if (m_pieces.get(k).toString().contains("Bishop")){
-                        g.drawImage(BBishop, tempx*100 + 20, tempy*100 + 20, null);
-                    } else if (m_pieces.get(k).toString().contains("Rook")){
-                        g.drawImage(BRook, tempx*100 + 20, tempy*100 + 20, null);
-                    } 
+                    if(m_pieces.get(k).getColor()){
+                        if(m_pieces.get(k).toString().contains("Pawn")){
+                            g.drawImage(WPawn, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("King")){
+                            g.drawImage(WKing, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Knight")){
+                            g.drawImage(WKnight, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Queen")){
+                            g.drawImage(WQueen, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Bishop")){
+                            g.drawImage(WBishop, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Rook")){
+                            g.drawImage(WRook, tempx*100 + 20, tempy*100 + 20, null);
+                        } 
+                    } else{
+                        if(m_pieces.get(k).toString().contains("Pawn")){
+                            g.drawImage(BPawn, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("King")){
+                            g.drawImage(BKing, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Knight")){
+                            g.drawImage(BKnight, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Queen")){
+                            g.drawImage(BQueen, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Bishop")){
+                            g.drawImage(BBishop, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Rook")){
+                            g.drawImage(BRook, tempx*100 + 20, tempy*100 + 20, null);
+                        } 
+                    }
+
+                  
 
                 }
             }
@@ -148,9 +164,42 @@ public class Board extends JPanel {
 
     }
 
-    public static void main(String[] args){
+    public void move(){
         
 
-    }
-   
+        if(selected != null){
+
+            if(selected.toString().contains("Knight")){
+
+                //if()
+                for(int k = 0; k < m_pieces.size(); k++){
+                    if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
+                        
+                        System.out.println(m_pieces.get(k).getColor());
+                        System.out.println(selected.getColor());
+    
+                        if(m_pieces.get(k).getColor() != selected.getColor()){
+                            m_pieces.remove(m_pieces.get(k));
+                            selected.setPosition(clickedX, clickedY);
+    
+                        } 
+                    } else {
+                        selected.setPosition(clickedX, clickedY);
+                    }
+                } 
+                
+                selected = null;
+            }
+
+            
+        }else{
+
+            for(int k = 0; k < m_pieces.size(); k++){
+                if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
+                    selected = m_pieces.get(k);
+                }
+            }
+
+        }
+   }
 }

@@ -4,8 +4,7 @@ import java.awt.*;
 public class App {
     public static void main(String[] args) throws Exception {
 
-        //Player p=new Player();
-        // I get error: Player cannot be resolved to a type
+        Player p=new Player();
        JFrame frame = new JFrame();
         frame.setSize(1000,1000);
         frame.getContentPane().add(new Board(frame));
@@ -58,7 +57,7 @@ public class App {
 
 
     //Method for checking if an Array contains an value
-    public static boolean contains (Integer[] array, Integer x){
+   /* public static boolean contains (Integer[] array, Integer x){
 
         boolean result = false;
     
@@ -71,7 +70,7 @@ public class App {
     
         return result;
     
-    }
+    }*/
 
 
 }
