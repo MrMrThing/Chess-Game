@@ -60,15 +60,15 @@ public class Game {
 
         }
         //player 2 Knights and bishops
-        this.m_pieces.add(new Knight(new Point(1,0), color));
-        this.m_pieces.add(new Knight(new Point(6,0), color));
-        this.m_pieces.add(new Bishop(new Point(2,0), color));
-        this.m_pieces.add(new Bishop(new Point(5,0), color));
+        this.m_pieces.add(new Knight(new Point(1,0), !color));
+        this.m_pieces.add(new Knight(new Point(6,0), !color));
+        this.m_pieces.add(new Bishop(new Point(2,0), !color));
+        this.m_pieces.add(new Bishop(new Point(5,0), !color));
         //player 2 rooks
-        this.m_pieces.add(new Rook(new Point(0,0), color));
-        this.m_pieces.add(new Rook(new Point(7,0), color));
-        this.m_pieces.add(new Queen(new Point(4,0), color)); //player 2 Queen
-        this.m_pieces.add(new King(new Point(3,0), color)); //player 2 King
+        this.m_pieces.add(new Rook(new Point(0,0), !color));
+        this.m_pieces.add(new Rook(new Point(7,0), !color));
+        this.m_pieces.add(new Queen(new Point(4,0), !color)); //player 2 Queen
+        this.m_pieces.add(new King(new Point(3,0), !color)); //player 2 King
 
         for(int i = 0; i < 8; i++) {
             //we set all the positions of line 0 as taken
