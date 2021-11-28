@@ -247,37 +247,28 @@ class Bishop extends Piece {
 
         }
 
-
-        //So we don't have to include the loop each time
-        void loadPossiblePositions() {
-            //for every position on the board
-            /*
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    //If the position x=i and y=j is diagonal to the current position
-                    if (Math.abs(this.position.getX() - i) ==
-                            Math.abs(this.position.getY() - j)) {
-                        //We add the position to the array of possible positions
-                        this.possiblePositions.add(new Point(i, j));
-                    }
-                }
-            }*/
-        } //pls
-
-        //attempt with maria's advice, in a world where i don't use loadPossiblePieces before calling this
+        //attempt with maria's advice, in a world where we don't use loadPossiblePieces before calling this
         void move(Game g){
-            ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
+            ArrayList<Piece> pieces = g.getPieces(); //we get the pieces from the Game
 
+            //For every piece existing on the board
             for(int a = 0; a < pieces.size(); a++){
                 //loops for the upper right diagonal
+                //we go through all positions between our selected bishop and the end of the board
                 for(int i = this.position.x; i < 8; i++){
                     for(int j = this.position.y; j < 8; j++){
                         Point pos = new Point(i,j);
 
-                        if(pos == pieces.get(a).getPosition()){ //if there is a piece in this position
-                            break; //we get out of this loop
+                        //In the case where there is a piece in this position, we check its color
+                        //if it is different from our bishop
+                        if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                            this.possiblePositions.add(pos); //we add this position to the possible ones for our bishop
+
+                        } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in the current position
+                            break; //we get out of this loop because this position isn't available
+
                         } else{
-                            this.possiblePositions.add(pos); //we add this position to the possible ones
+                            this.possiblePositions.add(pos); //we add this position to the possible ones for our bishop
                         }
                     }
                 }
@@ -289,7 +280,12 @@ class Bishop extends Piece {
                     for(int j = this.position.y; j == 0; j--){
                         Point pos = new Point(i,j);
 
-                        if(pos == pieces.get(a).getPosition()){ //if there is a piece in this position
+                        //In the case where there is a piece in this position, we check its color
+                        //if it is different from our bishop
+                        if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                            this.possiblePositions.add(pos); //we add this position to the possible ones for our bishop
+
+                        } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in this position
                             break; //we get out of this loop
                         } else{
                             this.possiblePositions.add(pos); //we add this position to the possible ones
@@ -304,7 +300,12 @@ class Bishop extends Piece {
                     for(int j = this.position.y; j < 8; j++){
                         Point pos = new Point(i,j);
 
-                        if(pos == pieces.get(a).getPosition()){ //if there is a piece in this position
+                        //In the case where there is a piece in this position, we check its color
+                        //if it is different from our bishop
+                        if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                            this.possiblePositions.add(pos); //we add this position to the possible ones for our bishop
+
+                        } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in this position
                             break; //we get out of this loop
                         } else{
                             this.possiblePositions.add(pos); //we add this position to the possible ones
@@ -319,7 +320,12 @@ class Bishop extends Piece {
                     for(int j = this.position.y; j == 0; j--){
                         Point pos = new Point(i,j);
 
-                        if(pos == pieces.get(a).getPosition()){ //if there is a piece in this position
+                        //In the case where there is a piece in this position, we check its color
+                        //if it is different from our bishop
+                        if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                            this.possiblePositions.add(pos); //we add this position to the possible ones for our bishop
+
+                        } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in this position
                             break; //we get out of this loop
                         } else{
                             this.possiblePositions.add(pos); //we add this position to the possible ones
@@ -327,6 +333,22 @@ class Bishop extends Piece {
                     }
                 }
             }
+        }
+
+    //So we don't have to include the loop each time
+        void loadPossiblePositions() {
+            //for every position on the board
+           /*
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    //If the position x=i and y=j is diagonal to the current position
+                    if (Math.abs(this.position.getX() - i) ==
+                            Math.abs(this.position.getY() - j)) {
+                        //We add the position to the array of possible positions
+                        this.possiblePositions.add(new Point(i, j));
+                    }
+                }
+            }*/
         }
 
         /*
@@ -370,6 +392,94 @@ class Bishop extends Piece {
             this.pieceName = "Rook";
         }
 
+        //attempt with maria's advice, in a world where we don't use loadPossiblePieces before calling this
+        void move(Game g){
+            ArrayList<Piece> pieces = g.getPieces(); //we get the pieces from the Game
+
+            //For every piece existing on the board
+            for(int a = 0; a < pieces.size(); a++){
+                //loops for the way up (only y changes)
+                //we go through all positions between our selected rook and the end of the board
+                for(int j = this.position.y; j < 8; j++){
+                        Point pos = new Point(this.position.x, j);
+
+                        //In the case where there is a piece in this position, we check its color
+                        //if it is different from our rook
+                        if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                            this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+
+                        } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in the current position
+                            break; //we get out of this loop because this position isn't available
+
+                        } else{
+                            this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+                        }
+                }
+            }
+
+            //For every piece existing on the board
+            for(int a = 0; a < pieces.size(); a++){
+                //loops for the way down (only y changes)
+                //we go through all positions between our selected rook and the end of the board
+                for(int j = this.position.y; j == 0; j--){
+                    Point pos = new Point(this.position.x, j);
+
+                    //In the case where there is a piece in this position, we check its color
+                    //if it is different from our rook
+                    if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+
+                    } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in the current position
+                        break; //we get out of this loop because this position isn't available
+
+                    } else{
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+                    }
+                }
+            }
+
+            //For every piece existing on the board
+            for(int a = 0; a < pieces.size(); a++){
+                //loops to go to the left (only x changes)
+                //we go through all positions between our selected rook and the end of the board
+                for(int i = this.position.x; i == 0; i--){
+                    Point pos = new Point(i, this.position.y);
+
+                    //In the case where there is a piece in this position, we check its color
+                    //if it is different from our rook
+                    if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+
+                    } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in the current position
+                        break; //we get out of this loop because this position isn't available
+
+                    } else{
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+                    }
+                }
+            }
+
+            //For every piece existing on the board
+            for(int a = 0; a < pieces.size(); a++){
+                //loops to go to the right (only x changes)
+                //we go through all positions between our selected rook and the end of the board
+                for(int i = this.position.x; i < 8; i++){
+                    Point pos = new Point(i, this.position.y);
+
+                    //In the case where there is a piece in this position, we check its color
+                    //if it is different from our rook
+                    if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+
+                    } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in the current position
+                        break; //we get out of this loop because this position isn't available
+
+                    } else{
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+                    }
+                }
+            }
+        }
 
         @Override
         void loadPossiblePositions() {
@@ -386,7 +496,7 @@ class Bishop extends Piece {
             }
         }
 
-        void move(Game g) {
+        /*void move(Game g) {
 
             //if there is an obstacle we can't go further
 
@@ -415,7 +525,7 @@ class Bishop extends Piece {
                     }
                 }
             }
-        }
+        }*/
     }
 
     class Queen extends Piece {
@@ -503,6 +613,7 @@ class Bishop extends Piece {
         }
     }
 
+
     class King extends Piece {
 
         public King(Point pos, boolean color) {
@@ -544,6 +655,7 @@ class Bishop extends Piece {
             }
         }
 
+        //This method updates the King's possibilities of movements thanks to the current state of the board
         void move(Game g) {
             this.loadPossiblePositions(); //we start by getting the positions our piece can take in this move
 
