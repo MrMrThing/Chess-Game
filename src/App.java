@@ -12,6 +12,11 @@ public class App {
 
         
         Board Board = new Board(frame);
+
+        //Countdown countdown = new Countdown();
+        //countdown.timer.start();
+        //countdown.timer1.start();
+
 /*
         //Setting a new Point
         Point thing = new Point(2,5);
