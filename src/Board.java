@@ -179,14 +179,14 @@ public class Board extends JPanel {
 
 
                 for(int k = 0; k < m_pieces.size(); k++){
-<<<<<<< HEAD
+
                     if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
                         countdown.timer.start();
                         countdown.timer1.start();
-=======
+
                     if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
                         
->>>>>>> 67a39c66a043c0f5ddf90712d03af9ae4b082993
+
                         System.out.println(m_pieces.get(k).getColor());
                         System.out.println(selected.getColor());
     
@@ -215,4 +215,5 @@ public class Board extends JPanel {
 
         }
    }
+}
 }
