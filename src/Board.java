@@ -26,6 +26,9 @@ public class Board extends JPanel {
     private BufferedImage WQueen;
     private BufferedImage WRook;
 
+    Countdown countdown = new Countdown();
+
+
     ArrayList<Piece> m_pieces = new ArrayList<>();
     int clicked = 0;
     int size = 100;
@@ -36,6 +39,8 @@ public class Board extends JPanel {
     
 
     public Board(JFrame frame){
+        frame.add(Countdown.counterLabel);
+        frame.add(Countdown.counterLabel2);
         Game g = new Game();
         try{
             BKnight = ImageIO.read(getClass().getResource("/BKnight.png"));
@@ -174,7 +179,8 @@ public class Board extends JPanel {
                 //if()
                 for(int k = 0; k < m_pieces.size(); k++){
                     if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
-                        
+                        countdown.timer.start();
+                        countdown.timer1.start();
                         System.out.println(m_pieces.get(k).getColor());
                         System.out.println(selected.getColor());
     

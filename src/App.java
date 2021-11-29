@@ -10,7 +10,7 @@ public class App {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        
+
         Board Board = new Board(frame);
 
         //Countdown countdown = new Countdown();
