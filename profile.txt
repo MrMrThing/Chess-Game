@@ -7,3 +7,4 @@ a
 q
 w
  cd /Users/Steenleu/Documents/GitHub/Chess-Game ; /usr/bin/env /Library/Java/JavaVirtualMachines/jdk-15.jdk/Contents/Home/bin/java -XX:+ShowCodeDetailsInExceptionMessages -cp "/Users/Steenleu/Library/Application Support/Code/User/workspaceStorage/1ae7b3c5bb83da107c7c910911107990/redhat.java/jdt_ws/Chess-Game_a033fd4a/bin" App 
+yes
