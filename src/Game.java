@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class Game {
     float m_round;
-    Player player1 = new Player(); //the one playing from down
-    Player player2 = new Player(); //the one playing from up
+    AI ai = new AI(); //the one playing from down
+    Player player = new Player(); //the one playing from up
     public ArrayList<Point> m_positionsTaken = new ArrayList<>(); //all the positions taken arranged in a certain order
     public ArrayList<Piece> m_pieces = new ArrayList<>(); //all pieces on the board
     //when a piece is taken of the board, we just delete it from the arrayList
@@ -20,13 +20,13 @@ public class Game {
         choice = input.nextInt();
         if(choice == 1){
             color = true;
-            this.player1.m_color = true;
-            this.player2.m_color = false;
+            this.player.m_color = true;
+            this.ai.m_color = false;
         }
         else if(choice == 2){
             color = false;
-            this.player1.m_color = false;
-            this.player2.m_color = true;
+            this.player.m_color = false;
+            this.ai.m_color = true;
         }
 
         //We place every piece on their starting spot

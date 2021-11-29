@@ -97,7 +97,7 @@ class Pawn extends Piece {
 
         ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
 
-        if (g.player1.m_turn) { //if player one is playing
+        if (g.player.m_turn) { //if player one is playing
             //if there is an enemy on the square in front of the pawn
             if (takenPositions.contains(isItOccupiedWayUp)) {
                 for (Piece p : pieces) {
@@ -124,7 +124,7 @@ class Pawn extends Piece {
             }
         }
 
-        if (g.player2.m_turn) { //if player 2 is playing
+        if (g.ai.m_turn) { //if player 2 is playing
             //if there is an enemy on the square in front of the pawn
             if (takenPositions.contains(isItOccupiedWayDown)) {
                 for (Piece p : pieces) {
