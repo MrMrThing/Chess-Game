@@ -49,14 +49,14 @@ public class Countdown  {
         counterLabel2.setLayout(null);
 
         counterLabel.setText(minuteString + ":" + secondString);
-        counterLabel.setBounds(700, 412, 200, 100);
-        counterLabel.setFont(new Font("Arial", Font.PLAIN, 40));
+        counterLabel.setBounds(900, 400, 100, 50);
+        counterLabel.setFont(new Font("Arial", Font.PLAIN, 35));
         counterLabel.setOpaque(true);
         counterLabel.setHorizontalAlignment(JLabel.RIGHT);
 
         counterLabel2.setText(minuteString + ":" + secondString);
-        counterLabel2.setBounds(625, 400, 200, 100);
-        counterLabel2.setFont(new Font("Arial", Font.PLAIN,40));
+        counterLabel2.setBounds(800, 400, 100, 50);
+        counterLabel2.setFont(new Font("Arial", Font.PLAIN,35));
         counterLabel2.setOpaque(true);
         counterLabel2.setHorizontalAlignment(JLabel.RIGHT);
     }
