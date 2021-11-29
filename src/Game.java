@@ -37,6 +37,7 @@ public class Game {
             this.m_positionsTaken.add(new Point(i,6));
 
         }
+
         //player 1 Knights and bishops
         this.m_pieces.add(new Knight(new Point(1,7), color));
         this.m_pieces.add(new Knight(new Point(6,7), color));

@@ -124,6 +124,7 @@ class Pawn extends Piece {
             }
         }
 
+
         if (g.ai.m_turn) { //if player 2 is playing
             //if there is an enemy on the square in front of the pawn
             if (takenPositions.contains(isItOccupiedWayDown)) {

@@ -27,6 +27,7 @@ public class AI {
             }
         }
 
+
         switch (moveID){
             //cases 0 to 7 are pawns
             case 0:
