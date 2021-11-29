@@ -11,7 +11,7 @@ public class App {
         frame.setVisible(true);
 
 
-        Board Board = new Board(frame);
+        //Board Board = new Board(frame);
 
         //Countdown countdown = new Countdown();
         //countdown.timer.start();

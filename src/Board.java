@@ -173,34 +173,39 @@ public class Board extends JPanel {
     public void move(){
         
 
-        if(selected != null){
+        if(selected != null){ //if something has been selected
 
-            if(selected.toString().contains("Knight")){
+            if(selected.toString().contains("Knight")){ //if its a knight
 
 
                 for(int k = 0; k < m_pieces.size(); k++){
+<<<<<<< HEAD
                     if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
                         countdown.timer.start();
                         countdown.timer1.start();
+=======
+                    if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
+                        
+>>>>>>> 67a39c66a043c0f5ddf90712d03af9ae4b082993
                         System.out.println(m_pieces.get(k).getColor());
                         System.out.println(selected.getColor());
     
-                        if(m_pieces.get(k).getColor() != selected.getColor()){
-                            m_pieces.remove(m_pieces.get(k));
-                            selected.setPosition(clickedX, clickedY);
+                        if(m_pieces.get(k).getColor() != selected.getColor()){ //if the color of the piece is different from our knight
+                            m_pieces.remove(m_pieces.get(k)); //we delete the piece
+                            selected.setPosition(clickedX, clickedY); //we move our knight there
     
                         } 
                     } else {
-                        selected.setPosition(clickedX, clickedY);
+                        selected.setPosition(clickedX, clickedY); //we move the knight there
                     }
                 } 
                 
-                selected = null;
+                selected = null; //we say that nothing has been selected
             }
 
 
             
-        }else{
+        }else{ //if nothing has been selected
 
             for(int k = 0; k < m_pieces.size(); k++){
                 if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
