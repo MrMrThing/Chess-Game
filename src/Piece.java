@@ -542,22 +542,6 @@ class Bishop extends Piece {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
 
-                    //She can to the movements of the rook
-                    if (i == this.position.getX()) { //if X stays the same
-                        this.possiblePositions.add(new Point(i, j));
-
-                    } else if (j == this.position.getY()) { //if Y stays the same
-                        this.possiblePositions.add(new Point(i, j));
-                    }
-
-                    //She can do the movements of the bishop
-                    //If the position x=i and y=j is diagonal to the current position
-                    if (Math.abs(this.position.getX() - i) ==
-                            Math.abs(this.position.getY() - j)) {
-                        //We add the position to the array of possible positions
-                        this.possiblePositions.add(new Point(i, j));
-                    }
-
                     //She can do the movements of the King
                     //go left or right by one
                     if (i < this.position.getX() + 2 && i > this.position.getX() - 2 && j == this.position.getY()) {
@@ -588,6 +572,7 @@ class Bishop extends Piece {
         }
 
         void move(Game g) {
+            //move like a king
             this.loadPossiblePositions(); //we start by getting the positions our piece can take in this move
 
             ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
@@ -598,14 +583,180 @@ class Bishop extends Piece {
                     //if there is a piece at one of the possible positions
                     if (p.getPosition() == this.possiblePositions.get(i).getLocation()) {
 
-                        //regardless of the color, we need to remove all positions that come after this one
-
-
-
-
-                        //if it's the same color, the current i position is not available either
+                        //if it's the same color
                         if (p.getColor() == this.color) {
                             this.possiblePositions.remove(i); //we remove that position from the possibilities
+                        }
+                    }
+                }
+            }
+
+            //For every piece existing on the board
+            for(int a = 0; a < pieces.size(); a++){
+                //loops for the way up (only y changes)
+                //we go through all positions between our selected rook and the end of the board
+                for(int j = this.position.y; j < 8; j++){
+                    Point pos = new Point(this.position.x, j);
+
+                    //In the case where there is a piece in this position, we check its color
+                    //if it is different from our rook
+                    if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+
+                    } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in the current position
+                        break; //we get out of this loop because this position isn't available
+
+                    } else{
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+                    }
+                }
+            }
+
+            //For every piece existing on the board
+            for(int a = 0; a < pieces.size(); a++){
+                //loops for the way down (only y changes)
+                //we go through all positions between our selected rook and the end of the board
+                for(int j = this.position.y; j == 0; j--){
+                    Point pos = new Point(this.position.x, j);
+
+                    //In the case where there is a piece in this position, we check its color
+                    //if it is different from our rook
+                    if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+
+                    } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in the current position
+                        break; //we get out of this loop because this position isn't available
+
+                    } else{
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+                    }
+                }
+            }
+
+            //For every piece existing on the board
+            for(int a = 0; a < pieces.size(); a++){
+                //loops to go to the left (only x changes)
+                //we go through all positions between our selected rook and the end of the board
+                for(int i = this.position.x; i == 0; i--){
+                    Point pos = new Point(i, this.position.y);
+
+                    //In the case where there is a piece in this position, we check its color
+                    //if it is different from our rook
+                    if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+
+                    } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in the current position
+                        break; //we get out of this loop because this position isn't available
+
+                    } else{
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+                    }
+                }
+            }
+
+            ///-----Move like rook -----///
+
+            //For every piece existing on the board
+            for(int a = 0; a < pieces.size(); a++){
+                //loops to go to the right (only x changes)
+                //we go through all positions between our selected rook and the end of the board
+                for(int i = this.position.x; i < 8; i++){
+                    Point pos = new Point(i, this.position.y);
+
+                    //In the case where there is a piece in this position, we check its color
+                    //if it is different from our rook
+                    if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+
+                    } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in the current position
+                        break; //we get out of this loop because this position isn't available
+
+                    } else{
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+                    }
+                }
+            }
+
+            ///-----Move like rook -----///
+
+            //For every piece existing on the board
+            for(int a = 0; a < pieces.size(); a++){
+                //loops for the upper right diagonal
+                //we go through all positions between our selected bishop and the end of the board
+                for(int i = this.position.x; i < 8; i++){
+                    for(int j = this.position.y; j < 8; j++){
+                        Point pos = new Point(i,j);
+
+                        //In the case where there is a piece in this position, we check its color
+                        //if it is different from our bishop
+                        if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                            this.possiblePositions.add(pos); //we add this position to the possible ones for our bishop
+
+                        } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in the current position
+                            break; //we get out of this loop because this position isn't available
+
+                        } else{
+                            this.possiblePositions.add(pos); //we add this position to the possible ones for our bishop
+                        }
+                    }
+                }
+            }
+
+            for(int a = 0; a < pieces.size(); a++){
+                //loops for the down right diagonal
+                for(int i = this.position.x; i < 8; i++){
+                    for(int j = this.position.y; j == 0; j--){
+                        Point pos = new Point(i,j);
+
+                        //In the case where there is a piece in this position, we check its color
+                        //if it is different from our bishop
+                        if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                            this.possiblePositions.add(pos); //we add this position to the possible ones for our bishop
+
+                        } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in this position
+                            break; //we get out of this loop
+                        } else{
+                            this.possiblePositions.add(pos); //we add this position to the possible ones
+                        }
+                    }
+                }
+            }
+
+            for(int a = 0; a < pieces.size(); a++){
+                //loops for the down left diagonal
+                for(int i = this.position.x; i == 0; i--){
+                    for(int j = this.position.y; j < 8; j++){
+                        Point pos = new Point(i,j);
+
+                        //In the case where there is a piece in this position, we check its color
+                        //if it is different from our bishop
+                        if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
+                            this.possiblePositions.add(pos); //we add this position to the possible ones for our bishop
+
+                        } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in this position
+                            break; //we get out of this loop
+                        } else{
+                            this.possiblePositions.add(pos); //we add this position to the possible ones
+                        }
+                    }
+                }
+            }
+
+            for(int a = 0; a < pieces.size(); a++) {
+                //loops for the upper left diagonal
+                for (int i = this.position.x; i == 0; i--) {
+                    for (int j = this.position.y; j == 0; j--) {
+                        Point pos = new Point(i, j);
+
+                        //In the case where there is a piece in this position, we check its color
+                        //if it is different from our bishop
+                        if (pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color) {
+                            this.possiblePositions.add(pos); //we add this position to the possible ones for our bishop
+
+                        } else if (pos == pieces.get(a).getPosition()) { //if there is a piece in this position
+                            break; //we get out of this loop
+                        } else {
+                            this.possiblePositions.add(pos); //we add this position to the possible ones
                         }
                     }
                 }
