@@ -171,7 +171,7 @@ public class Board extends JPanel {
 
             if(selected.toString().contains("Knight")){
 
-                //if()
+
                 for(int k = 0; k < m_pieces.size(); k++){
                     if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
                         
@@ -190,6 +190,7 @@ public class Board extends JPanel {
                 
                 selected = null;
             }
+
 
             
         }else{

@@ -4,9 +4,8 @@ import javax.swing.*;
 
 public class Countdown  {
 
-    JFrame frame = new JFrame();
-    JLabel counterLabel = new JLabel();
-    JLabel counterLabel2 = new JLabel();
+    static JLabel counterLabel = new JLabel();
+    static JLabel counterLabel2 = new JLabel();
 
 
     int elapsedTime = 900000;
@@ -46,23 +45,19 @@ public class Countdown  {
     });
     Countdown() {
 
+        counterLabel.setLayout(null);
+        counterLabel2.setLayout(null);
+
         counterLabel.setText(minuteString + ":" + secondString);
-        counterLabel.setBounds(400, 100, 300, 200);
+        counterLabel.setBounds(700, 412, 200, 100);
         counterLabel.setFont(new Font("Arial", Font.PLAIN, 40));
         counterLabel.setOpaque(true);
         counterLabel.setHorizontalAlignment(JLabel.RIGHT);
 
         counterLabel2.setText(minuteString + ":" + secondString);
-        counterLabel2.setBounds(400,400,300,200);
+        counterLabel2.setBounds(625, 400, 200, 100);
         counterLabel2.setFont(new Font("Arial", Font.PLAIN,40));
         counterLabel2.setOpaque(true);
         counterLabel2.setHorizontalAlignment(JLabel.RIGHT);
-
-        frame.add(counterLabel);
-        frame.add(counterLabel2);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 1000);
-        frame.setLayout(null);
-        frame.setVisible(true);
     }
 }
