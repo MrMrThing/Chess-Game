@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -35,6 +36,7 @@ public class Board extends JPanel {
     int clickedX = 0;
     int clickedY = 0;
     Piece selected = null;
+    Point tempPoint;
 
     Game b_game; //the board is connected to the game
 
@@ -73,6 +75,7 @@ public class Board extends JPanel {
                 clickedY = me.getY()/100;
                 clicked = (clickedX + 1) + (clickedY + 1)*8 - 8;
 
+                tempPoint = new Point(clickedX,clickedY);
                 move();
 
                 frame.repaint();
@@ -171,46 +174,48 @@ public class Board extends JPanel {
 
         if(selected != null){ //if something has been selected
 
-            if(selected.toString().contains("Knight")){ //if its a knight
+            selected.loadPossiblePositions();
 
+                System.out.println(selected);
 
-                for(int k = 0; k < m_pieces.size(); k++){
+                if(selected.contains(tempPoint, selected.possiblePositions)){
+                    for(int k = 0; k < m_pieces.size(); k++){
 
-                    if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
-
-
-                    if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
-                        if(b_game.player.m_turn == true && b_game.ai.m_turn==false){
-                            countdown.elapsedTime+=10000;
-                            countdown.timer1.stop();
-                            countdown.timer.start();                            
-                        }else if(b_game.player.m_turn == false && b_game.ai.m_turn==true){
-                            countdown.elapsedTime+=10000;
-                            countdown.timer.stop();
-                            countdown.timer1.start();
-                            }
-                            if(b_game.m_round == 40){
-                                countdown.elapsedTime+=1000;
-                            }
+                        if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
+                            if(b_game.player.m_turn == true && b_game.ai.m_turn==false){
+                                countdown.elapsedTime+=10000;
+                                countdown.timer1.stop();
+                                countdown.timer.start();                            
+                            }else if(b_game.player.m_turn == false && b_game.ai.m_turn==true){
+                                countdown.elapsedTime+=10000;
+                                countdown.timer.stop();
+                                countdown.timer1.start();
+                                }
+                                if(b_game.m_round == 40){
+                                    countdown.elapsedTime+=1000;
+                                }
+                            
                         
+                            System.out.println(m_pieces.get(k).getColor());
+                            System.out.println(selected.getColor());
+        
+                            if(m_pieces.get(k).getColor() != selected.getColor()){ //if the color of the piece is different from our knight
+                                m_pieces.remove(m_pieces.get(k)); //we delete the piece
+                                selected.setPosition(clickedX, clickedY); //we move our knight there
+        
+                            } 
+                        } else {
+                            selected.setPosition(clickedX, clickedY); //we move the knight there
+                        }
+                    } 
                     
-                        System.out.println(m_pieces.get(k).getColor());
-                        System.out.println(selected.getColor());
-    
-                        if(m_pieces.get(k).getColor() != selected.getColor()){ //if the color of the piece is different from our knight
-                            m_pieces.remove(m_pieces.get(k)); //we delete the piece
-                            selected.setPosition(clickedX, clickedY); //we move our knight there
-    
-                        } 
-                    } else {
-                        selected.setPosition(clickedX, clickedY); //we move the knight there
-                    }
-                } 
+                    
+
+                }
                 
-                selected = null; //we say that nothing has been selected
-            }
+            
 
-
+            selected = null; //we say that nothing has been selected  
             
         }else{ //if nothing has been selected
 
@@ -222,5 +227,4 @@ public class Board extends JPanel {
 
         }
    }
-}
 }
