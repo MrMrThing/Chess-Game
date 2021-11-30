@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class Board extends JPanel {
 
+    //Attributes of the board
     private BufferedImage BKnight;
     private BufferedImage BBishop;
     private BufferedImage BKing;
@@ -30,16 +31,19 @@ public class Board extends JPanel {
 
     ArrayList<Piece> m_pieces = new ArrayList<>();
     int clicked = 0;
-    int size = 100;
+    int size = 100; //size of a square?
     int clickedX = 0;
     int clickedY = 0;
     Piece selected = null;
 
+    Game b_game; //the board is connected to the game
+
     
 
+    //Creation of the board
     public Board(JFrame frame){
 
-        Game g = new Game();
+        this.b_game = new Game();
         frame.add(Countdown.counterLabel);
         frame.add(Countdown.counterLabel2);
 
@@ -63,7 +67,7 @@ public class Board extends JPanel {
 
         addMouseListener(new MouseAdapter() { 
             public void mousePressed(MouseEvent me) { 
-                m_pieces = g.getPieces();
+                m_pieces = b_game.getPieces();
                 clickedX = me.getX()/100;
                 clickedY = me.getY()/100;
                 clicked = (clickedX + 1) + (clickedY + 1)*8 - 8;
@@ -170,6 +174,7 @@ public class Board extends JPanel {
 
     }
 
+    //This method moves the selected piece on the board to the new clicked position if its available
     public void move(){
         
 
