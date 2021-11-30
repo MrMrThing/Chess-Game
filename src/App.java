@@ -6,14 +6,11 @@ public class App {
        JFrame frame = new JFrame();
         frame.setSize(1000,1000);
         frame.getContentPane().add(new Menu(frame));
-        //frame.getContentPane().add(new Board(frame));
+        frame.getContentPane().add(new Board(frame));
         frame.setBackground(Color.BLACK);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        //Countdown countdown = new Countdown();
-        //countdown.timer.start();
-        //countdown.timer1.start();
 
 /*
         //Setting a new Point
