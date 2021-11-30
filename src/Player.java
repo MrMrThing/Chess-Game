@@ -259,7 +259,6 @@ public class Player {
                 }
             }
         }
-
     }
 
     //Use this once the game is over to update the point system
