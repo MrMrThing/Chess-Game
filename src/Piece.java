@@ -14,7 +14,6 @@ public abstract class Piece{
 
         this.position = pos;
         this.color = color;
-
     }
 
     public boolean getColor(){return this.color; }

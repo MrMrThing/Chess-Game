@@ -7,10 +7,9 @@ public class App {
         frame.setSize(1000,1000);
         frame.getContentPane().add(new Menu(frame));
         frame.getContentPane().add(new Board(frame));
-        frame.setBackground(Color.BLACK);
+        //frame.setBackground(Color.BLACK);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
 
 /*
         //Setting a new Point

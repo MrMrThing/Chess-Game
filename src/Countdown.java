@@ -6,8 +6,10 @@ public class Countdown  {
 
     static JLabel counterLabel = new JLabel();
     static JLabel counterLabel2 = new JLabel();
+    static JLabel scoreCounter = new JLabel();
 
     int elapsedTime = 900000;
+    int incrementTime;
     int second = 0;
     int minute = 0;
     String secondString = String.format("%02d", second);
@@ -17,6 +19,7 @@ public class Countdown  {
     Timer timer = new Timer(1000, new ActionListener() {
 
         public void actionPerformed(ActionEvent e) {
+
             //elapsed time, count down with 1000 miliseconds
             elapsedTime = elapsedTime - 1000;
 
@@ -42,6 +45,7 @@ public class Countdown  {
         }
 
     });
+
     Countdown() {
 
         counterLabel.setLayout(null);
@@ -59,5 +63,13 @@ public class Countdown  {
         counterLabel2.setBounds(800, 400, 100, 50);
         counterLabel2.setFont(new Font("Arial", Font.PLAIN,35));
         counterLabel2.setOpaque(true);
+
+        scoreCounter.setLayout(null);
+        scoreCounter.setText("test");
+        scoreCounter.setBounds(800, 500, 100, 50);
+        scoreCounter.setFont(new Font("Arial", Font.PLAIN,35));
+        scoreCounter.setOpaque(true);
+
+
     }
 }

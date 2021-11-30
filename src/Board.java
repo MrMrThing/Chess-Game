@@ -46,6 +46,7 @@ public class Board extends JPanel {
         this.b_game = new Game();
         frame.add(Countdown.counterLabel);
         frame.add(Countdown.counterLabel2);
+        frame.add(Countdown.scoreCounter);
 
         try{
             BKnight = ImageIO.read(getClass().getResource("/BKnight.png"));
@@ -176,12 +177,23 @@ public class Board extends JPanel {
                 for(int k = 0; k < m_pieces.size(); k++){
 
                     if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
-                        countdown.timer.start();
-                        countdown.timer1.start();
+
 
                     if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
+                        if(b_game.player.m_turn == true && b_game.ai.m_turn==false){
+                            countdown.elapsedTime+=10000;
+                            countdown.timer1.stop();
+                            countdown.timer.start();                            
+                        }else if(b_game.player.m_turn == false && b_game.ai.m_turn==true){
+                            countdown.elapsedTime+=10000;
+                            countdown.timer.stop();
+                            countdown.timer1.start();
+                            }
+                            if(b_game.m_round == 40){
+                                countdown.elapsedTime+=1000;
+                            }
                         
-
+                    
                         System.out.println(m_pieces.get(k).getColor());
                         System.out.println(selected.getColor());
     
