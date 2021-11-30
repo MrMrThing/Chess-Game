@@ -13,9 +13,10 @@ public class Player {
     int m_points;
     boolean m_turn, m_win, m_help=true;
     boolean m_color;
-
     boolean m_exists=false, m_c=false;
     Vector<String> players= new Vector<>();
+
+    //In the constructor we make our first choice
     public Player(){
         in = new Scanner(System.in);
         String choice;
@@ -24,17 +25,21 @@ public class Player {
             System.out.println("If you want to create a new user tap 1 if you want to access an existing one click 2?");
             choice=in.nextLine();
             switch (choice) {
-                case "1" -> {
+                case "1": {
                     this.m_c = true;
                     upload();
                     menu = false;
+                    break;
                 }
-                case "2" -> {
+                case "2": {
                     this.m_c = true;
                     collect();
                     menu = false;
+                    break;
                 }
-                default -> System.out.println("You didn't click the correct number, try again");
+                default:
+                    System.out.println("You didn't click the correct number, try again");
+                    break;
             }
         }
     }
@@ -75,19 +80,23 @@ public class Player {
                 System.out.println("Profile name doesn't exists sorry... Do you want to load an other one (tap 1) or create a new one (tap 2) ?");
                 choice=in.nextLine();
                 switch (choice) {
-                    case "1" -> {
+                    case "1" : {
                         this.m_c = true;
                         this.m_exists = false;
                         collect();
                         menu = false;
+                        break;
                     }
-                    case "2" -> {
+                    case "2" : {
                         this.m_name = "";
                         this.m_exists = false;
                         upload();
                         menu = false;
+                        break;
                     }
-                    default -> System.out.println("You didn't click the correct number, try again");
+                    default:
+                        System.out.println("You didn't click the correct number, try again");
+                        break;
                 }
             }
 
@@ -115,20 +124,24 @@ public class Player {
                     System.out.println("Profile name already exists sorry... Do you want to load that one (tap 1) or create a new one(tap 2)?");
                     choice=in.nextLine();
                     switch (choice) {
-                        case "1" -> {
+                        case "1": {
                             this.m_exists = true;
                             this.m_c = false;
                             this.m_help = false;
                             collect();
                             menu = false;
+                            break;
                         }
-                        case "2" -> {
+                        case "2" : {
                             this.m_name = "";
                             this.m_exists = false;
                             upload();
                             menu = false;
+                            break;
                         }
-                        default -> System.out.println("You didn't click the correct number, try again");
+                        default:
+                            System.out.println("You didn't click the correct number, try again");
+                            break;
                     }
                 }
             }

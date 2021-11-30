@@ -79,12 +79,8 @@ public class Board extends JPanel {
           }); 
     }
 
-
-
-    
     
     public void paint(Graphics g){
-
         boolean color = false;
         Color white = new Color(180,180,180);
         Color black = new Color(118,134,71);
@@ -92,13 +88,7 @@ public class Board extends JPanel {
         int y = 0;
         int tempx = 0;
         int tempy = 0;
-    
-        
-
         for(int i = 1; i < 65; i++){
-    
-
-
             if(i == clicked){
                 g.setColor(Color.ORANGE);
                 color = !color;
