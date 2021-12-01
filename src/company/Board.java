@@ -1,15 +1,12 @@
-package com.company;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.*;
+package company;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Board extends JPanel {
@@ -50,6 +47,8 @@ public class Board extends JPanel {
         frame.add(Countdown.counterLabel);
         frame.add(Countdown.counterLabel2);
         frame.add(Countdown.scoreCounter);
+        frame.add(Countdown.scoreCounter2);
+
 
         try{
             BKnight = ImageIO.read(getClass().getResource("/BKnight.png"));
@@ -183,29 +182,35 @@ public class Board extends JPanel {
                     for(int k = 0; k < m_pieces.size(); k++){
 
                         if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
-                            countdown.timer.start();                            
-
-                            /*if(b_game.player.m_color == true && b_game.ai.m_color==false){
+                            // if the turn is player and not the ai, then stop ai countdown and start player coundown + 10 seconds.
+                            if(b_game.player.m_color == true && b_game.ai.m_color==false){
                                 countdown.elapsedTime+=10000;
                                 countdown.timer1.stop();
-                                countdown.timer.start();                            
+                                countdown.timer.start();
                             }else if(b_game.player.m_color == false && b_game.ai.m_color==true){
                                 countdown.elapsedTime+=10000;
                                 countdown.timer.stop();
                                 countdown.timer1.start();
-                                }*/
+                                }
                                 //if(b_game.m_round == 40){
                                 //    countdown.elapsedTime+=1000;
                                 //}
                             
-                        
+
                             System.out.println(m_pieces.get(k).getColor());
                             System.out.println(selected.getColor());
         
                             if(m_pieces.get(k).getColor() != selected.getColor()){ //if the color of the piece is different from our knight
                                 m_pieces.remove(m_pieces.get(k)); //we delete the piece
                                 selected.setPosition(clickedX, clickedY); //we move our knight there
-        
+                                // if player eat, increment points
+                                if(b_game.player.m_color == true && b_game.ai.m_color==false){
+                                    countdown.points++;
+                                    // if ai eat, increment points
+                                }else if(b_game.player.m_color == false && b_game.ai.m_color==true) {
+                                    countdown.points2++;
+                                }
+
                             } 
                         } else {
                             selected.setPosition(clickedX, clickedY); //we move the knight there

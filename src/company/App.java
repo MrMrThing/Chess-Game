@@ -1,6 +1,6 @@
-package com.company;
-import javax.swing.JFrame;
-import java.awt.*;
+package company;
+
+import javax.swing.*;
 
 public class App {
     public static void main(String[] args) {

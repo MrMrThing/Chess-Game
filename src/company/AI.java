@@ -1,7 +1,4 @@
-package com.company;
-
-import com.company.Game;
-import com.company.Piece;
+package company;
 
 import java.util.ArrayList;
 import java.util.Random;

@@ -1,8 +1,7 @@
-package com.company;
+package company;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class Scores extends JPanel {
     public Scores(JFrame frame){
