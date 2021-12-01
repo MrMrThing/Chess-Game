@@ -37,7 +37,7 @@ public class Board extends JPanel {
     int size = 100; //size of a square?
     int clickedX = 0;
     int clickedY = 0;
-    Piece selected = null;
+    Piece selectedPiece = null;
     Point tempPoint;
 
     Game b_game; //the board is connected to the game
@@ -92,9 +92,10 @@ public class Board extends JPanel {
         Color black = new Color(59,47,47);
         int x = 0;
         int y = 0;
-        int tempx = 0;
-        int tempy = 0;
+        int tempx = 0; //what is this?
+        int tempy = 0; //what is this?
         for(int i = 1; i < 65; i++){
+            //if a square is selected we highlight it?
             if(i == clicked){
                 g.setColor(Color.ORANGE);
                 color = !color;
@@ -117,26 +118,35 @@ public class Board extends JPanel {
                 else
                     color = true;
             }
-            
+
+            //We go through all the pieces
             for(int k = 0; k < m_pieces.size(); k++){
 
+                //if the current piece is at that temps position???
                 if(m_pieces.get(k).getPositionX() == tempx && m_pieces.get(k).getPositionY() == tempy){
 
-                    if(m_pieces.get(k).getColor()){
-                        if(m_pieces.get(k).toString().contains("Pawn")){
+                    if(m_pieces.get(k).getColor()){ //if its color is white
+
+                        if(m_pieces.get(k).toString().contains("Pawn")){ //if it's a pawn
                             g.drawImage(WPawn, tempx*100 + 20, tempy*100 + 20, null);
-                        } else if (m_pieces.get(k).toString().contains("King")){
+
+                        } else if (m_pieces.get(k).toString().contains("King")){ //if it's a king
                             g.drawImage(WKing, tempx*100 + 20, tempy*100 + 20, null);
-                        } else if (m_pieces.get(k).toString().contains("Knight")){
+
+                        } else if (m_pieces.get(k).toString().contains("Knight")){ //if it's a knight
                             g.drawImage(WKnight, tempx*100 + 20, tempy*100 + 20, null);
-                        } else if (m_pieces.get(k).toString().contains("Queen")){
+
+                        } else if (m_pieces.get(k).toString().contains("Queen")){ //if it's a queen
                             g.drawImage(WQueen, tempx*100 + 20, tempy*100 + 20, null);
-                        } else if (m_pieces.get(k).toString().contains("Bishop")){
+
+                        } else if (m_pieces.get(k).toString().contains("Bishop")){ //if it's a bishop
                             g.drawImage(WBishop, tempx*100 + 20, tempy*100 + 20, null);
-                        } else if (m_pieces.get(k).toString().contains("Rook")){
+
+                        } else if (m_pieces.get(k).toString().contains("Rook")){ //if it's a rook
                             g.drawImage(WRook, tempx*100 + 20, tempy*100 + 20, null);
-                        } 
-                    } else{
+                        }
+
+                    } else{ //if the pieces are black
                         if(m_pieces.get(k).toString().contains("Pawn")){
                             g.drawImage(BPawn, tempx*100 + 20, tempy*100 + 20, null);
                         } else if (m_pieces.get(k).toString().contains("King")){
@@ -151,63 +161,60 @@ public class Board extends JPanel {
                             g.drawImage(BRook, tempx*100 + 20, tempy*100 + 20, null);
                         } 
                     }
-
-                  
-
                 }
             }
 
-            if(tempx == 7){
+            if(tempx == 7){ //what's that?
                 tempy++;
                 tempx = 0;
             } else{
                 tempx++;
             }
-            
-
         }
-        
-
     }
 
     //This method moves the selected piece on the board to the new clicked position if its available
     public void move(){
+        //The timer starts depending on who's turn it is
+        if(b_game.player.m_turn == true && b_game.ai.m_turn==false){
+            countdown.elapsedTime+=10000;
+            countdown.timer1.stop();
+            countdown.timer.start();
+        }else if(b_game.player.m_turn == false && b_game.ai.m_turn==true){
+            countdown.elapsedTime+=10000;
+            countdown.timer.stop();
+            countdown.timer1.start();
+        }
+        if(b_game.m_round == 40){
+            countdown.elapsedTime+=1000;
+        }
         
 
-        if(selected != null){ //if something has been selected
+        if(selectedPiece != null){ //if something has been selected
 
-            selected.UpdatePossiblePositions(b_game); //Selected is a piece. We update its possible positions
+            selectedPiece.UpdatePossiblePositions(b_game); //Selected is a piece. We update its possible positions
 
-                System.out.println(selected);
+                System.out.println(selectedPiece); //we print out the in-memory name of the piece.why?
 
-                if(selected.contains(tempPoint, selected.possiblePositions)){
+                if(selectedPiece.contains(tempPoint, selectedPiece.possiblePositions)){ //what does this do?
+
+                    //we go through all the pieces on the board
                     for(int k = 0; k < m_pieces.size(); k++){
 
-                        if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
-                            if(b_game.player.m_turn == true && b_game.ai.m_turn==false){
-                                countdown.elapsedTime+=10000;
-                                countdown.timer1.stop();
-                                countdown.timer.start();                            
-                            }else if(b_game.player.m_turn == false && b_game.ai.m_turn==true){
-                                countdown.elapsedTime+=10000;
-                                countdown.timer.stop();
-                                countdown.timer1.start();
-                                }
-                                if(b_game.m_round == 40){
-                                    countdown.elapsedTime+=1000;
-                                }
-                            
-                        
-                            System.out.println(m_pieces.get(k).getColor());
-                            System.out.println(selected.getColor());
+                        //we check if a piece is on the selected position the player wants to go to
+                        if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
+
+
+                            System.out.println(m_pieces.get(k).getColor()); //print out the color of the current piece
+                            System.out.println(selectedPiece.getColor()); //print out the color of the piece we are trying to move
         
-                            if(m_pieces.get(k).getColor() != selected.getColor()){ //if the color of the piece is different from our knight
-                                m_pieces.remove(m_pieces.get(k)); //we delete the piece
-                                selected.setPosition(clickedX, clickedY); //we move our knight there
+                            if(m_pieces.get(k).getColor() != selectedPiece.getColor()){ //if the color of the piece is different from our knight
+                                m_pieces.remove(m_pieces.get(k)); //we delete the current piece
+                                selectedPiece.setPosition(clickedX, clickedY); //we move our knight there
         
                             } 
                         } else {
-                            selected.setPosition(clickedX, clickedY); //we move the knight there
+                            selectedPiece.setPosition(clickedX, clickedY); //we move the knight there
                         }
                     } 
                     
@@ -217,16 +224,38 @@ public class Board extends JPanel {
                 
             
 
-            selected = null; //we say that nothing has been selected  
+            selectedPiece = null; //we say that nothing has been selected
             
         }else{ //if nothing has been selected
 
             for(int k = 0; k < m_pieces.size(); k++){
                 if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
-                    selected = m_pieces.get(k);
+                    selectedPiece = m_pieces.get(k);
                 }
             }
 
         }
    }
+
+    void playGame(){
+        boolean gameOver = false;
+
+        while(!gameOver){
+            b_game.m_round++; //we go to the next round
+
+            if(b_game.m_round % 2 != 0){
+                b_game.player.m_turn = true;
+
+                move();
+
+                b_game.player.m_turn = false;
+            }else if(b_game.m_round % 2 == 0){
+                b_game.ai.m_turn = true;
+
+                move();
+
+                b_game.ai.m_turn = false;
+            }
+        }
+    }
 }

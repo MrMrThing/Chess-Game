@@ -84,4 +84,6 @@ public class Game {
 
     ArrayList<Point> getPositionsTaken(){return this.m_positionsTaken; }
     public ArrayList<Piece> getPieces(){return this.m_pieces; }
+
+
 }
