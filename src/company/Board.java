@@ -1,15 +1,12 @@
-package com.company;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.*;
+package company;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Board extends JPanel {

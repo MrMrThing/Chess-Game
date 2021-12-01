@@ -1,8 +1,10 @@
-package com.company;
+package company;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 //import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
 

@@ -1,8 +1,9 @@
-package com.company;
-import java.awt.*;
-import java.awt.event.*;
+package company;
+
 import javax.swing.*;
-import javax.swing.Timer;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class Countdown  {
