@@ -3,6 +3,8 @@ package company;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Rules extends JPanel{
     public Rules(JFrame frame){
@@ -40,6 +42,8 @@ public class Rules extends JPanel{
         Label o= new Label("");
         Label p= new Label("CHECK is when a king is attacked and threatened. Whereas CHECKMATE happens if f there is no way to get out of check: this ends the game");
         p.setFont(f3);
+        Label r= new Label("");
+        Label s= new Label("");
 
         panel1.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -62,6 +66,25 @@ public class Rules extends JPanel{
         panel1.add(n,gbc);
         panel1.add(o,gbc);
         panel1.add(p,gbc);
+        panel1.add(r,gbc);
+        panel1.add(s,gbc);
+
+        JButton close= new JButton("Back");
+        close.setBackground(new Color(59,47,47));
+        close.setForeground(new Color(239,223,187));
+        close.setFont(f2);
+
+        close.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Menu b= new Menu(frame);
+                frame.getContentPane().add(b);
+                setVisible(false);
+                b.setVisible(true);
+            }
+        });
+
+        panel1.add(close,gbc);
 
         this.add(panel1);
 
