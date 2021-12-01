@@ -3,6 +3,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
+
 public class Menu extends JPanel implements ActionListener {
     private JLabel menuTitle;
     private JButton start;
@@ -53,10 +55,33 @@ public class Menu extends JPanel implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         //Add actionListener for each button
-        this.start.addActionListener(this);
-        this.score.addActionListener(this);
-        this.rules.addActionListener(this);
-        this.exit.addActionListener(this);
+        this.start.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Board b= new Board(frame);
+                frame.getContentPane().add(b);
+                setVisible(false);
+                b.setVisible(true);
+            }
+        });
+        this.score.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Show score");
+            }
+        });
+        this.rules.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("rules");
+            }
+        });
+        this.exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
         JPanel buttons = new JPanel(gbl);
         //Add buttons to JPanel
@@ -71,19 +96,7 @@ public class Menu extends JPanel implements ActionListener {
         add(buttons, gbc);
     }
 
-    public void actionPerformed(ActionEvent e){
-        //Check to see which button has been clicked
-        if(e.getActionCommand().equals("Start")){
-            System.out.println("Start");
-        }
-        else if(e.getActionCommand().equals("Show scores")){
-            System.out.println("Show score");
-        }
-        else if(e.getActionCommand().equals("Rules")){
-            System.out.println("Rules");
-        }
-        else if(e.getActionCommand().equals("Exit")){
-            System.out.println("Exit");
-        }
+    @Override
+    public void actionPerformed(ActionEvent e) {
     }
 }
