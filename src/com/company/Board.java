@@ -50,6 +50,7 @@ public class Board extends JPanel {
         frame.add(Countdown.counterLabel);
         frame.add(Countdown.counterLabel2);
         frame.add(Countdown.scoreCounter);
+        countdown.timer.start();
 
         try{
             BKnight = ImageIO.read(getClass().getResource("/BKnight.png"));
@@ -183,9 +184,10 @@ public class Board extends JPanel {
                     for(int k = 0; k < m_pieces.size(); k++){
 
                         if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
-                            countdown.timer.start();                            
+                            countdown.timer.start();
+                            System.out.println("start countdown!!");
 
-                            /*if(b_game.player.m_color == true && b_game.ai.m_color==false){
+                            if(b_game.player.m_color == true && b_game.ai.m_color==false){
                                 countdown.elapsedTime+=10000;
                                 countdown.timer1.stop();
                                 countdown.timer.start();                            
@@ -193,7 +195,7 @@ public class Board extends JPanel {
                                 countdown.elapsedTime+=10000;
                                 countdown.timer.stop();
                                 countdown.timer1.start();
-                                }*/
+                                }
                                 //if(b_game.m_round == 40){
                                 //    countdown.elapsedTime+=1000;
                                 //}
