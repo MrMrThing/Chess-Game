@@ -1,3 +1,4 @@
+package com.company;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -96,8 +97,6 @@ class Pawn extends Piece {
     void UpdatePossiblePositions(Game g) {
         this.loadBasicPossiblePositions(); //we start by getting the positions our piece can take in this move
         Point currentPosition = this.getPosition(); //we keep our current position
-        Point isItOccupiedWayUp = new Point((int) this.getPositionX(), (int) this.getPositionY() + 1); //is this occupied by the pieces coming down
-        Point isItOccupiedWayDown = new Point((int) this.getPositionX(), (int) this.getPositionY() - 1); //is this occupied by the pieces coming up
 
         ArrayList<Point> takenPositions = g.getPositionsTaken(); //we get the position of all the pieces on the board
 

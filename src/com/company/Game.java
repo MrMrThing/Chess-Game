@@ -1,3 +1,4 @@
+package com.company;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -82,4 +83,6 @@ public class Game {
 
     ArrayList<Point> getPositionsTaken(){return this.m_positionsTaken; }
     public ArrayList<Piece> getPieces(){return this.m_pieces; }
+
+
 }

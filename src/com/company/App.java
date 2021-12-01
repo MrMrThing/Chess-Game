@@ -1,3 +1,4 @@
+package com.company;
 import javax.swing.JFrame;
 import java.awt.*;
 
