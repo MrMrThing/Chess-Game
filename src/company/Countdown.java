@@ -11,9 +11,12 @@ public class Countdown  {
     static JLabel counterLabel = new JLabel();
     static JLabel counterLabel2 = new JLabel();
     static JLabel scoreCounter = new JLabel();
+    static JLabel scoreCounter2 = new JLabel();
 
-    int elapsedTime = 900000;
-    int incrementTime;
+
+    int elapsedTime = 900000-10000;
+    int points = 0;
+    int points2 = 0;
     int second = 0;
     int minute = 0;
     String secondString = String.format("%02d", second);
@@ -33,6 +36,10 @@ public class Countdown  {
             //format the string to have 2 decimals
             secondString = String.format("%02d", second);
             minuteString = String.format("%02d", minute);
+            // Insert the variables in to the label.
+            counterLabel.setText(minuteString + ":" + secondString);
+            scoreCounter.setText("" + points);
+
         }
 
     });
@@ -46,6 +53,11 @@ public class Countdown  {
             second = (elapsedTime / 1000) % 60;
             secondString = String.format("%02d", second);
             minuteString = String.format("%02d", minute);
+            counterLabel.setText(minuteString + ":" + secondString);
+            scoreCounter2.setText("" + points2);
+
+
+
         }
 
     });
@@ -69,10 +81,16 @@ public class Countdown  {
         counterLabel2.setOpaque(true);
 
         scoreCounter.setLayout(null);
-        scoreCounter.setText("test");
+        scoreCounter.setText("" + points);
         scoreCounter.setBounds(800, 500, 100, 50);
         scoreCounter.setFont(new Font("Arial", Font.PLAIN,35));
         scoreCounter.setOpaque(true);
+
+        scoreCounter2.setLayout(null);
+        scoreCounter2.setText("" + points2);
+        scoreCounter2.setBounds(900, 500, 100, 50);
+        scoreCounter2.setFont(new Font("Arial", Font.PLAIN,35));
+        scoreCounter2.setOpaque(true);
 
 
     }
