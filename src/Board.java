@@ -188,7 +188,7 @@ public class Board extends JPanel {
         if(b_game.m_round == 40){
             countdown.elapsedTime+=1000;
         }
-        
+
 
         if(selectedPiece != null){ //if something has been selected
 
@@ -207,7 +207,7 @@ public class Board extends JPanel {
 
                             System.out.println(m_pieces.get(k).getColor()); //print out the color of the current piece
                             System.out.println(selectedPiece.getColor()); //print out the color of the piece we are trying to move
-        
+
                             if(m_pieces.get(k).getColor() != selectedPiece.getColor()){ //if the color of the piece is different from our knight
                                 m_pieces.remove(m_pieces.get(k)); //we delete the current piece
                                 selectedPiece.setPosition(clickedX, clickedY); //we move our knight there
