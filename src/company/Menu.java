@@ -9,11 +9,6 @@ import java.awt.event.ActionListener;
 //import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
 
 public class Menu extends JPanel implements ActionListener {
-    private JLabel menuTitle;
-    private JButton start;
-    private JButton score;
-    private JButton rules;
-    private JButton exit;
 
     public Menu(JFrame frame){
 
@@ -22,25 +17,20 @@ public class Menu extends JPanel implements ActionListener {
         Font f3= new Font(Font.SERIF, Font.PLAIN,  20);
 
         //Add button to layout
-        this.start= new JButton("Start");
-        this.start.setBackground(new Color(59,47,47));
-        this.start.setForeground(new Color(239,223,187));
-        this.start.setFont(f3);
+        JButton start = new JButton("Start");
+        start.setBackground(new Color(59,47,47));
+        start.setForeground(new Color(239,223,187));
+        start.setFont(f3);
 
-        this.score= new JButton("Show scores");
-        this.score.setBackground(new Color(59,47,47));
-        this.score.setForeground(new Color(239,223,187));
-        this.score.setFont(f3);
+        JButton rules = new JButton("Rules");
+        rules.setBackground(new Color(59,47,47));
+        rules.setForeground(new Color(239,223,187));
+        rules.setFont(f3);
 
-        this.rules= new JButton("Rules");
-        this.rules.setBackground(new Color(59,47,47));
-        this.rules.setForeground(new Color(239,223,187));
-        this.rules.setFont(f3);
-
-        this.exit=new JButton("Exit");
-        this.exit.setBackground(new Color(59,47,47));
-        this.exit.setForeground(new Color(239,223,187));
-        this.exit.setFont(f3);
+        JButton exit = new JButton("Exit");
+        exit.setBackground(new Color(59,47,47));
+        exit.setForeground(new Color(239,223,187));
+        exit.setFont(f3);
 
         GridBagLayout gbl= new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
@@ -58,10 +48,10 @@ public class Menu extends JPanel implements ActionListener {
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.NORTH;
 
-        this.menuTitle= new JLabel("AI CHESS");
-        this.menuTitle.setForeground(Color.DARK_GRAY);
-        this.menuTitle.setFont(f1);
-        add(this.menuTitle,gbc);
+        JLabel menuTitle = new JLabel("AI CHESS");
+        menuTitle.setForeground(Color.DARK_GRAY);
+        menuTitle.setFont(f1);
+        add(menuTitle,gbc);
 
         Label a= new Label("");
         add(a,gbc);
@@ -91,7 +81,7 @@ public class Menu extends JPanel implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         //Add actionListener for each button
-        this.start.addActionListener(new ActionListener() {
+        start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Board b= new Board(frame);
@@ -100,13 +90,7 @@ public class Menu extends JPanel implements ActionListener {
                 b.setVisible(true);
             }
         });
-        this.score.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Show score");
-            }
-        });
-        this.rules.addActionListener(new ActionListener() {
+        rules.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Rules b= new Rules(frame);
@@ -115,7 +99,7 @@ public class Menu extends JPanel implements ActionListener {
                 b.setVisible(true);
             }
         });
-        this.exit.addActionListener(new ActionListener() {
+        exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
@@ -126,10 +110,9 @@ public class Menu extends JPanel implements ActionListener {
 
         buttons.setBackground(new Color(239,223,187));
         //Add buttons to JPanel
-        buttons.add(this.start, gbc);
-        buttons.add(this.score, gbc);
-        buttons.add(this.rules, gbc);
-        buttons.add(this.exit, gbc);
+        buttons.add(start, gbc);
+        buttons.add(rules, gbc);
+        buttons.add(exit, gbc);
 
         gbc.weightx = 0;
         gbc.weighty = 1;
