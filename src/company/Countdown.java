@@ -68,7 +68,7 @@ public class Countdown  {
         //Insert the text into counterLabel
         counterLabel.setText(minuteString + ":" + secondString);
         //Manipulate the cordinates and size for counterlabel
-        counterLabel.setBounds(900, 400, 100, 50);
+        counterLabel.setBounds(800, 400, 100, 50);
         //counterlabel use selected font
         counterLabel.setFont(new Font("Arial", Font.PLAIN, 35));
         //paint the counterlabel, allowing the underlying pixels to show through
@@ -76,7 +76,7 @@ public class Countdown  {
         
         counterLabel2.setLayout(null);
         counterLabel2.setText(minuteString + ":" + secondString);
-        counterLabel2.setBounds(800, 400, 100, 50);
+        counterLabel2.setBounds(900, 400, 100, 50);
         counterLabel2.setFont(new Font("Arial", Font.PLAIN,35));
         counterLabel2.setOpaque(true);
 
