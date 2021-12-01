@@ -31,77 +31,77 @@ public class AI {
         switch (moveID){
             //cases 0 to 7 are pawns
             case 0:
-                AIPieces.get(0).move(g); //we update the moves the selected pawn can do
+                AIPieces.get(0).UpdatePossiblePositions(g); //we update the moves the selected pawn can do
 
                 break;
             case 1:
-                AIPieces.get(1).move(g); //we update the moves the selected pawn can do
+                AIPieces.get(1).UpdatePossiblePositions(g); //we update the moves the selected pawn can do
 
                 break;
             case 2:
-                AIPieces.get(2).move(g); //we update the moves the selected pawn can do
+                AIPieces.get(2).UpdatePossiblePositions(g); //we update the moves the selected pawn can do
 
                 break;
             case 3:
-                AIPieces.get(3).move(g); //we update the moves the selected pawn can do
+                AIPieces.get(3).UpdatePossiblePositions(g); //we update the moves the selected pawn can do
 
                 break;
             case 4:
-                AIPieces.get(4).move(g); //we update the moves the selected pawn can do
+                AIPieces.get(4).UpdatePossiblePositions(g); //we update the moves the selected pawn can do
 
                 break;
             case 5:
-                AIPieces.get(5).move(g); //we update the moves the selected pawn can do
+                AIPieces.get(5).UpdatePossiblePositions(g); //we update the moves the selected pawn can do
 
                 break;
             case 6:
-                AIPieces.get(6).move(g); //we update the moves the selected pawn can do
+                AIPieces.get(6).UpdatePossiblePositions(g); //we update the moves the selected pawn can do
 
                 break;
             case 7:
-                AIPieces.get(7).move(g); //we update the moves the selected pawn can do
+                AIPieces.get(7).UpdatePossiblePositions(g); //we update the moves the selected pawn can do
 
                 break;
 
             // 8 & 9 are knights
             case 8:
-                AIPieces.get(8).move(g); //we update the moves the selected knight can do
+                AIPieces.get(8).UpdatePossiblePositions(g); //we update the moves the selected knight can do
 
                 break;
             case 9:
-                AIPieces.get(9).move(g); //we update the moves the selected knight can do
+                AIPieces.get(9).UpdatePossiblePositions(g); //we update the moves the selected knight can do
 
                 break;
 
             //10 & 11 are bishops
             case 10:
-                AIPieces.get(10).move(g); //we update the moves the selected bishop can do
+                AIPieces.get(10).UpdatePossiblePositions(g); //we update the moves the selected bishop can do
 
                 break;
             case 11:
-                AIPieces.get(11).move(g); //we update the moves the selected bishop can do
+                AIPieces.get(11).UpdatePossiblePositions(g); //we update the moves the selected bishop can do
 
                 break;
 
             //rooks
             case 12:
-                AIPieces.get(12).move(g); //we update the moves the selected rook can do
+                AIPieces.get(12).UpdatePossiblePositions(g); //we update the moves the selected rook can do
 
                 break;
             case 13:
-                AIPieces.get(13).move(g); //we update the moves the selected rook can do
+                AIPieces.get(13).UpdatePossiblePositions(g); //we update the moves the selected rook can do
 
                 break;
 
             //Queen
             case 14:
-                AIPieces.get(14).move(g); //we update the moves the queen can do
+                AIPieces.get(14).UpdatePossiblePositions(g); //we update the moves the queen can do
 
                 break;
 
             //King
             case 15:
-                AIPieces.get(15).move(g); //we update the moves the king can do
+                AIPieces.get(15).UpdatePossiblePositions(g); //we update the moves the king can do
 
                 break;
             default:

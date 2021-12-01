@@ -41,9 +41,9 @@ public abstract class Piece{
 
     public ArrayList<Point> getPossiblePositions(){ return this.possiblePositions; }
 
-    abstract void loadPossiblePositions();
+    abstract void loadBasicPossiblePositions();
 
-    abstract void move(Game g); //the method where we will code the movements of each different piece
+    abstract void UpdatePossiblePositions(Game g); //the method where we will code the movements of each different piece
 
     public boolean contains(Point pos, ArrayList<Point> points){
         boolean result = false;
@@ -62,17 +62,24 @@ public abstract class Piece{
 
 class Pawn extends Piece {
 
+    boolean first_move ;
+
     public Pawn(Point pos, boolean color) { //creation of a Pawn
         super(pos, color);
         this.value = 1;
         this.pieceName = "Pawn";
+        this.first_move = true;
     }
 
     @Override
-    void loadPossiblePositions() { //the basic movements of a pawn
+    void loadBasicPossiblePositions() { //the basic movements of a pawn
 
-        for (int i = 0; i < 8; i++) {
+       /* for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
+
+                if(this.first_move == true){
+                    this.possiblePositions.add(new Point(this.position.x, this.position.y + 2));
+                }
                 //we can go one step up to the right
                 if (this.position.getX() + 1 == i && this.position.getY() + 1 == j) {
                     this.possiblePositions.add(new Point(i, j));
@@ -82,12 +89,12 @@ class Pawn extends Piece {
 
                 }
             }
-        }
+        }*/
     }
 
     //Here we take into account the state of the current game
-    void move(Game g) {
-        this.loadPossiblePositions(); //we start by getting the positions our piece can take in this move
+    void UpdatePossiblePositions(Game g) {
+        this.loadBasicPossiblePositions(); //we start by getting the positions our piece can take in this move
         Point currentPosition = this.getPosition(); //we keep our current position
         Point isItOccupiedWayUp = new Point((int) this.getPositionX(), (int) this.getPositionY() + 1); //is this occupied by the pieces coming down
         Point isItOccupiedWayDown = new Point((int) this.getPositionX(), (int) this.getPositionY() - 1); //is this occupied by the pieces coming up
@@ -96,64 +103,64 @@ class Pawn extends Piece {
 
         ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
 
-        if (g.player.m_turn) { //if player one is playing
-            //if there is an enemy on the square in front of the pawn
-            if (takenPositions.contains(isItOccupiedWayUp)) {
-                for (Piece p : pieces) {
-                    if (p.getPosition() == isItOccupiedWayUp) { //we get the piece that can be eaten by the pawn
-                        if (p.getColor() == !this.color) { //if it's the other color
-                            //this position is available for the pawn to go to
-                            this.possiblePositions.add(isItOccupiedWayUp);
-                        }
-                    }
-                }
+        if (g.player.m_turn) { //if player is playing
+            //if it's the first move it can go two squares forward
+            if(this.first_move){
+                this.possiblePositions.add(new Point(this.position.x, this.position.y + 2));
             }
 
-            //case where a piece the same color makes the position unavailable to the pawn
-            for (int i = 0; i < this.possiblePositions.size(); i++) {
-                for (Piece p : pieces) {
-                    //if there is a piece at one of the possible positions
-                    if (p.getPosition() == this.possiblePositions.get(i).getLocation()) {
-                        //if it's the same color
-                        if (p.getColor() == this.color) {
-                            this.possiblePositions.remove(i); //we remove that position from the possibilities
-                        }
+            //we add the position right in front of our pawn
+            this.possiblePositions.add(new Point(this.position.x, this.position.y + 1));
+
+
+            //We check for all pieces
+            for (Piece p : pieces) {
+                    //if there is a piece right in front of the pawn, this position isn't available to the pawn anymore
+                    if (this.position.getX() == p.getPositionX() && this.position.getY() + 1 == p.getPositionY()) {
+                        this.possiblePositions.remove(p.getPosition());
+
                     }
+
+                    //if there is an enemy upper right, we can eat it
+                if(p.color != this.color && this.position.x + 1 == p.getPositionX() && this.position.y + 1 == p.getPositionY()){
+                    this.possiblePositions.add(p.getPosition());
+                }
+
+                //if there is an enemy upper left
+                if(p.color != this.color && this.position.x - 1 == p.getPositionX() && this.position.y + 1 == p.getPositionY()){
+                    this.possiblePositions.add(p.getPosition());
                 }
             }
         }
 
 
-        if (g.ai.m_turn) { //if player 2 is playing
-            //if there is an enemy on the square in front of the pawn
-            if (takenPositions.contains(isItOccupiedWayDown)) {
-                for (Piece p : pieces) {
-                    if (p.getPosition() == isItOccupiedWayDown) { //we get the piece that can be eaten by the pawn
-                        if (p.getColor() == !this.color) { //if it's the other color
-                            //this position is available for the pawn to go to
-                            this.possiblePositions.add(isItOccupiedWayDown);
-                        }
-                    }
+        if (g.ai.m_turn) { //if the AI is playing
+
+            if(this.first_move){ //first move: can go down two
+                this.possiblePositions.add(new Point(this.position.x, this.position.y - 2));
+            }
+            //we add the position right in front of our pawn
+            this.possiblePositions.add(new Point(this.position.x, this.position.y - 1));
+
+
+            //We check for all pieces
+            for (Piece p : pieces) {
+                //if there is a piece right in front of the pawn, this position isn't available to the pawn anymore
+                if (this.position.getX() == p.getPositionX() && this.position.getY() - 1 == p.getPositionY()) {
+                    this.possiblePositions.remove(p.getPosition());
+
+                }
+
+                //if there is an enemy down-right, we can eat it
+                if(p.color != this.color && this.position.x + 1 == p.getPositionX() && this.position.y - 1 == p.getPositionY()){
+                    this.possiblePositions.add(p.getPosition());
+                }
+
+                //if there is an enemy down-left
+                if(p.color != this.color && this.position.x - 1 == p.getPositionX() && this.position.y - 1 == p.getPositionY()){
+                    this.possiblePositions.add(p.getPosition());
                 }
             }
-
-            //a piece the same color makes the position unavailable to the pawn
-            for (int i = 0; i < this.possiblePositions.size(); i++) {
-                for (Piece p : pieces) {
-                    //if there is a piece at one of the possible positions
-                    if (p.getPosition() == this.possiblePositions.get(i).getLocation()) {
-                        //if it's the same color
-                        if (p.getColor() == this.color) {
-                            this.possiblePositions.remove(i); //we remove that position from the possibilities
-                        }
-                    }
-                }
-            }
-
-            //When we click on a pawn, we show the positions available with possiblePositions array
-
-            //When we click on the chosen position, the image of the pawn moves to said chosen position
-
         }
     }
 }
@@ -168,7 +175,7 @@ class Knight extends Piece {
 
 
     @Override
-    void loadPossiblePositions() { //all the positions the knight can originally go to
+    void loadBasicPossiblePositions() { //all the positions the knight can originally go to
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 //x+2 et y+1
@@ -216,8 +223,8 @@ class Knight extends Piece {
     }
 
     //The Knight can jump over pieces, so there isn't much to code
-    void move(Game g) {
-        this.loadPossiblePositions(); //we start by getting the positions our piece can take in this move
+    void UpdatePossiblePositions(Game g) {
+        this.loadBasicPossiblePositions(); //we start by getting the positions our piece can take in this move
 
         ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
 
@@ -243,12 +250,12 @@ class Bishop extends Piece {
             this.value = 3;
             this.pieceName = "Bishop";
 
-            this.loadPossiblePositions();
+            this.loadBasicPossiblePositions();
 
         }
 
         //attempt with maria's advice, in a world where we don't use loadPossiblePieces before calling this
-        void move(Game g){
+        void UpdatePossiblePositions(Game g){
             ArrayList<Piece> pieces = g.getPieces(); //we get the pieces from the Game
 
             //For every piece existing on the board
@@ -336,7 +343,7 @@ class Bishop extends Piece {
         }
 
     //So we don't have to include the loop each time
-        void loadPossiblePositions() {
+        void loadBasicPossiblePositions() {
             //for every position on the board
            /*
             for (int i = 0; i < 8; i++) {
@@ -393,7 +400,7 @@ class Bishop extends Piece {
         }
 
         //attempt with maria's advice, in a world where we don't use loadPossiblePieces before calling this
-        void move(Game g){
+        void UpdatePossiblePositions(Game g){
             ArrayList<Piece> pieces = g.getPieces(); //we get the pieces from the Game
 
             //For every piece existing on the board
@@ -482,7 +489,7 @@ class Bishop extends Piece {
         }
 
         @Override
-        void loadPossiblePositions() {
+        void loadBasicPossiblePositions() {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
 
@@ -538,7 +545,7 @@ class Bishop extends Piece {
 
 
         @Override
-        void loadPossiblePositions() {
+        void loadBasicPossiblePositions() {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
 
@@ -571,9 +578,9 @@ class Bishop extends Piece {
             }
         }
 
-        void move(Game g) {
+        void UpdatePossiblePositions(Game g) {
             //move like a king
-            this.loadPossiblePositions(); //we start by getting the positions our piece can take in this move
+            this.loadBasicPossiblePositions(); //we start by getting the positions our piece can take in this move
 
             ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
 
@@ -774,7 +781,7 @@ class Bishop extends Piece {
         }
 
         @Override
-        void loadPossiblePositions() { //could be optimised probably
+        void loadBasicPossiblePositions() { //could be optimised probably
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
 
@@ -807,8 +814,8 @@ class Bishop extends Piece {
         }
 
         //This method updates the King's possibilities of movements thanks to the current state of the board
-        void move(Game g) {
-            this.loadPossiblePositions(); //we start by getting the positions our piece can take in this move
+        void UpdatePossiblePositions(Game g) {
+            this.loadBasicPossiblePositions(); //we start by getting the positions our piece can take in this move
 
             ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
 
