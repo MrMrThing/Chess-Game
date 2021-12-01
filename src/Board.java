@@ -174,7 +174,7 @@ public class Board extends JPanel {
 
         if(selected != null){ //if something has been selected
 
-            selected.loadPossiblePositions();
+            selected.UpdatePossiblePositions(b_game); //Selected is a piece. We update its possible positions
 
                 System.out.println(selected);
 
