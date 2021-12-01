@@ -133,7 +133,7 @@ class Pawn extends Piece {
         }
 
 
-        if (g.ai.m_turn) { //if the AI is playing
+        if (g.ai.m_turn) { //if the com.company.AI is playing
 
             if(this.first_move){ //first move: can go down two
                 this.possiblePositions.add(new Point(this.position.x, this.position.y - 2));

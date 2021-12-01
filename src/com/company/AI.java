@@ -1,4 +1,8 @@
 package com.company;
+
+import com.company.Game;
+import com.company.Piece;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -21,7 +25,7 @@ public class AI {
         ArrayList<Piece> pieces = g.getPieces(); //we get the pieces from the game
         ArrayList<Piece> AIPieces = new ArrayList<>();
 
-        //We get all the pieces our AI can move and store them apart from the others
+        //We get all the pieces our com.company.AI can move and store them apart from the others
         for (Piece piece : pieces) {
             if (piece.color = this.m_color) {
                 AIPieces.add(piece);
@@ -106,7 +110,7 @@ public class AI {
 
                 break;
             default:
-                System.out.println("Error in the random choice of movement from the AI");
+                System.out.println("Error in the random choice of movement from the com.company.AI");
                 break;
         }
     }

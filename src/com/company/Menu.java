@@ -17,20 +17,20 @@ public class Menu extends JPanel implements ActionListener {
 
         //Add button to layout
         this.start= new JButton("Start");
-        this.start.setBackground(Color.DARK_GRAY);
-        this.start.setForeground(Color.PINK);
+        this.start.setBackground(new Color(59,47,47));
+        this.start.setForeground(new Color(239,223,187));
 
         this.score= new JButton("Show scores");
-        this.score.setBackground(Color.DARK_GRAY);
-        this.score.setForeground(Color.PINK);
+        this.start.setBackground(new Color(59,47,47));
+        this.start.setForeground(new Color(239,223,187));
 
         this.rules= new JButton("Rules");
-        this.rules.setBackground(Color.DARK_GRAY);
-        this.rules.setForeground(Color.PINK);
+        this.start.setBackground(new Color(59,47,47));
+        this.start.setForeground(new Color(239,223,187));
 
         this.exit=new JButton("Exit");
-        this.exit.setBackground(Color.DARK_GRAY);
-        this.exit.setForeground(Color.PINK);
+        this.start.setBackground(new Color(59,47,47));
+        this.start.setForeground(new Color(239,223,187));
 
         GridBagLayout gbl= new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
@@ -43,7 +43,7 @@ public class Menu extends JPanel implements ActionListener {
 
         setBorder(new EmptyBorder(200, 10, 10, 10));
 
-        this.setBackground(new Color(208, 171, 179));
+        this.setBackground(new Color(239,223,187));
 
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.NORTH;
@@ -74,7 +74,11 @@ public class Menu extends JPanel implements ActionListener {
         this.rules.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("rules");
+                System.out.println("Rules");
+                Rules b= new Rules(frame);
+                frame.getContentPane().add(b);
+                setVisible(false);
+                b.setVisible(true);
             }
         });
         this.exit.addActionListener(new ActionListener() {
