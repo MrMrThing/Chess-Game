@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Game {
     float m_round;
     AI ai = new AI(); //the one playing from down
-    Player player = new Player(); //the one playing from up
+    Player player=new Player(); //the one playing from up
     public ArrayList<Point> m_positionsTaken = new ArrayList<>(); //all the positions taken arranged in a certain order
     public ArrayList<Piece> m_pieces = new ArrayList<>(); //all pieces on the board
     //when a piece is taken of the board, we just delete it from the arrayList

@@ -86,8 +86,8 @@ public class Board extends JPanel {
     
     public void paint(Graphics g){
         boolean color = false;
-        Color white = new Color(180,180,180);
-        Color black = new Color(118,134,71);
+        Color white = new Color(239,223,187);
+        Color black = new Color(59,47,47);
         int x = 0;
         int y = 0;
         int tempx = 0;

@@ -3,7 +3,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
 
 public class Menu extends JPanel implements ActionListener {
     private JLabel menuTitle;
@@ -16,25 +15,23 @@ public class Menu extends JPanel implements ActionListener {
 
         //Add button to layout
         this.start= new JButton("Start");
-        this.start.setBackground(Color.DARK_GRAY);
-        this.start.setForeground(Color.PINK);
+        this.start.setBackground(new Color(59,47,47));
+        this.start.setForeground(new Color(239,223,187));
 
         this.score= new JButton("Show scores");
-        this.score.setBackground(Color.DARK_GRAY);
-        this.score.setForeground(Color.PINK);
+        this.score.setBackground(new Color(59,47,47));
+        this.score.setForeground(new Color(239,223,187));
 
         this.rules= new JButton("Rules");
-        this.rules.setBackground(Color.DARK_GRAY);
-        this.rules.setForeground(Color.PINK);
+        this.rules.setBackground(new Color(59,47,47));
+        this.rules.setForeground(new Color(239,223,187));
 
         this.exit=new JButton("Exit");
-        this.exit.setBackground(Color.DARK_GRAY);
-        this.exit.setForeground(Color.PINK);
+        this.exit.setBackground(new Color(59,47,47));
+        this.exit.setForeground(new Color(239,223,187));
 
         GridBagLayout gbl= new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
-
-        //Container c= frame.getContentPane();
 
         //Set layout for the content pane
         setLayout(new GridBagLayout());
@@ -42,7 +39,7 @@ public class Menu extends JPanel implements ActionListener {
 
         setBorder(new EmptyBorder(200, 10, 10, 10));
 
-        this.setBackground(new Color(208, 171, 179));
+        this.setBackground(new Color(239,223,187));
 
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.NORTH;
