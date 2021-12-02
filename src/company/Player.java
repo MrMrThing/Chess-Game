@@ -1,5 +1,9 @@
 package company;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,7 +12,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 
-public class Player {
+import static com.sun.glass.ui.Cursor.setVisible;
+
+public class Player extends JPanel{
     Scanner in;
     String m_name, m_password, m_pointsString;
     int m_points;
@@ -18,8 +24,42 @@ public class Player {
     Vector<String> players= new Vector<>();
 
     //In the constructor we make our first choice
-    public Player(){
+    public Player(JFrame frame){
         in = new Scanner(System.in);
+/*
+
+        JPanel panel1 = new JPanel();
+        panel1.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        panel1.setBackground(new Color(239,223,187));
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+
+
+        JButton upload = new JButton("Access existing profile");
+        upload.setBackground(new Color(59,47,47));
+        upload.setForeground(new Color(239,223,187));
+
+        JButton collect = new JButton("Create new profile");
+        collect.setBackground(new Color(59,47,47));
+        collect.setForeground(new Color(239,223,187));
+
+        upload.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+
+        collect.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+
+        panel1.add(upload, gbc);
+        panel1.add(collect, gbc);*/
+
+        /*******************************************************/
+
         String choice;
         boolean menu=true;
         while (menu){
@@ -43,6 +83,7 @@ public class Player {
                     break;
             }
         }
+        /*******************************/
     }
 
     void upload(){
@@ -278,6 +319,7 @@ public class Player {
         }
 
     }
+
 
 
 }

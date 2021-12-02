@@ -1,20 +1,62 @@
 package company;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Game {
+public class Game extends JPanel{
     float m_round;
     AI ai = new AI(); //the one playing from down
-    Player player=new Player(); //the one playing from up
+    Player player; //the one playing from up
     public ArrayList<Point> m_positionsTaken = new ArrayList<>(); //all the positions taken arranged in a certain order
     public ArrayList<Piece> m_pieces = new ArrayList<>(); //all pieces on the board
     //when a piece is taken of the board, we just delete it from the arrayList
 
-    public Game(){
-        this.m_round = 0;
+    public Game(JFrame frame){
+/*
+        JPanel panel1 = new JPanel();
+        setBorder(new EmptyBorder(100, 10, 10, 10));
+        this.setBackground(new Color(239,223,187));
 
+        Font f2= new Font(Font.SERIF,  Font.BOLD, 20);
+
+        Label a= new Label("Here we go!! ", JLabel.CENTER);
+        a.setFont(f2);
+
+        panel1.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        panel1.setBackground(new Color(239,223,187));
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+
+        panel1.add(a, gbc); //adds in all the labels to panels
+
+
+        JButton welcome= new JButton(":D");
+        welcome.setBackground(new Color(59,47,47));
+        welcome.setForeground(new Color(239,223,187));
+        welcome.setFont(f2);
+
+        welcome.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                player= new Player(frame);
+                frame.getContentPane().add(player);
+                setVisible(false);
+                player.setVisible(true);
+            }
+        });
+
+        panel1.add(welcome,gbc);
+
+        this.add(panel1);
+*/
+
+        this.m_round = 0;
+        player=new Player(frame);
         System.out.println("Do you want to play white or black? Enter 1 for white and 2 for black.");
         boolean color = true; //By default the player 1 will play the white pieces
         int choice;
@@ -79,7 +121,7 @@ public class Game {
         }
         System.out.println("The pieces have been initialized. Let's see what the board looks like.");
 
-      
+
     }
 
     ArrayList<Point> getPositionsTaken(){return this.m_positionsTaken; }

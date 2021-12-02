@@ -2,7 +2,10 @@ package company;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -42,8 +45,40 @@ public class Board extends JPanel {
 
     //Creation of the board
     public Board(JFrame frame){
+/*
 
-        this.b_game = new Game();
+        JPanel panel1 = new JPanel();
+        setBorder(new EmptyBorder(100, 10, 10, 10));
+        this.setBackground(new Color(239,223,187));
+
+        Font f2= new Font(Font.SERIF,  Font.PLAIN, 20);
+
+        panel1.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        panel1.setBackground(new Color(239,223,187));
+
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+
+        JButton welcome= new JButton("Welcome");
+        welcome.setBackground(new Color(59,47,47));
+        welcome.setForeground(new Color(239,223,187));
+        welcome.setFont(f2);
+
+        welcome.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Game b= new Game(frame);
+                frame.getContentPane().add(b);
+                setVisible(false);
+                b.setVisible(true);
+            }
+        });
+
+        panel1.add(welcome,gbc);
+
+        this.add(panel1);*/
+
+        this.b_game = new Game(frame);
         frame.add(Countdown.counterLabel);
         frame.add(Countdown.counterLabel2);
         frame.add(Countdown.scoreCounter);

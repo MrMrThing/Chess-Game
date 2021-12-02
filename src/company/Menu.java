@@ -35,7 +35,6 @@ public class Menu extends JPanel implements ActionListener {
         GridBagLayout gbl= new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
 
-        //Container c= frame.getContentPane();
 
         //Set layout for the content pane
         setLayout(new GridBagLayout());
