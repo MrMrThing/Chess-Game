@@ -62,6 +62,7 @@ public class Countdown  {
             minuteString = String.format("%02d", minute);
             counterLabel.setText(minuteString + ":" + secondString);
             scoreCounter2.setText("" + points2);
+
             if(minute==0 && second ==0){
                 timer.stop();
                 System.out.println("You run out of time!");
