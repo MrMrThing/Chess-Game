@@ -213,6 +213,10 @@ public class Board extends JPanel {
                 System.out.println(selected.getPossiblePositions().size());
                 System.out.println(selected);
 
+                
+                System.out.println(selected.getPossiblePositions());
+                
+
                 if(selected.contains(tempPoint, selected.possiblePositions)){
                     for(int k = 0; k < m_pieces.size(); k++){
 

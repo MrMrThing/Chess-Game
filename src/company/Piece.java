@@ -113,6 +113,7 @@ class Pawn extends Piece {
             //if it's the first move it can go two squares forward
             if(this.first_move){
                 this.possiblePositions.add(new Point(this.position.x, this.position.y + 2));
+                this.first_move = false;
             }
 
             //we add the position right in front of our pawn
