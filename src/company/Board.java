@@ -242,6 +242,9 @@ public class Board extends JPanel {
                             if(m_pieces.get(k).getColor() != selected.getColor()){ //if the color of the piece is different from our knight
                                 m_pieces.remove(m_pieces.get(k)); //we delete the piece
                                 selected.setPosition(clickedX, clickedY); //we move our knight there
+
+                                
+
                                 // if player eat, increment points
                                 if(b_game.player.m_color == true && b_game.ai.m_color==false){
                                     countdown.points++;
@@ -270,7 +273,10 @@ public class Board extends JPanel {
             //if there is a piece on, set selected to it
             for(int k = 0; k < m_pieces.size(); k++){
                 if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
-                    selected = m_pieces.get(k);
+                    if(m_pieces.get(k).getColor() == b_game.player.m_color){ //Checking if the selected piece is the right color
+                        selected = m_pieces.get(k);
+                    }
+                    
                 }
             }
 
