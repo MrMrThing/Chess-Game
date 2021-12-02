@@ -38,6 +38,7 @@ public class Board extends JPanel {
     int clickedY = 0;
     Piece selected = null;
     Point tempPoint;
+    Point drawPoint;
     JFrame frame;
 
     Game b_game; //the board is connected to the game
@@ -126,16 +127,28 @@ public class Board extends JPanel {
         boolean color = false;
         Color white = new Color(239,223,187);
         Color black = new Color(59,47,47);
+        Color green = new Color(138,154,91);
         int x = 0;
         int y = 0;
         int tempx = 0;
         int tempy = 0;
+
+        //For loop to draw the board
         for(int i = 1; i < 65; i++){
-            if(i == clicked && selected != null){
+
+            drawPoint = new Point (x/100,y/100); //Point for checking in getPossiblePosition
+
+            if(i == clicked && selected != null){ //if if has been clicked, and it is selected
                 g.setColor(Color.ORANGE);
                 color = !color;
             }
 
+            //Make sure selected is not null
+            //and check if the current tile is inside the selecteds getPossiblePosition
+            else if (selected != null && selected.contains(drawPoint, selected.getPossiblePositions())){
+                g.setColor(green);
+                color = !color;
+            }
             else if(color){
                 g.setColor(white);
                 color = false;  
@@ -143,6 +156,8 @@ public class Board extends JPanel {
                 g.setColor(black);
                 color = true;
             }
+
+            //Drawing each rect 
             g.fillRect(x, y, size, size);
             x = x + size;
             if(i%8 == 0){
