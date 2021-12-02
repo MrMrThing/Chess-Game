@@ -83,6 +83,7 @@ public class Board extends JPanel {
         frame.add(Countdown.counterLabel2);
         frame.add(Countdown.scoreCounter);
         frame.add(Countdown.scoreCounter2);
+        frame.add(Countdown.eatScore);
 
 
         try{

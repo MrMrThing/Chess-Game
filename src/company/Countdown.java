@@ -12,9 +12,10 @@ public class Countdown  {
     static JLabel counterLabel2 = new JLabel();
     static JLabel scoreCounter = new JLabel();
     static JLabel scoreCounter2 = new JLabel();
+    static JLabel eatScore = new JLabel();
 
 
-    int elapsedTime = 0-10000;
+    int elapsedTime = 900000-10000;
     int second_down = 1000;
     int points = 0;
     int points2 = 0;
@@ -99,6 +100,12 @@ public class Countdown  {
         scoreCounter2.setBounds(900, 500, 100, 50);
         scoreCounter2.setFont(new Font("Arial", Font.PLAIN,35));
         scoreCounter2.setOpaque(true);
+
+        eatScore.setLayout(null);
+        eatScore.setText("Eat Score");
+        eatScore.setBounds(800, 450, 200, 50);
+        eatScore.setFont(new Font("Arial", Font.PLAIN,35));
+        eatScore.setOpaque(true);
 
 
     }
