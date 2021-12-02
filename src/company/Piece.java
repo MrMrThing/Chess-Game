@@ -122,7 +122,7 @@ class Pawn extends Piece {
 
         ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
 
-        if (g.player.m_turn) { //if player is playing
+        if (g.ai.m_turn) { //if ai is playing
             //if it's the first move it can go two squares forward
             if(this.first_move){
                 this.possiblePositions.add(new Point(this.position.x, this.position.y + 2));
@@ -154,10 +154,11 @@ class Pawn extends Piece {
         }
 
 
-        if (g.ai.m_turn) { //if the com.company.AI is playing
+        //if (g.player.m_turn) { //if the player is playing
 
             if(this.first_move){ //first move: can go down two
                 this.possiblePositions.add(new Point(this.position.x, this.position.y - 2));
+                this.first_move = false;
             }
             //we add the position right in front of our pawn
             this.possiblePositions.add(new Point(this.position.x, this.position.y - 1));
@@ -181,7 +182,7 @@ class Pawn extends Piece {
                     this.possiblePositions.add(p.getPosition());
                 }
             }
-        }
+        //}
         this.displayPossiblePositions();
     }
 }
