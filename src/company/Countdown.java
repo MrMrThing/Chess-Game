@@ -101,7 +101,7 @@ public class Countdown  {
         scoreCounter2.setOpaque(true);
 
         eatScore.setLayout(null);
-        eatScore.setText("Eat Score");
+        eatScore.setText("Scoreboard");
         eatScore.setBounds(800, 450, 200, 50);
         eatScore.setFont(new Font("Arial", Font.PLAIN,35));
         eatScore.setOpaque(true);
