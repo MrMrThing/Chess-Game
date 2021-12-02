@@ -77,8 +77,8 @@ public class Game extends JPanel{
         //Starting with all player 1 pieces in their value order, then same for player 2
         for(int i = 0; i < 8; i++){ //player 1 pawns
 
-            //this.m_pieces.add(new Pawn(new Point(i,6), color));
-            //this.m_positionsTaken.add(new Point(i,6));
+            this.m_pieces.add(new Pawn(new Point(i,6), color));
+            this.m_positionsTaken.add(new Point(i,6));
 
         }
 
