@@ -173,9 +173,9 @@ public class Board extends JPanel {
         
 
         if(selected != null){ //if something has been selected
-
+            selected.emptyPossiblePositions();
             selected.UpdatePossiblePositions(b_game); //Selected is a piece. We update its possible positions
-
+                System.out.println(selected.getPossiblePositions().size());
                 System.out.println(selected);
 
                 if(selected.contains(tempPoint, selected.possiblePositions)){
@@ -227,6 +227,8 @@ public class Board extends JPanel {
             
         }else{ //if nothing has been selected
 
+            //We check for if something is on that clicked tile,
+            //if there is a piece on, set selected to it
             for(int k = 0; k < m_pieces.size(); k++){
                 if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
                     selected = m_pieces.get(k);

@@ -46,7 +46,9 @@ public abstract class Piece{
     abstract void loadBasicPossiblePositions();
 
     abstract void UpdatePossiblePositions(Game g); //the method where we will code the movements of each different piece
-
+    
+    //This method takes a Point and an Array of Points
+    //To check of the Single Point is inside the Array
     public boolean contains(Point pos, ArrayList<Point> points){
         boolean result = false;
 
@@ -58,7 +60,11 @@ public abstract class Piece{
             }
         }
         return result;
-    }   
+    }
+    
+    public void emptyPossiblePositions(){
+        possiblePositions.clear();
+    }
 
 }
 
