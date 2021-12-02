@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 
-import static com.sun.glass.ui.Cursor.setVisible;
+//import static com.sun.glass.ui.Cursor.setVisible;
 
 public class Player extends JPanel{
     Scanner in;
