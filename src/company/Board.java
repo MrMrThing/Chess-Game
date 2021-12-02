@@ -229,12 +229,14 @@ public class Board extends JPanel {
                                 countdown.elapsedTime+=10000;
                                 countdown.timer1.stop();
                                 countdown.timer.start();
+                                System.out.println(m_pieces.get(k).value);
                             }else if(b_game.player.m_color == false && b_game.ai.m_color==true){
                                 countdown.elapsedTime+=10000;
                                 countdown.timer.stop();
                                 countdown.timer1.start();
                                 }
-                                //if(b_game.m_round == 40){
+
+                            //if(b_game.m_round == 40){
                                 //    countdown.elapsedTime+=1000;
                                 //}
                             
@@ -248,12 +250,12 @@ public class Board extends JPanel {
 
                                 
 
-                                // if player eat, increment points
+                                // if player eat, get points accordingly to the pieces value
                                 if(b_game.player.m_color == true && b_game.ai.m_color==false){
-                                    countdown.points++;
-                                    // if ai eat, increment points
+                                    countdown.points += m_pieces.get(k).value;
+                                    // if ai eat, get points accordingly to the pieces value
                                 }else if(b_game.player.m_color == false && b_game.ai.m_color==true) {
-                                    countdown.points2++;
+                                    countdown.points2 += m_pieces.get(k).value;
                                 }
 
                             } 
