@@ -66,6 +66,19 @@ public abstract class Piece{
         possiblePositions.clear();
     }
 
+    //This method displays the infos of possiblePositions
+    public void displayPossiblePositions(){
+        System.out.println("----Here are the possible positions for " + pieceName + "---------\n");
+
+        System.out.println("Number of positions in the array: " + this.possiblePositions.size());
+        System.out.println("Here they are:\n");
+
+        for(int i = 0; i < this.possiblePositions.size(); i++){
+            System.out.println("x = " + this.possiblePositions.get(i).x +
+                    " and y = " + this.possiblePositions.get(i).y + "\n");
+        }
+    }
+
 }
 
 class Pawn extends Piece {
@@ -109,7 +122,7 @@ class Pawn extends Piece {
 
         ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
 
-        if (!g.player.m_turn) { //if player is playing
+        if (g.player.m_turn) { //if player is playing
             //if it's the first move it can go two squares forward
             if(this.first_move){
                 this.possiblePositions.add(new Point(this.position.x, this.position.y + 2));
@@ -169,6 +182,7 @@ class Pawn extends Piece {
                 }
             }
         }
+        this.displayPossiblePositions();
     }
 }
 
@@ -220,16 +234,15 @@ class Knight extends Piece {
                     this.possiblePositions.add(new Point(i, j));
 
                 }
-                //x+2 et y-1
-                if (this.position.getX() + 2 == i && this.position.getY() - 1 == j) {
+                //x-2 et y-1
+                if (this.position.getX() - 2 == i && this.position.getY() - 1 == j) {
                     this.possiblePositions.add(new Point(i, j));
-
                 }
             }
         }
     }
 
-    //The Knight can jump over pieces, so there isn't much to code
+    //This method takes the basic possible positions and removes the one where an ally is
     void UpdatePossiblePositions(Game g) {
         this.loadBasicPossiblePositions(); //we start by getting the positions our piece can take in this move
 

@@ -57,6 +57,8 @@ public class Game extends JPanel{
 
         this.m_round = 0;
         player=new Player(frame);
+
+        //Here the player chooses which color he wants to play
         System.out.println("Do you want to play white or black? Enter 1 for white and 2 for black.");
         boolean color = true; //By default the player 1 will play the white pieces
         int choice;
