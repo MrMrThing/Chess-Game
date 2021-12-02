@@ -38,6 +38,7 @@ public class Board extends JPanel {
     int clickedY = 0;
     Piece selected = null;
     Point tempPoint;
+    JFrame frame;
 
     Game b_game; //the board is connected to the game
 
@@ -85,6 +86,7 @@ public class Board extends JPanel {
         frame.add(Countdown.scoreCounter2);
         frame.add(Countdown.eatScore);
 
+        this.frame = frame;
 
         try{
             BKnight = ImageIO.read(getClass().getResource("/BKnight.png"));
@@ -191,7 +193,7 @@ public class Board extends JPanel {
                 }
             }
 
-            if(tempx == 7){
+            if(tempx == 7){ //we use this to draw the board
                 tempy++;
                 tempx = 0;
             } else{
@@ -277,4 +279,53 @@ public class Board extends JPanel {
 
         }
    }
+
+    public void playGame(Game g) {
+        boolean gameOver = false;
+
+        while (!gameOver) { //while the game isn't over
+            g.m_round++;
+
+            if (g.m_round % 2 == 0) { //if round is even
+                g.ai.m_turn = true;
+
+                while (g.ai.m_turn) {
+                    //wait for mouse event
+                    addMouseListener(new MouseAdapter() {
+                        public void mousePressed(MouseEvent me) {
+                            m_pieces = b_game.getPieces();
+                            clickedX = me.getX() / 100;
+                            clickedY = me.getY() / 100;
+                            clicked = (clickedX + 1) + (clickedY + 1) * 8 - 8;
+
+                            tempPoint = new Point(clickedX, clickedY);
+                            move();
+
+                            frame.repaint();
+                        }
+                    });
+                }
+
+            } else if (g.m_round % 2 != 0) { //if round is odd
+                g.player.m_turn = true;
+
+                while (g.player.m_turn) {
+                    //wait for mouse event
+                    addMouseListener(new MouseAdapter() {
+                        public void mousePressed(MouseEvent me) {
+                            m_pieces = b_game.getPieces();
+                            clickedX = me.getX() / 100;
+                            clickedY = me.getY() / 100;
+                            clicked = (clickedX + 1) + (clickedY + 1) * 8 - 8;
+
+                            tempPoint = new Point(clickedX, clickedY);
+                            move();
+
+                            frame.repaint();
+                        }
+                    });
+                }
+            }
+        }
+    }
 }
