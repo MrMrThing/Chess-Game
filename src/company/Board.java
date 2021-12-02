@@ -131,7 +131,7 @@ public class Board extends JPanel {
         int tempx = 0;
         int tempy = 0;
         for(int i = 1; i < 65; i++){
-            if(i == clicked){
+            if(i == clicked && selected != null){
                 g.setColor(Color.ORANGE);
                 color = !color;
             }
