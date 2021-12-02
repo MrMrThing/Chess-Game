@@ -115,7 +115,8 @@ public class Board extends JPanel {
 
                 frame.repaint();
             } 
-          }); 
+          });
+
     }
 
     
