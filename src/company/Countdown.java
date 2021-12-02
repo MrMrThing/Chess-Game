@@ -12,9 +12,11 @@ public class Countdown  {
     static JLabel counterLabel2 = new JLabel();
     static JLabel scoreCounter = new JLabel();
     static JLabel scoreCounter2 = new JLabel();
+    static JLabel eatScore = new JLabel();
 
 
     int elapsedTime = 900000-10000;
+    int second_down = 1000;
     int points = 0;
     int points2 = 0;
     int second = 0;
@@ -26,9 +28,8 @@ public class Countdown  {
     Timer timer = new Timer(1000, new ActionListener() {
 
         public void actionPerformed(ActionEvent e) {
-
             //elapsed time, count down with 1000 miliseconds
-            elapsedTime = elapsedTime - 1000;
+            elapsedTime = elapsedTime - second_down;
 
             //format the time to militarytime. 
             minute = (elapsedTime / 60000) % 60;
@@ -39,6 +40,12 @@ public class Countdown  {
             // Insert the variables in to the label.
             counterLabel.setText(minuteString + ":" + secondString);
             scoreCounter.setText("" + points);
+
+            // stop the timer, if player/ai has run of time.
+            if(minute==0 && second ==0){
+                timer.stop();
+                System.out.println("You run out of time!");
+            }
 
         }
 
@@ -55,9 +62,10 @@ public class Countdown  {
             minuteString = String.format("%02d", minute);
             counterLabel.setText(minuteString + ":" + secondString);
             scoreCounter2.setText("" + points2);
-
-
-
+            if(minute==0 && second ==0){
+                timer.stop();
+                System.out.println("You run out of time!");
+            }
         }
 
     });
@@ -91,6 +99,12 @@ public class Countdown  {
         scoreCounter2.setBounds(900, 500, 100, 50);
         scoreCounter2.setFont(new Font("Arial", Font.PLAIN,35));
         scoreCounter2.setOpaque(true);
+
+        eatScore.setLayout(null);
+        eatScore.setText("Eat Score");
+        eatScore.setBounds(800, 450, 200, 50);
+        eatScore.setFont(new Font("Arial", Font.PLAIN,35));
+        eatScore.setOpaque(true);
 
 
     }
