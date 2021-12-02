@@ -14,7 +14,8 @@ public class Countdown  {
     static JLabel scoreCounter2 = new JLabel();
 
 
-    int elapsedTime = 900000-10000;
+    int elapsedTime = 0-10000;
+    int second_down = 1000;
     int points = 0;
     int points2 = 0;
     int second = 0;
@@ -28,7 +29,7 @@ public class Countdown  {
         public void actionPerformed(ActionEvent e) {
 
             //elapsed time, count down with 1000 miliseconds
-            elapsedTime = elapsedTime - 1000;
+            elapsedTime = elapsedTime - second_down;
 
             //format the time to militarytime. 
             minute = (elapsedTime / 60000) % 60;
@@ -39,6 +40,12 @@ public class Countdown  {
             // Insert the variables in to the label.
             counterLabel.setText(minuteString + ":" + secondString);
             scoreCounter.setText("" + points);
+
+            // stop the timer, if player/ai has run of time.
+            if(minute==0 && second ==0){
+                timer.stop();
+                System.out.println("You run out of time!");
+            }
 
         }
 
@@ -55,9 +62,10 @@ public class Countdown  {
             minuteString = String.format("%02d", minute);
             counterLabel.setText(minuteString + ":" + secondString);
             scoreCounter2.setText("" + points2);
-
-
-
+            if(minute==0 && second ==0){
+                timer.stop();
+                System.out.println("You run out of time!");
+            }
         }
 
     });
