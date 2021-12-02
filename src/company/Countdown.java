@@ -28,7 +28,6 @@ public class Countdown  {
     Timer timer = new Timer(1000, new ActionListener() {
 
         public void actionPerformed(ActionEvent e) {
-
             //elapsed time, count down with 1000 miliseconds
             elapsedTime = elapsedTime - second_down;
 
