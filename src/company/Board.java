@@ -118,6 +118,8 @@ public class Board extends JPanel {
                 move();
 
                 frame.repaint();
+                selected.emptyPossiblePositions();
+                selected.UpdatePossiblePositions(b_game);
             } 
           });
     }
@@ -169,6 +171,7 @@ public class Board extends JPanel {
                     color = true;
             }
             
+            //Drawing the pieces
             for(int k = 0; k < m_pieces.size(); k++){
 
                 if(m_pieces.get(k).getPositionX() == tempx && m_pieces.get(k).getPositionY() == tempy){
