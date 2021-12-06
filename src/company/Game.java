@@ -1,16 +1,13 @@
 package company;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game extends JPanel{
     float m_round;
-    AI ai = new AI(); //the one playing from down
+    Player player2; //the one playing from down
     Player player; //the one playing from up
     public ArrayList<Point> m_positionsTaken = new ArrayList<>(); //all the positions taken arranged in a certain order
     public ArrayList<Piece> m_pieces = new ArrayList<>(); //all pieces on the board
@@ -57,6 +54,7 @@ public class Game extends JPanel{
 
         this.m_round = 0;
         player=new Player(frame);
+        player2 = new Player(frame);
 
         //Here the player chooses which color he wants to play
         System.out.println("Do you want to play white or black? Enter 1 for white and 2 for black.");
@@ -67,12 +65,12 @@ public class Game extends JPanel{
         if(choice == 1){
             color = true;
             this.player.m_color = true;
-            this.ai.m_color = false;
+            this.player2.m_color = false;
         }
         else if(choice == 2){
             color = false;
             this.player.m_color = false;
-            this.ai.m_color = true;
+            this.player2.m_color = true;
         }
 
         //We place every piece on their starting spot
