@@ -1,15 +1,15 @@
 package company;
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
 
 class CountdownTest {
 
-    @Test
+    /*@Test
     void CountdownTest() {
         Countdown testCoundtown=new Countdown();
         assertEquals(900000, testCoundtown.elapsedTime);
 
-    }
+    }*/
 }

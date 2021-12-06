@@ -122,7 +122,7 @@ class Pawn extends Piece {
 
         ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
 
-        if (g.ai.m_turn) { //if ai is playing
+        if (g.player2.m_turn) { //if ai is playing
             //if it's the first move it can go two squares forward
             if(this.first_move){
                 this.possiblePositions.add(new Point(this.position.x, this.position.y + 2));
@@ -250,14 +250,14 @@ class Knight extends Piece {
         ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
 
         //If there is a same color piece on one of the possible positions, it's not a possible one anymore
-        for (int i = 0; i < this.possiblePositions.size(); i++) {
-            for (Piece p : pieces) {
-                //if there is a piece at one of the possible positions
-                if (p.getPosition() == this.possiblePositions.get(i).getLocation()) {
-                    //if it's the same color
-                    if (p.getColor() == this.color) {
-                        this.possiblePositions.remove(i); //we remove that position from the possibilities
-                    }
+        for (Piece p : pieces) {
+            //if there is a piece at one of the possible positions
+            if (this.possiblePositions.contains(p.getPosition())) {
+
+                //if it's the same color
+                if (p.getColor() == this.color) {
+                    //System.out.println("We are removing this position: " + p.getPositionX() + ", " + p.getPositionY() + "\n");
+                    this.possiblePositions.remove(p.getPosition()); //we remove that position from the possibilities
                 }
             }
         }
@@ -361,6 +361,7 @@ class Bishop extends Piece {
                     }
                 }
             }
+            this.displayPossiblePositions(); //testing
         }
 
     //So we don't have to include the loop each time
@@ -378,37 +379,6 @@ class Bishop extends Piece {
                 }
             }*/
         }
-
-        /*
-        //The bishop can only move in diagonals until it encounters another piece OR the end of the board
-        void move(Game g) {
-            this.loadPossiblePositions(); //we start by getting the positions our piece can take in this move
-
-            ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
-
-            //If there is a same color piece on one of the possible positions, it's not a possible one anymore
-            for (int i = 0; i < this.possiblePositions.size(); i++) {
-                for (Piece p : pieces) {
-                    //if there is a piece at one of the possible positions
-                    if (p.getPosition() == this.possiblePositions.get(i).getLocation()) {
-
-                        //regardless of the color, we delete all positions that come after
-                        for(int h = i+1; h <= this.possiblePositions.size(); h++){
-
-                          //not sure about this if... mathematically it's fine but still some kind of doubt
-                                if (Math.abs(p.getPositionX() - h) == Math.abs(p.getPositionY() - h)) {
-                                    //We delete the position from the array of possible positions
-                                    this.possiblePositions.remove(new Point(h, h));
-                                }
-                        }
-                        //if it's the same color
-                        if (p.getColor() == this.color) {
-                            this.possiblePositions.remove(i); //we remove that position from the possibilities
-                        }
-                    }
-                }
-            }
-        }*/
     }
 
 
@@ -523,40 +493,11 @@ class Rook extends Piece {
             }
         }
     }
-
-    /*void move(Game g) {
-
-        //if there is an obstacle we can't go further
-
-        this.loadPossiblePositions(); //we start by getting the positions our piece can take in this move
-
-        ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
-
-
-        for (int i = 0; i < this.possiblePositions.size(); i++) {
-            for (Piece p : pieces) {
-                //if there is a piece at one of the possible positions
-                if (p.getPosition() == this.possiblePositions.get(i).getLocation()) {
-
-                    //regardless of the color, we delete all positions that come after <-- not sure about this
-                    for(int h = i+1; h <= this.possiblePositions.size(); h++){
-
-                        //if the position h shares its x or y with the piece in i
-                        if(p.getPositionX() + h == this.possiblePositions.get(h).getX() || p.getPositionY() + h == this.possiblePositions.get(h).getY()){
-                            this.possiblePositions.remove(h);
-                        }
-                    }
-                    //If there is a same color piece on one of the possible positions, it's not a possible one anymore
-                    if (p.getColor() == this.color) {
-                        this.possiblePositions.remove(i); //we remove that position from the possibilities
-                    }
-                }
-            }
-        }
-    }*/
 }
 
+///WORK ON QUEEN -> only when rook, bishop and king have been tested
 class Queen extends Piece {
+    //A queen has the same moves as a king, a bishop and a rook
 
     public Queen(Point pos, boolean color) {
         super(pos, color);
@@ -597,27 +538,17 @@ class Queen extends Piece {
                 }
             }
         }
+
     }
 
     void UpdatePossiblePositions(Game g) {
         //move like a king
         this.loadBasicPossiblePositions(); //we start by getting the positions our piece can take in this move
 
-        ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
+        ArrayList<Piece> pieces = g.getPieces(); //we get the pieces from Game
 
-        //If there is a same color piece on one of the possible positions, it's not a possible one anymore
-        for (int i = 0; i < this.possiblePositions.size(); i++) {
-            for (Piece p : pieces) {
-                //if there is a piece at one of the possible positions
-                if (p.getPosition() == this.possiblePositions.get(i).getLocation()) {
 
-                    //if it's the same color
-                    if (p.getColor() == this.color) {
-                        this.possiblePositions.remove(i); //we remove that position from the possibilities
-                    }
-                }
-            }
-        }
+        ///-----Move like rook -----///
 
         //For every piece existing on the board
         for(int a = 0; a < pieces.size(); a++){
@@ -682,8 +613,6 @@ class Queen extends Piece {
             }
         }
 
-        ///-----Move like rook -----///
-
         //For every piece existing on the board
         for(int a = 0; a < pieces.size(); a++){
             //loops to go to the right (only x changes)
@@ -705,7 +634,7 @@ class Queen extends Piece {
             }
         }
 
-        ///-----Move like rook -----///
+        ///-----Move like bishop -----///
 
         //For every piece existing on the board
         for(int a = 0; a < pieces.size(); a++){
@@ -789,6 +718,27 @@ class Queen extends Piece {
                 }
             }
         }
+
+        //--- We delete the positions occupied by an ally ---//
+        //If there is a same color piece on one of the possible positions, it's not a possible one anymore
+        for (Piece p : pieces) {
+            //if there is a piece at one of the possible positions
+            if (this.possiblePositions.contains(p.getPosition())) {
+
+                //if it's the same color
+                if (p.getColor() == this.color) {
+                    //System.out.println("We are removing this position: " + p.getPositionX() + ", " + p.getPositionY() + "\n");
+                    this.possiblePositions.remove(p.getPosition()); //we remove that position from the possibilities
+                }
+            }
+        }
+
+
+
+        this.displayPossiblePositions(); //testing
+        ///PROBLEM 1: says there are 6 pp, but on board 7 are lighting up
+        ///PROBLEM 2: doesn't take the bishop movements
+        ///PROBLEM 3: doesn't delete the occupied spots
     }
 }
 
@@ -841,18 +791,18 @@ class King extends Piece {
         ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
 
         //If there is a same color piece on one of the possible positions, it's not a possible one anymore
-        for (int i = 0; i < this.possiblePositions.size(); i++) {
-            for (Piece p : pieces) {
-                //if there is a piece at one of the possible positions
-                if (p.getPosition() == this.possiblePositions.get(i).getLocation()) {
+        for (Piece p : pieces) {
+            //if there is a piece at one of the possible positions
+            if (this.possiblePositions.contains(p.getPosition())) {
 
-                    //if it's the same color
-                    if (p.getColor() == this.color) {
-                        this.possiblePositions.remove(i); //we remove that position from the possibilities
-                    }
+                //if it's the same color
+                if (p.getColor() == this.color) {
+                    //System.out.println("We are removing this position: " + p.getPositionX() + ", " + p.getPositionY() + "\n");
+                    this.possiblePositions.remove(p.getPosition()); //we remove that position from the possibilities
                 }
             }
         }
+
     }
 }
 

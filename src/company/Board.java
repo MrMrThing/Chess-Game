@@ -2,10 +2,7 @@ package company;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -243,12 +240,12 @@ public class Board extends JPanel {
 
                         if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
                             // if the turn is player and not the ai, then stop ai countdown and start player coundown + 10 seconds.
-                            if(b_game.player.m_color == true && b_game.ai.m_color==false){
+                            if(b_game.player.m_color == true && b_game.player2.m_color==false){
                                 countdown.elapsedTime+=10000;
                                 countdown.timer1.stop();
                                 countdown.timer.start();
                                 System.out.println(m_pieces.get(k).value);
-                            }else if(b_game.player.m_color == false && b_game.ai.m_color==true){
+                            }else if(b_game.player.m_color == false && b_game.player2.m_color==true){
                                 countdown.elapsedTime+=10000;
                                 countdown.timer.stop();
                                 countdown.timer1.start();
@@ -269,10 +266,10 @@ public class Board extends JPanel {
                                 
 
                                 // if player eat, get points accordingly to the pieces value
-                                if(b_game.player.m_color == true && b_game.ai.m_color==false){
+                                if(b_game.player.m_color == true && b_game.player2.m_color==false){
                                     countdown.points += m_pieces.get(k).value;
                                     // if ai eat, get points accordingly to the pieces value
-                                }else if(b_game.player.m_color == false && b_game.ai.m_color==true) {
+                                }else if(b_game.player.m_color == false && b_game.player2.m_color==true) {
                                     countdown.points2 += m_pieces.get(k).value;
                                 }
 
@@ -306,16 +303,18 @@ public class Board extends JPanel {
         }
    }
 
-    public void playGame(Game g) {
+   //This method manages the rounds and turns
+   //It also will manage the different situations of the game ending
+   public void playGame(Game g) { ///WHERE TO CALL IT? take care when all pieces move well
         boolean gameOver = false;
 
         while (!gameOver) { //while the game isn't over
             g.m_round++;
 
-            if (g.m_round % 2 == 0) { //if round is even
-                g.ai.m_turn = true;
+            if (g.m_round % 2 == 0) { //if round is even, player2 is playing
+                g.player2.m_turn = true;
 
-                while (g.ai.m_turn) {
+                while (g.player2.m_turn) {
                     //wait for mouse event
                     addMouseListener(new MouseAdapter() {
                         public void mousePressed(MouseEvent me) {
@@ -332,7 +331,7 @@ public class Board extends JPanel {
                     });
                 }
 
-            } else if (g.m_round % 2 != 0) { //if round is odd
+            } else if (g.m_round % 2 != 0) { //if round is odd, player1 is playing
                 g.player.m_turn = true;
 
                 while (g.player.m_turn) {
@@ -353,5 +352,5 @@ public class Board extends JPanel {
                 }
             }
         }
-    }
+   }
 }
