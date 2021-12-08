@@ -409,7 +409,6 @@ class Rook extends Piece {
             //loops for the way down (only y changes)
             //we go through all positions between our selected rook and the end of the board
 
-        //--- Rook going downwards (y increases) ---//
 
         int downwardY = this.position.y + 1; //we start with the first square in the direction we want to go
         do{
@@ -574,89 +573,107 @@ class Queen extends Piece {
 
         ///-----Move like rook -----///
 
-        //For every piece existing on the board
-        for(int a = 0; a < pieces.size(); a++){
-            //loops for the way up (only y changes)
-            //we go through all positions between our selected rook and the end of the board
-            for(int j = this.position.y; j < 8; j++){
-                Point pos = new Point(this.position.x, j);
+        ArrayList<Point> positionsTaken = new ArrayList<>();
 
-                //In the case where there is a piece in this position, we check its color
-                //if it is different from our rook
-                if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
-                    this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
-
-                } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in the current position
-                    break; //we get out of this loop because this position isn't available
-
-                } else{
-                    this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
-                }
-            }
+        //We get all the positions taken by pieces
+        for(Piece p : pieces){
+            positionsTaken.add(p.getPosition());
         }
 
-        //For every piece existing on the board
-        for(int a = 0; a < pieces.size(); a++){
-            //loops for the way down (only y changes)
-            //we go through all positions between our selected rook and the end of the board
-            for(int j = this.position.y; j == 0; j--){
-                Point pos = new Point(this.position.x, j);
-
-                //In the case where there is a piece in this position, we check its color
-                //if it is different from our rook
-                if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
-                    this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
-
-                } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in the current position
-                    break; //we get out of this loop because this position isn't available
-
-                } else{
-                    this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
-                }
-            }
-        }
+        //--- Rook going downwards (y increases) ---//
 
         //For every piece existing on the board
-        for(int a = 0; a < pieces.size(); a++){
-            //loops to go to the left (only x changes)
-            //we go through all positions between our selected rook and the end of the board
-            for(int i = this.position.x; i == 0; i--){
-                Point pos = new Point(i, this.position.y);
+        //loops for the way down (only y changes)
+        //we go through all positions between our selected rook and the end of the board
 
-                //In the case where there is a piece in this position, we check its color
-                //if it is different from our rook
-                if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
-                    this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
 
-                } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in the current position
-                    break; //we get out of this loop because this position isn't available
+        int downwardY = this.position.y + 1; //we start with the first square in the direction we want to go
+        do{
+            Point pos = new Point(this.position.x, downwardY);
 
-                } else{
-                    this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+            if (positionsTaken.contains(pos)) { //If that position is taken
+                for (Piece p : pieces) { //we go through the pieces
+                    if (p.getPosition() == pos && p.color != this.color) { //we find that position again and check the color
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc diff color
+                    }else{
+                        System.out.println("not added bc same color");
+                    }
                 }
+                downwardY= 7; //we get out of the loop when we encounter a piece bc we can't jump over it
+            } else {
+                this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc no piece is there
             }
-        }
 
-        //For every piece existing on the board
-        for(int a = 0; a < pieces.size(); a++){
-            //loops to go to the right (only x changes)
-            //we go through all positions between our selected rook and the end of the board
-            for(int i = this.position.x; i < 8; i++){
-                Point pos = new Point(i, this.position.y);
+            downwardY++; //we decrease posy
+        }while(downwardY <= 7);
 
-                //In the case where there is a piece in this position, we check its color
-                //if it is different from our rook
-                if(pos == pieces.get(a).getPosition() && pieces.get(a).color != this.color){
-                    this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
 
-                } else if(pos == pieces.get(a).getPosition()){ //if there is a piece in the current position
-                    break; //we get out of this loop because this position isn't available
+        //--- Rook going upwards (y decreases) ---//
 
-                } else{
-                    this.possiblePositions.add(pos); //we add this position to the possible ones for our rook
+        int upwardY = this.position.y - 1; //we start with the first square in the direction we want to go
+        do{
+            Point pos = new Point(this.position.x, upwardY);
+
+            if (positionsTaken.contains(pos)) { //If that position is taken
+                for (Piece p : pieces) { //we go through the pieces
+                    if (p.getPosition() == pos && p.color != this.color) { //we find that position again and check the color
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc diff color
+                    }else{
+                        System.out.println("not added bc same color");
+                    }
                 }
+                upwardY = 0; //we get out of the loop when we encounter a piece bc we can't jump over it
+            } else {
+                this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc no piece is there
             }
-        }
+
+            upwardY--; //we decrease posy
+        }while(upwardY >= 0);
+
+
+        //--- Rook going to the left (x decreases) ---//
+
+        int XtoLeft = this.position.x - 1; //we start with the first square in the direction we want to go
+        do{
+            Point pos = new Point(XtoLeft, this.position.y);
+
+            if (positionsTaken.contains(pos)) { //If that position is taken
+                for (Piece p : pieces) { //we go through the pieces
+                    if (p.getPosition() == pos && p.color != this.color) { //we find that position again and check the color
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc diff color
+                    }else{
+                        System.out.println("not added bc same color");
+                    }
+                }
+                XtoLeft = 0; //we get out of the loop when we encounter a piece bc we can't jump over it
+            } else {
+                this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc no piece is there
+            }
+
+            XtoLeft--; //we decrease posy
+        }while(XtoLeft >= 0);
+
+        //--- Rook going to the right (x increases) ---//
+
+        int XtoRight = this.position.x + 1; //we start with the first square in the direction we want to go
+        do{
+            Point pos = new Point(XtoRight, this.position.y);
+
+            if (positionsTaken.contains(pos)) { //If that position is taken
+                for (Piece p : pieces) { //we go through the pieces
+                    if (p.getPosition() == pos && p.color != this.color) { //we find that position again and check the color
+                        this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc diff color
+                    }else{
+                        System.out.println("not added bc same color");
+                    }
+                }
+                XtoRight = 7; //we get out of the loop when we encounter a piece bc we can't jump over it
+            } else {
+                this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc no piece is there
+            }
+
+            XtoRight++; //we decrease posy
+        }while(XtoRight <= 7);
 
         ///-----Move like bishop -----///
 
