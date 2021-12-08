@@ -448,11 +448,9 @@ class Rook extends Piece {
                 for (Piece p : pieces) { //we go through the pieces
                     if (p.getPosition() == pos && p.color != this.color) { //we find that position again and check the color
                         this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc diff color
-                    }else{
-                        System.out.println("not added bc same color");
                     }
                 }
-                downwardY= 7; //we get out of the loop when we encounter a piece bc we can't jump over it
+                downwardY= 8; //we get out of the loop when we encounter a piece bc we can't jump over it
             } else {
                 this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc no piece is there
             }
@@ -467,17 +465,20 @@ class Rook extends Piece {
         do{
             Point pos = new Point(this.position.x, upwardY);
 
+
             if (positionsTaken.contains(pos)) { //If that position is taken
                 for (Piece p : pieces) { //we go through the pieces
-                    System.out.println("checking " + p.getPosition());
+                    System.out.println("\ncurrently studying piece " + p.getPosition() + ", color is " + p.color);
+                    if(p.getPosition() == pos){
+                        System.out.println("can i eat that?");
+                    }
+
                     if (p.getPosition() == pos && p.color != this.color) { //we find that position again and check the color
                         this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc diff color
                         System.out.println("we can eat here: " + pos);
-                    }else{
-                        System.out.println("not added bc same color");
                     }
                 }
-                upwardY = 0; //we get out of the loop when we encounter a piece bc we can't jump over it
+                upwardY = -1; //we get out of the loop when we encounter a piece bc we can't jump over it
             } else {
                 this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc no piece is there
             }
@@ -496,11 +497,9 @@ class Rook extends Piece {
                 for (Piece p : pieces) { //we go through the pieces
                     if (p.getPosition() == pos && p.color != this.color) { //we find that position again and check the color
                         this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc diff color
-                    }else{
-                        System.out.println("not added bc same color");
                     }
                 }
-                XtoLeft = 0; //we get out of the loop when we encounter a piece bc we can't jump over it
+                XtoLeft = -1; //we get out of the loop when we encounter a piece bc we can't jump over it
             } else {
                 this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc no piece is there
             }
@@ -518,11 +517,9 @@ class Rook extends Piece {
                 for (Piece p : pieces) { //we go through the pieces
                     if (p.getPosition() == pos && p.color != this.color) { //we find that position again and check the color
                         this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc diff color
-                    }else{
-                        System.out.println("not added bc same color");
                     }
                 }
-                XtoRight = 7; //we get out of the loop when we encounter a piece bc we can't jump over it
+                XtoRight = 8; //we get out of the loop when we encounter a piece bc we can't jump over it
             } else {
                 this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc no piece is there
             }
