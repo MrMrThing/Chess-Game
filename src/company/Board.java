@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Board extends JPanel {
 
@@ -148,6 +149,7 @@ public class Board extends JPanel {
             //Make sure selected is not null
             //and check if the current tile is inside the selecteds getPossiblePosition
             else if (selected != null && selected.contains(drawPoint, selected.getPossiblePositions())){
+                //Here we color in green all the positions our piece can take
                 g.setColor(green);
                 color = !color;
             }
@@ -231,14 +233,15 @@ public class Board extends JPanel {
         if(selected != null){ //if something has been selected
             selected.emptyPossiblePositions();
             selected.UpdatePossiblePositions(b_game); //Selected is a piece. We update its possible positions
-                System.out.println(selected.getPossiblePositions().size());
-                System.out.println(selected);
+                System.out.println("size of PP: " + selected.getPossiblePositions().size());
+                System.out.println(" piece selected is " +selected);
 
                 
                 System.out.println(selected.getPossiblePositions());
                 
 
-                if(selected.contains(tempPoint, selected.possiblePositions)){
+                if(selected.contains(tempPoint, selected.possiblePositions)){ //if tempPoint is in PP
+
                     for(int k = 0; k < m_pieces.size(); k++){
 
                         if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
@@ -264,6 +267,16 @@ public class Board extends JPanel {
         
                             if(m_pieces.get(k).getColor() != selected.getColor()){ //if the color of the piece is different from our knight
                                 m_pieces.remove(m_pieces.get(k)); //we delete the piece
+
+                                if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
+                                    if(selected.getFirstMove()){ //if it's its first move
+                                        //if the future position is 2 squares upward or downward, it was the first move of the pawn
+                                        if(clickedY == selected.position.y+2 || clickedY == selected.position.y-2){
+                                            selected.setFirstMove(false); //first move was played, not gonna be available anymore
+                                        }
+                                    }
+                                }
+
                                 selected.setPosition(clickedX, clickedY); //we move our knight there
 
                                 
@@ -278,6 +291,14 @@ public class Board extends JPanel {
 
                             } 
                         } else {
+                            if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
+                                if(selected.getFirstMove()){ //if it's its first move
+                                    //if the future position is 2 squares upward or downward, it was the first move of the pawn
+                                    if(clickedY == selected.position.y+2 || clickedY == selected.position.y-2){
+                                        selected.setFirstMove(false); //first move was played, not gonna be available anymore
+                                    }
+                                }
+                            }
                             selected.setPosition(clickedX, clickedY); //we move the knight there
                         }
                     } 

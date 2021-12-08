@@ -9,6 +9,7 @@ public abstract class Piece{
     double value;
     Boolean color;
     String pieceName;
+    Boolean first_move;
     ArrayList<Point> possiblePositions = new ArrayList<>(); //this is the array where we'll put the positions our piece
     //can take regardless of the positions already taken
 
@@ -16,10 +17,14 @@ public abstract class Piece{
 
         this.position = pos;
         this.color = color;
+        this.first_move = false; //for all pieces except pawn, first move is always false
     }
 
     public boolean getColor(){return this.color; }
 
+    public boolean getFirstMove(){return this.first_move; }
+
+    public void setFirstMove(boolean fm){this.first_move = fm; }
 
     //Command to set a new position for the piece
     public void setPosition(Integer posX, Integer posY){
@@ -83,8 +88,6 @@ public abstract class Piece{
 
 class Pawn extends Piece {
 
-    boolean first_move ;
-
     public Pawn(Point pos, boolean color) { //creation of a Pawn
         super(pos, color);
         this.value = 1;
@@ -122,11 +125,10 @@ class Pawn extends Piece {
 
         ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
 
-        if (g.player2.m_turn) { //if ai is playing
+        if (g.player2.m_turn) { //if player2 is playing
             //if it's the first move it can go two squares forward
             if(this.first_move){
                 this.possiblePositions.add(new Point(this.position.x, this.position.y + 2));
-                this.first_move = false;
             }
 
             //we add the position right in front of our pawn
@@ -156,9 +158,8 @@ class Pawn extends Piece {
 
         //if (g.player.m_turn) { //if the player is playing
 
-            if(this.first_move){ //first move: can go down two
+            if(this.first_move){ //first move: can go up two
                 this.possiblePositions.add(new Point(this.position.x, this.position.y - 2));
-                this.first_move = false;
             }
             //we add the position right in front of our pawn
             this.possiblePositions.add(new Point(this.position.x, this.position.y - 1));
