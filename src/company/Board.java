@@ -115,8 +115,11 @@ public class Board extends JPanel {
                 move();
 
                 frame.repaint();
-                selected.emptyPossiblePositions();
-                selected.UpdatePossiblePositions(b_game);
+
+                if(selected != null){
+                    selected.emptyPossiblePositions();
+                    selected.UpdatePossiblePositions(b_game);
+                }
             } 
           });
     }
