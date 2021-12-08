@@ -271,9 +271,9 @@ public class Board extends JPanel {
                                 if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
                                     if(selected.getFirstMove()){ //if it's its first move
                                         //if the future position is 2 squares upward or downward, it was the first move of the pawn
-                                        if(clickedY == selected.position.y+2 || clickedY == selected.position.y-2){
+
                                             selected.setFirstMove(false); //first move was played, not gonna be available anymore
-                                        }
+
                                     }
                                 }
 
@@ -294,9 +294,9 @@ public class Board extends JPanel {
                             if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
                                 if(selected.getFirstMove()){ //if it's its first move
                                     //if the future position is 2 squares upward or downward, it was the first move of the pawn
-                                    if(clickedY == selected.position.y+2 || clickedY == selected.position.y-2){
-                                        selected.setFirstMove(false); //first move was played, not gonna be available anymore
-                                    }
+
+                                    selected.setFirstMove(false); //first move was played, not gonna be available anymore
+
                                 }
                             }
                             selected.setPosition(clickedX, clickedY); //we move the knight there

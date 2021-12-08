@@ -463,14 +463,16 @@ class Rook extends Piece {
 
         //--- Rook going upwards (y decreases) ---//
 
-        int upwardY = this.position.y - 1; //we start with the first square in the direction we want to go
+        int upwardY = this.position.y -1; //we start with the first square in the direction we want to go
         do{
             Point pos = new Point(this.position.x, upwardY);
 
             if (positionsTaken.contains(pos)) { //If that position is taken
                 for (Piece p : pieces) { //we go through the pieces
+                    System.out.println("checking " + p.getPosition());
                     if (p.getPosition() == pos && p.color != this.color) { //we find that position again and check the color
                         this.possiblePositions.add(pos); //we add this position to the possible ones for our rook bc diff color
+                        System.out.println("we can eat here: " + pos);
                     }else{
                         System.out.println("not added bc same color");
                     }
