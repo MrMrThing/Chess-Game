@@ -251,7 +251,7 @@ public class Board extends JPanel {
                                 countdown.elapsedTime+=10000;
                                 countdown.timer1.stop();
                                 countdown.timer.start();
-                                System.out.println(m_pieces.get(k).value);
+                                //System.out.println(m_pieces.get(k).value);
                             }else if(b_game.player.m_color == false && b_game.player2.m_color==true){
                                 countdown.elapsedTime+=10000;
                                 countdown.timer.stop();
