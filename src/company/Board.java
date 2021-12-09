@@ -249,24 +249,26 @@ public class Board extends JPanel {
 
                         if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
                             // if the turn is player and not the ai, then stop ai countdown and start player coundown + 10 seconds.
-                            if(current_turn_color == true){
+                            if(current_turn_color == false){
                                 countdown.elapsedTime+=10000;
                                 countdown.timer1.stop();
                                 countdown.timer.start();
-                                System.out.println(m_pieces.get(k).value);
+                                System.out.println("value of piece: "+ m_pieces.get(k).value);
                             }else {
                                 countdown.elapsedTime+=10000;
                                 countdown.timer.stop();
                                 countdown.timer1.start();
-                                }
+                                System.out.println("value of piece1: "+ m_pieces.get(k).value);
+
+                            }
 
                             //if(b_game.m_round == 40){
                                 //    countdown.elapsedTime+=1000;
                                 //}
                             
 
-                            System.out.println(m_pieces.get(k).getColor());
-                            System.out.println(selected.getColor());
+                            //System.out.println(m_pieces.get(k).getColor());
+                            //System.out.println(selected.getColor());
         
                             if(m_pieces.get(k).getColor() != selected.getColor()){ //if the color of the piece is different from our knight
                                 m_pieces.remove(m_pieces.get(k)); //we delete the piece
@@ -279,20 +281,17 @@ public class Board extends JPanel {
 
                                     }
                                 }
-                                
-                                selected.setPosition(clickedX, clickedY); //we move the piece here
-                                System.out.println("Hello world");
-                                current_turn_color = !current_turn_color;
-                                
-                                
-
                                 // if player eat, get points accordingly to the pieces value
-                                if(current_turn_color == true){
+                                if(current_turn_color == false){
                                     countdown.points += m_pieces.get(k).value;
                                     // if ai eat, get points accordingly to the pieces value
                                 }else {
                                     countdown.points2 += m_pieces.get(k).value;
                                 }
+
+                                selected.setPosition(clickedX, clickedY); //we move the piece here
+                                System.out.println("Hello world");
+                                current_turn_color = !current_turn_color;
                                 break;
                             } 
                         } else {

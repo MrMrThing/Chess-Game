@@ -2,6 +2,7 @@ package company;
 
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,6 +34,7 @@ class BoardTest {
 
     @Test
     void move() {
+        Board testBoard = new Board(new JFrame());
 
     }
 }
