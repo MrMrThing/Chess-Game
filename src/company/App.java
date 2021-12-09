@@ -4,8 +4,11 @@ import javax.swing.*;
 
 public class App {
     public static void main(String[] args) {
-       JFrame frame = new JFrame();
+        //We create our frame
+        //We will use this same frame for everything
+        JFrame frame = new JFrame();
         frame.setSize(1000,1000);
+        //We call the menu
         frame.getContentPane().add(new Menu(frame));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

@@ -1,4 +1,4 @@
-package company;
+/*package company;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,4 +15,4 @@ class BoardTest {
         Piece testPiece = new Rook(new Point(0,0), false);
             assertNotNull(testPiece.position);
     }
-}
+}*/

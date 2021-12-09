@@ -6,10 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-//import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
-
 public class Menu extends JPanel implements ActionListener {
-
     public Menu(JFrame frame){
 
         //Fonts
@@ -47,6 +44,8 @@ public class Menu extends JPanel implements ActionListener {
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.NORTH;
 
+        //Add Title
+
         JLabel menuTitle = new JLabel("AI CHESS");
         menuTitle.setForeground(Color.DARK_GRAY);
         menuTitle.setFont(f1);
@@ -80,34 +79,24 @@ public class Menu extends JPanel implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         //Add actionListener for each button
-        start.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Board b= new Board(frame);
-                frame.getContentPane().add(b);
-                setVisible(false);
-                b.setVisible(true);
-            }
+        start.addActionListener(e1 -> {
+            Board b1 = new Board(frame);
+            frame.getContentPane().add(b1);
+            setVisible(false);
+            b1.setVisible(true);
         });
-        rules.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Rules b= new Rules(frame);
-                frame.getContentPane().add(b);
-                setVisible(false);
-                b.setVisible(true);
-            }
+        rules.addActionListener(e12 -> {
+            Rules b12 = new Rules(frame);
+            frame.getContentPane().add(b12);
+            setVisible(false);
+            b12.setVisible(true);
         });
-        exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        exit.addActionListener(e13 -> System.exit(0));
 
         JPanel buttons = new JPanel(gbl);
 
         buttons.setBackground(new Color(239,223,187));
+
         //Add buttons to JPanel
         buttons.add(start, gbc);
         buttons.add(rules, gbc);
