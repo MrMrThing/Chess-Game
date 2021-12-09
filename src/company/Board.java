@@ -177,39 +177,40 @@ public class Board extends JPanel {
             }
             
             //Drawing the pieces
-            for (Piece m_piece : m_pieces) {
+            for(int k = 0; k < m_pieces.size(); k++){
 
-                if (m_piece.getPositionX() == tempx && m_piece.getPositionY() == tempy) {
+                if(m_pieces.get(k).getPositionX() == tempx && m_pieces.get(k).getPositionY() == tempy){
 
-                    if (m_piece.getColor()) {
-                        if (m_piece.toString().contains("Pawn")) {
-                            g.drawImage(WPawn, tempx * 100 + 20, tempy * 100 + 20, null);
-                        } else if (m_piece.toString().contains("King")) {
-                            g.drawImage(WKing, tempx * 100 + 20, tempy * 100 + 20, null);
-                        } else if (m_piece.toString().contains("Knight")) {
-                            g.drawImage(WKnight, tempx * 100 + 20, tempy * 100 + 20, null);
-                        } else if (m_piece.toString().contains("Queen")) {
-                            g.drawImage(WQueen, tempx * 100 + 20, tempy * 100 + 20, null);
-                        } else if (m_piece.toString().contains("Bishop")) {
-                            g.drawImage(WBishop, tempx * 100 + 20, tempy * 100 + 20, null);
-                        } else if (m_piece.toString().contains("Rook")) {
-                            g.drawImage(WRook, tempx * 100 + 20, tempy * 100 + 20, null);
+                    if(m_pieces.get(k).getColor()){
+                        if(m_pieces.get(k).toString().contains("Pawn")){
+                            g.drawImage(WPawn, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("King")){
+                            g.drawImage(WKing, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Knight")){
+                            g.drawImage(WKnight, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Queen")){
+                            g.drawImage(WQueen, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Bishop")){
+                            g.drawImage(WBishop, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Rook")){
+                            g.drawImage(WRook, tempx*100 + 20, tempy*100 + 20, null);
                         }
-                    } else {
-                        if (m_piece.toString().contains("Pawn")) {
-                            g.drawImage(BPawn, tempx * 100 + 20, tempy * 100 + 20, null);
-                        } else if (m_piece.toString().contains("King")) {
-                            g.drawImage(BKing, tempx * 100 + 20, tempy * 100 + 20, null);
-                        } else if (m_piece.toString().contains("Knight")) {
-                            g.drawImage(BKnight, tempx * 100 + 20, tempy * 100 + 20, null);
-                        } else if (m_piece.toString().contains("Queen")) {
-                            g.drawImage(BQueen, tempx * 100 + 20, tempy * 100 + 20, null);
-                        } else if (m_piece.toString().contains("Bishop")) {
-                            g.drawImage(BBishop, tempx * 100 + 20, tempy * 100 + 20, null);
-                        } else if (m_piece.toString().contains("Rook")) {
-                            g.drawImage(BRook, tempx * 100 + 20, tempy * 100 + 20, null);
+                    } else{
+                        if(m_pieces.get(k).toString().contains("Pawn")){
+                            g.drawImage(BPawn, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("King")){
+                            g.drawImage(BKing, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Knight")){
+                            g.drawImage(BKnight, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Queen")){
+                            g.drawImage(BQueen, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Bishop")){
+                            g.drawImage(BBishop, tempx*100 + 20, tempy*100 + 20, null);
+                        } else if (m_pieces.get(k).toString().contains("Rook")){
+                            g.drawImage(BRook, tempx*100 + 20, tempy*100 + 20, null);
                         }
                     }
+
 
 
                 }
@@ -248,7 +249,7 @@ public class Board extends JPanel {
 
                         if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
                             // if the turn is player and not the ai, then stop ai countdown and start player coundown + 10 seconds.
-                            if(current_turn_color){
+                            if(current_turn_color == true){
                                 countdown.elapsedTime+=10000;
                                 countdown.timer1.stop();
                                 countdown.timer.start();
@@ -286,7 +287,7 @@ public class Board extends JPanel {
                                 
 
                                 // if player eat, get points accordingly to the pieces value
-                                if(current_turn_color){
+                                if(current_turn_color == true){
                                     countdown.points += m_pieces.get(k).value;
                                     // if ai eat, get points accordingly to the pieces value
                                 }else {
@@ -324,10 +325,10 @@ public class Board extends JPanel {
 
             //We check for if something is on that clicked tile,
             //if there is a piece on, set selected to it
-            for (Piece m_piece : m_pieces) {
-                if (m_piece.getPositionX() == clickedX && m_piece.getPositionY() == clickedY) {
-                    if (m_piece.getColor() == current_turn_color) { //Checking if the selected piece is the right color
-                        selected = m_piece;
+            for(int k = 0; k < m_pieces.size(); k++){
+                if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
+                    if(m_pieces.get(k).getColor() == current_turn_color){ //Checking if the selected piece is the right color
+                        selected = m_pieces.get(k);
                     }
 
                 }

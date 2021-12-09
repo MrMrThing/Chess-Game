@@ -57,9 +57,9 @@ public abstract class Piece{
     public boolean contains(Point pos, ArrayList<Point> points){
         boolean result = false;
 
-        for (Point point : points) {
+        for(int i = 0; i < points.size(); i++){
 
-            if (point.equals(pos)) {
+            if(points.get(i).equals(pos)){
                 result = true;
                 break;
             }
@@ -78,9 +78,9 @@ public abstract class Piece{
         System.out.println("Number of positions in the array: " + this.possiblePositions.size());
         System.out.println("Here they are:\n");
 
-        for (Point possiblePosition : this.possiblePositions) {
-            System.out.println("x = " + possiblePosition.x +
-                    " and y = " + possiblePosition.y + "\n");
+        for(int i = 0; i < this.possiblePositions.size(); i++){
+            System.out.println("x = " + this.possiblePositions.get(i).x +
+                    " and y = " + this.possiblePositions.get(i).y + "\n");
         }
     }
 
@@ -622,7 +622,7 @@ class Rook extends Piece {
     }
 }
 
-
+///WORK ON QUEEN -> only when rook, bishop and king have been tested
 class Queen extends Piece {
     //A queen has the same moves as a king, a bishop and a rook
 
@@ -634,10 +634,42 @@ class Queen extends Piece {
 
 
     @Override
-    void loadBasicPossiblePositions() {}
+    void loadBasicPossiblePositions() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+
+                //She can do the movements of the King
+                //go left or right by one
+                if (i < this.position.getX() + 2 && i > this.position.getX() - 2 && j == this.position.getY()) {
+                    this.possiblePositions.add(new Point(i, j));
+
+                    //go up or down by one
+                } else if (j < this.position.getY() + 2 && j > this.position.getY() - 2 && i == this.position.getX()) {
+                    this.possiblePositions.add(new Point(i, j));
+
+                    //right up corner
+                } else if (i == this.position.getX() + 1 && j == this.position.getY() + 1) {
+                    this.possiblePositions.add(new Point(i, j));
+
+                    //right down corner
+                } else if (i == this.position.getX() + 1 && j == this.position.getY() - 1) {
+                    this.possiblePositions.add(new Point(i, j));
+
+                    //left up corner
+                } else if (i == this.position.getX() - 1 && j == this.position.getY() + 1) {
+                    this.possiblePositions.add(new Point(i, j));
+
+                    //left down corner
+                } else if (i == this.position.getX() - 1 && j == this.position.getY() - 1) {
+                    this.possiblePositions.add(new Point(i, j));
+                }
+            }
+        }
+
+    }
 
     void UpdatePossiblePositions(Game g) {
-
+        //move like a king
         this.loadBasicPossiblePositions(); //we start by getting the positions our piece can take in this move
 
         ArrayList<Piece> pieces = g.getPieces(); //we get the pieces from Game

@@ -51,20 +51,24 @@ public class Countdown  {
 
     });
     // The same as time above
-    Timer timer1 = new Timer(1000, e -> {
+    Timer timer1 = new Timer(1000, new ActionListener() {
 
-        elapsedTime = elapsedTime - 1000;
-        minute = (elapsedTime / 60000) % 60;
-        second = (elapsedTime / 1000) % 60;
-        secondString = String.format("%02d", second);
-        minuteString = String.format("%02d", minute);
-        counterLabel.setText(minuteString + ":" + secondString);
-        scoreCounter2.setText("" + points2);
+        public void actionPerformed(ActionEvent e) {
 
-        if(minute==0 && second ==0){
-            timer.stop();
-            System.out.println("You run out of time!");
+            elapsedTime = elapsedTime - 1000;
+            minute = (elapsedTime / 60000) % 60;
+            second = (elapsedTime / 1000) % 60;
+            secondString = String.format("%02d", second);
+            minuteString = String.format("%02d", minute);
+            counterLabel.setText(minuteString + ":" + secondString);
+            scoreCounter2.setText("" + points2);
+
+            if(minute==0 && second ==0){
+                timer.stop();
+                System.out.println("You run out of time!");
+            }
         }
+
     });
 
     Countdown() {

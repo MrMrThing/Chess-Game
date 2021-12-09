@@ -58,11 +58,12 @@ public class Game extends JPanel{
 
         //Here the player chooses which color he wants to play
         System.out.println("Do you want to play white or black? Enter 1 for white and 2 for black.");
-        boolean color = true; //By default, the player 1 will play the white pieces
+        boolean color = true; //By default the player 1 will play the white pieces
         int choice;
         Scanner input = new Scanner(System.in);
         choice = input.nextInt();
         if(choice == 1){
+            color = true;
             this.player.m_color = true;
             this.player2.m_color = false;
         }
