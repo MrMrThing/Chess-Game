@@ -287,10 +287,10 @@ public class Board extends JPanel {
                                 
 
                                 // if player eat, get points accordingly to the pieces value
-                                if(b_game.player.m_color == true && b_game.player2.m_color==false){
+                                if(current_turn_color == true){
                                     countdown.points += m_pieces.get(k).value;
                                     // if ai eat, get points accordingly to the pieces value
-                                }else if(b_game.player.m_color == false && b_game.player2.m_color==true) {
+                                }else {
                                     countdown.points2 += m_pieces.get(k).value;
                                 }
                                 break;

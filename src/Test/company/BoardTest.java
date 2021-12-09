@@ -31,4 +31,8 @@ class BoardTest {
     }
 
 
+    @Test
+    void move() {
+
+    }
 }

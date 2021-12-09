@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 
+import java.time.Duration;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CountdownTest {
