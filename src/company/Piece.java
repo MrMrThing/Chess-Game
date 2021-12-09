@@ -125,7 +125,7 @@ class Pawn extends Piece {
 
         ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
 
-        if (!this.color) { //if the pawn is black
+        if (!this.color && g.player2.m_color == this.color) { //if the pawn is black and player2 has black
             //if it's the first move it can go two squares forward
             if(this.first_move){
                 this.possiblePositions.add(new Point(this.position.x, this.position.y + 2));
@@ -155,8 +155,67 @@ class Pawn extends Piece {
             }
         }
 
+        if (this.color && g.player2.m_color == this.color) { //if the pawn is white and player2 has it
+            //if it's the first move it can go two squares forward
+            if(this.first_move){
+                this.possiblePositions.add(new Point(this.position.x, this.position.y + 2));
+            }
 
-        if (this.color) { //if the pawn is white
+            //we add the position right in front of our pawn
+            this.possiblePositions.add(new Point(this.position.x, this.position.y + 1));
+
+
+            //We check for all pieces
+            for (Piece p : pieces) {
+                //if there is a piece right in front of the pawn, this position isn't available to the pawn anymore
+                if (this.position.getX() == p.getPositionX() && this.position.getY() + 1 == p.getPositionY()) {
+                    this.possiblePositions.remove(p.getPosition());
+
+                }
+
+                //if there is an enemy upper right, we can eat it
+                if(p.color != this.color && this.position.x + 1 == p.getPositionX() && this.position.y + 1 == p.getPositionY()){
+                    this.possiblePositions.add(p.getPosition());
+                }
+
+                //if there is an enemy upper left
+                if(p.color != this.color && this.position.x - 1 == p.getPositionX() && this.position.y + 1 == p.getPositionY()){
+                    this.possiblePositions.add(p.getPosition());
+                }
+            }
+        }
+
+
+        if (this.color && g.player.m_color == this.color) { //if the pawn is white and played by player1
+
+            if(this.first_move){ //first move: can go up two
+                this.possiblePositions.add(new Point(this.position.x, this.position.y - 2));
+            }
+            //we add the position right in front of our pawn
+            this.possiblePositions.add(new Point(this.position.x, this.position.y - 1));
+
+
+            //We check for all pieces
+            for (Piece p : pieces) {
+                //if there is a piece right in front of the pawn, this position isn't available to the pawn anymore
+                if (this.position.getX() == p.getPositionX() && this.position.getY() - 1 == p.getPositionY()) {
+                    this.possiblePositions.remove(p.getPosition());
+
+                }
+
+                //if there is an enemy down-right, we can eat it
+                if(p.color != this.color && this.position.x + 1 == p.getPositionX() && this.position.y - 1 == p.getPositionY()){
+                    this.possiblePositions.add(p.getPosition());
+                }
+
+                //if there is an enemy down-left
+                if(p.color != this.color && this.position.x - 1 == p.getPositionX() && this.position.y - 1 == p.getPositionY()){
+                    this.possiblePositions.add(p.getPosition());
+                }
+            }
+        }
+
+        if (!this.color && g.player.m_color == this.color) { //if the pawn is black and played by player1
 
             if(this.first_move){ //first move: can go up two
                 this.possiblePositions.add(new Point(this.position.x, this.position.y - 2));
