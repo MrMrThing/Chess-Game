@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class Countdown  {
+public class Countdown {
 
     static JLabel counterLabel = new JLabel();
     static JLabel counterLabel2 = new JLabel();
@@ -14,7 +14,7 @@ public class Countdown  {
     static JLabel scoreCounter2 = new JLabel();
     static JLabel eatScore = new JLabel();
 
-    int elapsedTime = 900000-10000;
+    int elapsedTime = 900000 - 10000;
     int second_down = 1000;
     int points = 0;
     int points2 = 0;
@@ -43,7 +43,7 @@ public class Countdown  {
 
 
             // stop the timer, if player/ai has run of time.
-            if(minute==0 && second ==0){
+            if (minute == 0 && second == 0) {
                 timer.stop();
                 System.out.println("You run out of time!");
             }
@@ -62,14 +62,22 @@ public class Countdown  {
         counterLabel.setText(minuteString + ":" + secondString);
         scoreCounter2.setText("" + points2);
 
-        if(minute==0 && second ==0){
+        if (minute == 0 && second == 0) {
             timer.stop();
             System.out.println("You run out of time!");
         }
     });
 
-    Countdown() {
+    /*Timer scoreboard = new Timer(1, new ActionListener() {
 
+        public void actionPerformed(ActionEvent e) {
+            scoreCounter.setText("" + points);
+            scoreCounter2.setText("" + points2);
+
+        }});*/
+
+
+    Countdown() {
         counterLabel.setLayout(null);
         //Insert the text into counterLabel
         counterLabel.setText(minuteString + ":" + secondString);
@@ -79,31 +87,29 @@ public class Countdown  {
         counterLabel.setFont(new Font("Arial", Font.PLAIN, 35));
         //paint the counterlabel, allowing the underlying pixels to show through
         counterLabel.setOpaque(true);
-        
+
         counterLabel2.setLayout(null);
         counterLabel2.setText(minuteString + ":" + secondString);
         counterLabel2.setBounds(900, 400, 100, 50);
-        counterLabel2.setFont(new Font("Arial", Font.PLAIN,35));
+        counterLabel2.setFont(new Font("Arial", Font.PLAIN, 35));
         counterLabel2.setOpaque(true);
 
         scoreCounter.setLayout(null);
         scoreCounter.setText("" + points);
         scoreCounter.setBounds(800, 500, 100, 50);
-        scoreCounter.setFont(new Font("Arial", Font.PLAIN,35));
+        scoreCounter.setFont(new Font("Arial", Font.PLAIN, 35));
         scoreCounter.setOpaque(true);
 
         scoreCounter2.setLayout(null);
         scoreCounter2.setText("" + points2);
         scoreCounter2.setBounds(900, 500, 100, 50);
-        scoreCounter2.setFont(new Font("Arial", Font.PLAIN,35));
+        scoreCounter2.setFont(new Font("Arial", Font.PLAIN, 35));
         scoreCounter2.setOpaque(true);
 
         eatScore.setLayout(null);
         eatScore.setText("Scoreboard");
         eatScore.setBounds(800, 450, 200, 50);
-        eatScore.setFont(new Font("Arial", Font.PLAIN,35));
+        eatScore.setFont(new Font("Arial", Font.PLAIN, 35));
         eatScore.setOpaque(true);
-
-
     }
 }

@@ -35,6 +35,9 @@ class BoardTest {
     @Test
     void move() {
         Board testBoard = new Board(new JFrame());
+        Countdown testCoundtown = new Countdown();
+
+        //assertNotNull(testBoard.frame.add(testCoundtown.));
 
     }
 }

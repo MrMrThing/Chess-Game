@@ -38,7 +38,7 @@ public class Board extends JPanel {
     Point tempPoint;
     Point drawPoint;
     JFrame frame;
-    boolean current_turn_color;
+    boolean current_turn_color = true;
 
     Game b_game; //the board is connected to the game
 
