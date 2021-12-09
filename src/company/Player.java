@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 
-//import static com.sun.glass.ui.Cursor.setVisible;
-
 public class Player extends JPanel{
     Scanner in;
     String m_name, m_password, m_pointsString;
@@ -26,42 +24,14 @@ public class Player extends JPanel{
     //In the constructor we make our first choice
     public Player(JFrame frame){
         in = new Scanner(System.in);
-/*
 
-        JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        panel1.setBackground(new Color(239,223,187));
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-
-
-        JButton upload = new JButton("Access existing profile");
-        upload.setBackground(new Color(59,47,47));
-        upload.setForeground(new Color(239,223,187));
-
-        JButton collect = new JButton("Create new profile");
-        collect.setBackground(new Color(59,47,47));
-        collect.setForeground(new Color(239,223,187));
-
-        upload.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-
-        collect.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-
-        panel1.add(upload, gbc);
-        panel1.add(collect, gbc);*/
-
-        /*******************************************************/
+        //JFrame function: does not work for some reason
+        //paint(frame);
 
         String choice;
         boolean menu=true;
+
+        //Menu from which you decide to load or create a new player
         while (menu){
             System.out.println("If you want to create a new user tap 1 if you want to access an existing one click 2?");
             choice=in.nextLine();
@@ -83,18 +53,20 @@ public class Player extends JPanel{
                     break;
             }
         }
-        /*******************************/
     }
 
+    //Methode that calls upon all the necessary ones to create a new player
     void upload(){
         if(this.m_c) {
             System.out.println("What's your username? ");
             m_name = in.nextLine();
         }
+        //if the players name isn't already in our vector we add the name to the profile text file and then
             if (!this.m_exists) {
                 CreateFile();
                 ReadFile();
                 WriteFile();
+                //we create a text file named after the player where we store the password information as well as his score
                 if (this.m_help) {
                     System.out.println("Nice you now have an account and your Username is: " + this.m_name);
                     CreateEachProfileFile();
@@ -103,18 +75,23 @@ public class Player extends JPanel{
             }
     }
 
+    //Methode that calls upon all the necessary ones to upload an existing player
     void collect(){
+        //Here we test if we already asked the name
         if(this.m_c){
             System.out.println("What's your username? ");
             m_name=in.nextLine();
         }
         CreateFile();
         ReadFile();
+        //if the players name already exists
         if(this.m_exists){
             System.out.println("Nice you already have an account and your Username is: "+ this.m_name);
+            //we open the players file and verify that he is indeed the owner of the account
             ReadEachFile(this.m_name+ ".txt");
             TestPsw();
         }
+        //if it doesn't we ask again
         else {
             String choice;
             boolean menu=true;
@@ -144,8 +121,9 @@ public class Player extends JPanel{
 
         }
     }
+
     void CreateFile(){
-        //Create file for players profile
+        //Create file for players profile if it doesn't already exist
         File myF = new File("profile.txt");
         try {
             if (myF.createNewFile())
@@ -158,7 +136,8 @@ public class Player extends JPanel{
     void WriteFile(){
         try {
             //Write in file
-            FileWriter myW = new FileWriter("profile.txt",true);
+            FileWriter myW = new FileWriter("profile.txt",true); //do not overwrite
+            //if it already exists we go back to the menu option
             if (this.m_exists) {
                 String choice;
                 boolean menu=true;
@@ -187,7 +166,7 @@ public class Player extends JPanel{
                     }
                 }
             }
-            //we put everything to play here
+            //we write down the new username on the file
             else {
                 myW.write(this.m_name+"\n");
             }
@@ -206,6 +185,8 @@ public class Player extends JPanel{
             // read until end of file
             String line;
             while ((line = br.readLine()) != null) {
+                //we add every name to the vector players
+                //
                 this.players.add(line);
                 for (int i=0; i<this.players.size(); i++){
                     if (players.contains(this.m_name)) {
@@ -320,6 +301,41 @@ public class Player extends JPanel{
 
     }
 
+    void paint(JFrame frame){
+        this.setVisible(true);
+        JPanel panel1 = new JPanel();
+        panel1.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        panel1.setBackground(new Color(239,223,187));
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+
+
+        JButton upload = new JButton("Access existing profile");
+        upload.setBackground(new Color(59,47,47));
+        upload.setForeground(new Color(239,223,187));
+
+        JButton collect = new JButton("Create new profile");
+        collect.setBackground(new Color(59,47,47));
+        collect.setForeground(new Color(239,223,187));
+
+        upload.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                upload();
+            }
+        });
+
+        collect.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                collect();
+            }
+        });
+
+        panel1.add(upload, gbc);
+        panel1.add(collect, gbc);
+        frame.add(panel1);
+    }
 
 
 }
