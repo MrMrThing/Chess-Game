@@ -38,6 +38,7 @@ public class Board extends JPanel {
     Point tempPoint;
     Point drawPoint;
     JFrame frame;
+    boolean current_turn_color;
 
     Game b_game; //the board is connected to the game
 
@@ -278,8 +279,7 @@ public class Board extends JPanel {
                                 }
                                 
                                 selected.setPosition(clickedX, clickedY); //we move the piece here
-                                b_game.player.m_color = !b_game.player.m_color;
-
+                                current_turn_color = !current_turn_color;
                                 
 
                                 // if player eat, get points accordingly to the pieces value
@@ -301,7 +301,7 @@ public class Board extends JPanel {
                                 }
                             }
                             selected.setPosition(clickedX, clickedY); //we move the knight there
-                            b_game.player.m_color = !b_game.player.m_color;
+                            current_turn_color = !current_turn_color;
                         }
                     } 
                     
@@ -319,7 +319,7 @@ public class Board extends JPanel {
             //if there is a piece on, set selected to it
             for(int k = 0; k < m_pieces.size(); k++){
                 if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){
-                    if(m_pieces.get(k).getColor() == b_game.player.m_color){ //Checking if the selected piece is the right color
+                    if(m_pieces.get(k).getColor() == current_turn_color){ //Checking if the selected piece is the right color
                         selected = m_pieces.get(k);
                     }
                     
@@ -333,7 +333,7 @@ public class Board extends JPanel {
    //It also will manage the different situations of the game ending
    public void playGame(Game g) { ///WHERE TO CALL IT? take care when all pieces move well
         boolean gameOver = false;
-
+        current_turn_color = b_game.player.m_color;
         while (!gameOver) { //while the game isn't over
             g.m_round++;
 

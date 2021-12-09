@@ -1,4 +1,4 @@
-/*package company;
+package company;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,5 +14,8 @@ class BoardTest {
         boolean color;
         Piece testPiece = new Rook(new Point(0,0), false);
             assertNotNull(testPiece.position);
+
+        //Piece testPiece1 = new Knight(new Point(0,0), false);
+
     }
-}*/
+}
