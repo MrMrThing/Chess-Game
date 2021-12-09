@@ -10,12 +10,15 @@ class BoardTest {
 
     @Test
     void paint() {
-
-        boolean color;
         Piece testPiece = new Rook(new Point(0,0), false);
-            assertNotNull(testPiece.position);
+        // See if the rook is not null, since it's not null. it's in the game.
+        assertNotNull(testPiece.position);
+    }
 
-        //Piece testPiece1 = new Knight(new Point(0,0), false);
-
+    @Test
+    void paint1() {
+        Piece testPiece = new Knight(new Point(0, 0), true);
+        // See if the knight is not null, since it's not null. it's in the game.
+        assertNotNull(testPiece.position);
     }
 }
