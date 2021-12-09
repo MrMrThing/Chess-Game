@@ -276,8 +276,9 @@ public class Board extends JPanel {
 
                                     }
                                 }
-
-                                selected.setPosition(clickedX, clickedY); //we move our knight there
+                                
+                                selected.setPosition(clickedX, clickedY); //we move the piece here
+                                b_game.player.m_color = !b_game.player.m_color;
 
                                 
 
@@ -300,6 +301,7 @@ public class Board extends JPanel {
                                 }
                             }
                             selected.setPosition(clickedX, clickedY); //we move the knight there
+                            b_game.player.m_color = !b_game.player.m_color;
                         }
                     } 
                     
