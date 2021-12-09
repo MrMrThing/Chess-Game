@@ -57,9 +57,9 @@ public abstract class Piece{
     public boolean contains(Point pos, ArrayList<Point> points){
         boolean result = false;
 
-        for(int i = 0; i < points.size(); i++){
+        for (Point point : points) {
 
-            if(points.get(i).equals(pos)){
+            if (point.equals(pos)) {
                 result = true;
                 break;
             }
@@ -78,9 +78,9 @@ public abstract class Piece{
         System.out.println("Number of positions in the array: " + this.possiblePositions.size());
         System.out.println("Here they are:\n");
 
-        for(int i = 0; i < this.possiblePositions.size(); i++){
-            System.out.println("x = " + this.possiblePositions.get(i).x +
-                    " and y = " + this.possiblePositions.get(i).y + "\n");
+        for (Point possiblePosition : this.possiblePositions) {
+            System.out.println("x = " + possiblePosition.x +
+                    " and y = " + possiblePosition.y + "\n");
         }
     }
 
