@@ -14,6 +14,5 @@ class BoardTest {
         boolean color;
         Piece testPiece = new Rook(new Point(0,0), false);
             assertNotNull(testPiece.position);
-
     }
 }*/
