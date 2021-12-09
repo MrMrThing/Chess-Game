@@ -279,7 +279,7 @@ public class Board extends JPanel {
                                 }
                                 
                                 selected.setPosition(clickedX, clickedY); //we move the piece here
-
+                                current_turn_color = !current_turn_color;
                                 
 
                                 // if player eat, get points accordingly to the pieces value
