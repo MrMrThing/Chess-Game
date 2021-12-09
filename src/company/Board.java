@@ -80,11 +80,13 @@ public class Board extends JPanel {
         this.add(panel1);*/
 
         this.b_game = new Game(frame);
+        current_turn_color = b_game.player.m_color;
         frame.add(Countdown.counterLabel);
         frame.add(Countdown.counterLabel2);
         frame.add(Countdown.scoreCounter);
         frame.add(Countdown.scoreCounter2);
         frame.add(Countdown.eatScore);
+
 
         this.frame = frame;
 
@@ -279,7 +281,9 @@ public class Board extends JPanel {
                                 }
                                 
                                 selected.setPosition(clickedX, clickedY); //we move the piece here
+                                System.out.println("Hello world");
                                 current_turn_color = !current_turn_color;
+                                
                                 
 
                                 // if player eat, get points accordingly to the pieces value
@@ -289,7 +293,7 @@ public class Board extends JPanel {
                                 }else if(b_game.player.m_color == false && b_game.player2.m_color==true) {
                                     countdown.points2 += m_pieces.get(k).value;
                                 }
-                                
+                                break;
                             } 
                         } else {
                             if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
@@ -301,7 +305,11 @@ public class Board extends JPanel {
                                 }
                             }
                             selected.setPosition(clickedX, clickedY); //we move the knight there
-                            current_turn_color = !current_turn_color;
+
+                            if(k + 1 == m_pieces.size()){
+                                System.out.println("This is shit" + current_turn_color);
+                                current_turn_color = !current_turn_color;
+                            }
                         }
                     } 
                     
@@ -333,7 +341,7 @@ public class Board extends JPanel {
    //It also will manage the different situations of the game ending
    public void playGame(Game g) { ///WHERE TO CALL IT? take care when all pieces move well
         boolean gameOver = false;
-        current_turn_color = b_game.player.m_color;
+        
         while (!gameOver) { //while the game isn't over
             g.m_round++;
 
