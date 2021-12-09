@@ -622,7 +622,7 @@ class Rook extends Piece {
     }
 }
 
-///WORK ON QUEEN -> only when rook, bishop and king have been tested
+
 class Queen extends Piece {
     //A queen has the same moves as a king, a bishop and a rook
 
