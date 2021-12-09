@@ -137,9 +137,12 @@ class Pawn extends Piece {
                     //if there is a piece right in front of the pawn, this position isn't available to the pawn anymore
                     if (this.position.getX() == p.getPositionX() && this.position.getY() + 1 == p.getPositionY()) {
                         this.possiblePositions.remove(p.getPosition());
-                        nope = true; //a piece is there, can't go further
-
                     }
+
+                    //if a piece is two ahead we can't go
+                if(this.position.getX() == p.getPositionX() && this.position.getY() + 2 == p.getPositionY()){
+                    nope = true; //a piece is there, can't go further
+                }
 
                     //if there is an enemy upper right, we can eat it
                 if(p.color != this.color && this.position.x + 1 == p.getPositionX() && this.position.y + 1 == p.getPositionY()){
@@ -170,6 +173,11 @@ class Pawn extends Piece {
                     this.possiblePositions.remove(p.getPosition());
                     nope = true; //a piece is there, can't go further
 
+                }
+
+                //if a piece is two ahead we can't go
+                if(this.position.getX() == p.getPositionX() && this.position.getY() + 2 == p.getPositionY()){
+                    nope = true; //a piece is there, can't go further
                 }
 
                 //if there is an enemy upper right, we can eat it
@@ -203,6 +211,10 @@ class Pawn extends Piece {
                     nope = true; //a piece is there, can't go further
 
                 }
+                //if a piece is two ahead we can't go
+                if(this.position.getX() == p.getPositionX() && this.position.getY() - 2 == p.getPositionY()){
+                    nope = true; //a piece is there, can't go further
+                }
 
                 //if there is an enemy down-right, we can eat it
                 if(p.color != this.color && this.position.x + 1 == p.getPositionX() && this.position.y - 1 == p.getPositionY()){
@@ -233,6 +245,11 @@ class Pawn extends Piece {
                     this.possiblePositions.remove(p.getPosition());
                     nope = true; //a piece is there, can't go further
 
+                }
+
+                //if a piece is two ahead we can't go
+                if(this.position.getX() == p.getPositionX() && this.position.getY() - 2 == p.getPositionY()){
+                    nope = true; //a piece is there, can't go further
                 }
 
                 //if there is an enemy down-right, we can eat it
