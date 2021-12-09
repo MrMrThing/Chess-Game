@@ -41,6 +41,7 @@ public class Countdown  {
             counterLabel.setText(minuteString + ":" + secondString);
             scoreCounter.setText("" + points);
 
+
             // stop the timer, if player/ai has run of time.
             if(minute==0 && second ==0){
                 timer.stop();
