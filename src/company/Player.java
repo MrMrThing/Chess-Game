@@ -9,8 +9,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Player extends JPanel{
     Scanner in;
@@ -58,8 +61,25 @@ public class Player extends JPanel{
     //Methode that calls upon all the necessary ones to create a new player
     void upload(){
         if(this.m_c) {
-            System.out.println("What's your username? ");
-            m_name = in.nextLine();
+            boolean menu=true;
+            while (menu) {
+                System.out.println("What's your username? ");
+                String temp = in.nextLine();
+                Pattern pattern = Pattern.compile("\\s");
+                Matcher matcher= pattern.matcher(temp);
+                boolean found = matcher.find();
+                if (temp == null) {
+                    System.out.println("The username is null, try again: ");
+                } else if (temp.isEmpty()) {
+                    System.out.println("The username is empty, try again: ");
+                } else if (found) {
+                    System.out.println("You can't use spaces in your username, try again: ");
+                } else {
+                    m_name = in.nextLine();
+                    menu = false;
+                }
+            }
+
         }
         //if the players name isn't already in our vector we add the name to the profile text file and then
             if (!this.m_exists) {
