@@ -14,13 +14,13 @@ public class Countdown  {
     static JLabel scoreCounter2 = new JLabel();
     static JLabel eatScore = new JLabel();
 
-
     int elapsedTime = 900000-10000;
     int second_down = 1000;
     int points = 0;
     int points2 = 0;
     int second = 0;
     int minute = 0;
+    // Format the string with 2
     String secondString = String.format("%02d", second);
     String minuteString = String.format("%02d", minute);
 

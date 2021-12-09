@@ -247,12 +247,12 @@ public class Board extends JPanel {
 
                         if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
                             // if the turn is player and not the ai, then stop ai countdown and start player coundown + 10 seconds.
-                            if(b_game.player.m_color == true && b_game.player2.m_color==false){
+                            if(current_turn_color == true){
                                 countdown.elapsedTime+=10000;
                                 countdown.timer1.stop();
                                 countdown.timer.start();
                                 System.out.println(m_pieces.get(k).value);
-                            }else if(b_game.player.m_color == false && b_game.player2.m_color==true){
+                            }else {
                                 countdown.elapsedTime+=10000;
                                 countdown.timer.stop();
                                 countdown.timer1.start();
@@ -283,13 +283,13 @@ public class Board extends JPanel {
                                 
 
                                 // if player eat, get points accordingly to the pieces value
-                                if(b_game.player.m_color == true && b_game.player2.m_color==false){
+                                if(current_turn_color == true){
                                     countdown.points += m_pieces.get(k).value;
                                     // if ai eat, get points accordingly to the pieces value
-                                }else if(b_game.player.m_color == false && b_game.player2.m_color==true) {
+                                }else {
                                     countdown.points2 += m_pieces.get(k).value;
                                 }
-
+                                
                             } 
                         } else {
                             if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
@@ -333,7 +333,7 @@ public class Board extends JPanel {
    //It also will manage the different situations of the game ending
    public void playGame(Game g) { ///WHERE TO CALL IT? take care when all pieces move well
         boolean gameOver = false;
-        current_turn_color = b_game.player.m_color; //player1 is the first to play
+        current_turn_color = b_game.player.m_color;
         while (!gameOver) { //while the game isn't over
             g.m_round++;
 
