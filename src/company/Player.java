@@ -96,10 +96,11 @@ public class Player extends JPanel{
             String choice;
             boolean menu=true;
             while (menu){
-                System.out.println("Profile name doesn't exists sorry... Do you want to load an other one (tap 1) or create a new one (tap 2) ?");
+                System.out.println("Profile name doesn't exists sorry... Do you want to load an other one (tap 1) or create a new one with that name (tap 2) ?");
                 choice=in.nextLine();
                 switch (choice) {
                     case "1" : {
+                        this.players.remove(this.m_name);
                         this.m_c = true;
                         this.m_exists = false;
                         collect();
@@ -107,8 +108,9 @@ public class Player extends JPanel{
                         break;
                     }
                     case "2" : {
-                        this.m_name = "";
                         this.m_exists = false;
+                        this.players.remove(this.m_name); //we need to free the space in which this name was being stock otherwise it will think this username already exists
+                        this.m_c = false; //this boolean must be false so that the name of the player isn't asked twice
                         upload();
                         menu = false;
                         break;
@@ -186,7 +188,7 @@ public class Player extends JPanel{
             String line;
             while ((line = br.readLine()) != null) {
                 //we add every name to the vector players
-                //
+                //we look at this list of names to be sure it's a new name
                 this.players.add(line);
                 for (int i=0; i<this.players.size(); i++){
                     if (players.contains(this.m_name)) {
