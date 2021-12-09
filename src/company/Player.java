@@ -11,6 +11,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Player extends JPanel{
     Scanner in;
@@ -22,7 +24,7 @@ public class Player extends JPanel{
     Vector<String> players= new Vector<>();
 
     //In the constructor we make our first choice
-    public Player(JFrame frame){
+    public Player(){
         in = new Scanner(System.in);
 
         //JFrame function: does not work for some reason
@@ -58,8 +60,25 @@ public class Player extends JPanel{
     //Methode that calls upon all the necessary ones to create a new player
     void upload(){
         if(this.m_c) {
-            System.out.println("What's your username? ");
-            m_name = in.nextLine();
+            boolean menu=true;
+            while (menu) {
+                System.out.println("What's your username? ");
+                String temp = in.nextLine();
+                Pattern pattern = Pattern.compile("\\s");
+                Matcher matcher= pattern.matcher(temp);
+                boolean found = matcher.find();
+                if (temp == null) {
+                    System.out.println("The username is null, try again: ");
+                } else if (temp.isEmpty()) {
+                    System.out.println("The username is empty, try again: ");
+                } else if (found) {
+                    System.out.println("You can't use spaces in your username, try again: ");
+                } else {
+                    m_name = in.nextLine();
+                    menu = false;
+                }
+            }
+
         }
         //if the players name isn't already in our vector we add the name to the profile text file and then
             if (!this.m_exists) {
@@ -321,19 +340,9 @@ public class Player extends JPanel{
         collect.setBackground(new Color(59,47,47));
         collect.setForeground(new Color(239,223,187));
 
-        upload.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                upload();
-            }
-        });
+        upload.addActionListener(e -> upload());
 
-        collect.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                collect();
-            }
-        });
+        collect.addActionListener(e -> collect());
 
         panel1.add(upload, gbc);
         panel1.add(collect, gbc);
