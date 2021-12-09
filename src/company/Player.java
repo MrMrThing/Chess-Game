@@ -100,6 +100,7 @@ public class Player extends JPanel{
                 choice=in.nextLine();
                 switch (choice) {
                     case "1" : {
+
                         this.players.remove(this.m_name);
                         this.m_c = true;
                         this.m_exists = false;
