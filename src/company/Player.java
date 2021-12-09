@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.Vector;
 import java.util.regex.Matcher;
@@ -25,7 +24,7 @@ public class Player extends JPanel{
     Vector<String> players= new Vector<>();
 
     //In the constructor we make our first choice
-    public Player(JFrame frame){
+    public Player(){
         in = new Scanner(System.in);
 
         //JFrame function: does not work for some reason
@@ -341,19 +340,9 @@ public class Player extends JPanel{
         collect.setBackground(new Color(59,47,47));
         collect.setForeground(new Color(239,223,187));
 
-        upload.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                upload();
-            }
-        });
+        upload.addActionListener(e -> upload());
 
-        collect.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                collect();
-            }
-        });
+        collect.addActionListener(e -> collect());
 
         panel1.add(upload, gbc);
         panel1.add(collect, gbc);

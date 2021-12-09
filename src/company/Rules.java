@@ -3,8 +3,6 @@ package company;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Rules extends JPanel{
     public Rules(JFrame frame){
@@ -74,14 +72,11 @@ public class Rules extends JPanel{
         close.setForeground(new Color(239,223,187));
         close.setFont(f2);
 
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Menu b= new Menu(frame);
-                frame.getContentPane().add(b);
-                setVisible(false);
-                b.setVisible(true);
-            }
+        close.addActionListener(e1 -> {
+            Menu b1 = new Menu(frame);
+            frame.getContentPane().add(b1);
+            setVisible(false);
+            b1.setVisible(true);
         });
 
         panel1.add(close,gbc);

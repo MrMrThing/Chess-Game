@@ -79,7 +79,7 @@ public class Board extends JPanel {
 
         this.add(panel1);*/
 
-        this.b_game = new Game(frame);
+        this.b_game = new Game();
         current_turn_color = b_game.player.m_color;
         frame.add(Countdown.counterLabel);
         frame.add(Countdown.counterLabel2);

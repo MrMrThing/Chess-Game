@@ -13,7 +13,7 @@ public class Game extends JPanel{
     public ArrayList<Piece> m_pieces = new ArrayList<>(); //all pieces on the board
     //when a piece is taken of the board, we just delete it from the arrayList
 
-    public Game(JFrame frame){
+    public Game(){
 /*
         JPanel panel1 = new JPanel();
         setBorder(new EmptyBorder(100, 10, 10, 10));
@@ -53,8 +53,8 @@ public class Game extends JPanel{
 */
 
         this.m_round = 0;
-        player=new Player(frame);
-        player2 = new Player(frame);
+        player=new Player();
+        player2 = new Player();
 
         //Here the player chooses which color he wants to play
         System.out.println("Do you want to play white or black? Enter 1 for white and 2 for black.");
