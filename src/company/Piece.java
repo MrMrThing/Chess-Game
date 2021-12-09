@@ -125,7 +125,7 @@ class Pawn extends Piece {
 
         ArrayList<Piece> pieces = g.getPieces(); //we get the pieces
 
-        if (g.player2.m_turn) { //if player2 is playing
+        if (!this.color) { //if the pawn is black
             //if it's the first move it can go two squares forward
             if(this.first_move){
                 this.possiblePositions.add(new Point(this.position.x, this.position.y + 2));
@@ -156,7 +156,7 @@ class Pawn extends Piece {
         }
 
 
-        if (g.player.m_turn) { //if the player is playing
+        if (this.color) { //if the pawn is white
 
             if(this.first_move){ //first move: can go up two
                 this.possiblePositions.add(new Point(this.position.x, this.position.y - 2));

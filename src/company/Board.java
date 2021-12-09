@@ -333,7 +333,7 @@ public class Board extends JPanel {
    //It also will manage the different situations of the game ending
    public void playGame(Game g) { ///WHERE TO CALL IT? take care when all pieces move well
         boolean gameOver = false;
-        current_turn_color = b_game.player.m_color;
+        current_turn_color = b_game.player.m_color; //player1 is the first to play
         while (!gameOver) { //while the game isn't over
             g.m_round++;
 
