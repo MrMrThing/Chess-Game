@@ -41,6 +41,8 @@ public class Board extends JPanel {
     boolean current_turn_color = true;
 
     Game b_game; //the board is connected to the game
+    ArrayList<Piece> menacingPieces = new ArrayList<>();
+    Piece menacedKing;
 
     
 
@@ -229,72 +231,72 @@ public class Board extends JPanel {
 
     }
 
+
     //This method moves the selected piece on the board to the new clicked position if its available
     public void move(){
-        
+
+        //First we verify if there is check or checkmate happening
+        if(this.isCheck()){ //King is in check
+            selected.emptyPossiblePositions();
+            //We force selected to be either a savior or the king
+            selected = canSomeoneSave();
+
+        }else if(this.isCheckmate()){
+            //King can't be move bc in danger everywhere
+            //game is over
+
+        }
 
         if(selected != null){ //if something has been selected
-            selected.emptyPossiblePositions();
-            selected.UpdatePossiblePositions(b_game); //Selected is a piece. We update its possible positions
-                System.out.println("size of PP: " + selected.getPossiblePositions().size());
-                System.out.println(" piece selected is " +selected);
 
-                
-                System.out.println(selected.getPossiblePositions());
-                
+            //If we are not in check
+            if(!this.isCheck()){
+                selected.emptyPossiblePositions();
+                selected.UpdatePossiblePositions(b_game); //Selected is a piece. We update its possible positions
+            }
 
-                if(selected.contains(tempPoint, selected.possiblePositions)){ //if tempPoint is in PP
+            System.out.println("size of PP: " + selected.getPossiblePositions().size());
+            System.out.println(" piece selected is " +selected);
 
-                    for(int k = 0; k < m_pieces.size(); k++){
 
-                        if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
-                            // if the turn is player and not the ai, then stop ai countdown and start player coundown + 10 seconds.
-                            if(current_turn_color == false){
-                                countdown.elapsedTime+=10000;
-                                countdown.timer1.stop();
-                                countdown.timer.start();
-                                System.out.println("value of piece: "+ m_pieces.get(k).value);
-                            }else {
-                                countdown.elapsedTime+=10000;
-                                countdown.timer.stop();
-                                countdown.timer1.start();
-                                System.out.println("value of piece1: "+ m_pieces.get(k).value);
+            System.out.println(selected.getPossiblePositions());
 
-                            }
+            //If selected is a king, we make sure he can't get in danger
+            if(selected.pieceName.contains("King")){
+                DontGoInCheck(selected);
+            }
 
-                            //if(b_game.m_round == 40){
-                                //    countdown.elapsedTime+=1000;
-                                //}
-                            
 
-                            //System.out.println(m_pieces.get(k).getColor());
-                            //System.out.println(selected.getColor());
-        
-                            if(m_pieces.get(k).getColor() != selected.getColor()){ //if the color of the piece is different from our knight
-                                m_pieces.remove(m_pieces.get(k)); //we delete the piece
+            if(selected.contains(tempPoint, selected.possiblePositions)){ //if tempPoint is in PP
 
-                                if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
-                                    if(selected.getFirstMove()){ //if it's its first move
-                                        //if the future position is 2 squares upward or downward, it was the first move of the pawn
+                for(int k = 0; k < m_pieces.size(); k++){
 
-                                            selected.setFirstMove(false); //first move was played, not gonna be available anymore
+                    if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
+                        // if the turn is player and not the ai, then stop ai countdown and start player coundown + 10 seconds.
+                        if(current_turn_color == false){
+                            countdown.elapsedTime+=10000;
+                            countdown.timer1.stop();
+                            countdown.timer.start();
+                            System.out.println("value of piece: "+ m_pieces.get(k).value);
+                        }else {
+                            countdown.elapsedTime+=10000;
+                            countdown.timer.stop();
+                            countdown.timer1.start();
+                            System.out.println("value of piece1: "+ m_pieces.get(k).value);
 
-                                    }
-                                }
-                                // if player eat, get points accordingly to the pieces value
-                                if(current_turn_color == false){
-                                    countdown.points += m_pieces.get(k).value;
-                                    // if ai eat, get points accordingly to the pieces value
-                                }else {
-                                    countdown.points2 += m_pieces.get(k).value;
-                                }
+                        }
 
-                                selected.setPosition(clickedX, clickedY); //we move the piece here
-                                System.out.println("Hello world");
-                                current_turn_color = !current_turn_color;
-                                break;
-                            } 
-                        } else {
+                        //if(b_game.m_round == 40){
+                        //    countdown.elapsedTime+=1000;
+                        //}
+
+
+                        //System.out.println(m_pieces.get(k).getColor());
+                        //System.out.println(selected.getColor());
+
+                        if(m_pieces.get(k).getColor() != selected.getColor()){ //if the color of the piece is different from our knight
+                            m_pieces.remove(m_pieces.get(k)); //we delete the piece
+
                             if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
                                 if(selected.getFirstMove()){ //if it's its first move
                                     //if the future position is 2 squares upward or downward, it was the first move of the pawn
@@ -303,23 +305,44 @@ public class Board extends JPanel {
 
                                 }
                             }
-                            selected.setPosition(clickedX, clickedY); //we move the knight there
+                            // if player eat, get points accordingly to the pieces value
+                            if(current_turn_color == false){
+                                countdown.points += m_pieces.get(k).value;
+                                // if ai eat, get points accordingly to the pieces value
+                            }else {
+                                countdown.points2 += m_pieces.get(k).value;
+                            }
 
-                            if(k + 1 == m_pieces.size()){
-                                System.out.println("This is shit" + current_turn_color);
-                                current_turn_color = !current_turn_color;
+                            selected.setPosition(clickedX, clickedY); //we move the piece here
+                            System.out.println("Hello world");
+                            current_turn_color = !current_turn_color;
+                            menacingPieces.clear();
+                            break;
+                        }
+                    } else {
+                        if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
+                            if(selected.getFirstMove()){ //if it's its first move
+                                //if the future position is 2 squares upward or downward, it was the first move of the pawn
+
+                                selected.setFirstMove(false); //first move was played, not gonna be available anymore
+
                             }
                         }
-                    } 
-                    
-                    
+                        selected.setPosition(clickedX, clickedY); //we move the knight there
 
+                        if(k + 1 == m_pieces.size()){
+                            System.out.println("This is shit" + current_turn_color);
+                            current_turn_color = !current_turn_color;
+                            menacingPieces.clear();
+                        }
+                    }
                 }
-                
-            
 
-            selected = null; //we say that nothing has been selected  
-            
+
+
+            }
+            selected = null; //we say that nothing has been selected
+
         }else{ //if nothing has been selected
 
             //We check for if something is on that clicked tile,
@@ -334,7 +357,176 @@ public class Board extends JPanel {
             }
 
         }
-   }
+    }
+
+    //This method is called when king is in danger
+    //It verifies if another piece can eat the menacing piece so that the king is no longer in danger
+    public Piece canSomeoneSave(){
+        Piece savior = null;
+
+        for(Piece p : this.m_pieces){
+            if(p.color == menacedKing.color){ //if it's an ally to the king
+
+                //We go through its pp to see if it can eat the menacing piece(s)
+                for(int i = 0; i < p.possiblePositions.size(); i++){
+                    for(int j = 0; j < menacingPieces.size(); j++){
+
+                        //If the ally can eat the menacing piece, it has to
+                        if(p.possiblePositions.get(i).x == this.menacingPieces.get(j).getPositionX() && p.possiblePositions.get(i).y == this.menacingPieces.get(j).getPositionY()){
+                            System.out.println("You have to move " + p.pieceName + " to " + this.menacingPieces.get(j).position);
+                            savior = p;
+                            return savior; //selected has to be savior
+                            ///HOW DO I FORCE IT: player can't select someone else
+                        }
+                    }
+                }
+
+                //if the piece isn't a savior or the king
+                if(!p.equals(savior) && !p.pieceName.contains("King")){
+                    //The piece cannot be selected
+                    return null;
+                }
+            }
+        }
+
+        //If there is no savior, only the king can save himself
+        if(savior == null){
+            DontGoInCheck(this.menacedKing);
+            return this.menacedKing;
+        }
+
+        return null;
+    }
+
+    //This method stops the king from putting itself in danger
+    public void DontGoInCheck(Piece king){
+        ArrayList<Point> deleteFromKing = new ArrayList<>();
+
+        for(Piece p : this.m_pieces) {
+            p.UpdatePossiblePositions(b_game); //We update all PP
+
+            if (p.color != king.color) { //if the piece is an enemy of the king
+
+                for (int j = 0; j < p.possiblePositions.size(); j++) { //we go through its PP
+                    for(int k = 0; k < king.possiblePositions.size(); k++){
+                        //if the piece shares a pp with king, king is in danger, he can't go there
+                        if (p.possiblePositions.get(j).x == king.possiblePositions.get(k).x && p.possiblePositions.get(j).y == king.possiblePositions.get(k).y) {
+                            System.out.println("There is a pp of the checking menaced by an enemy. WXe delete it from king's pp");
+                            deleteFromKing.add(king.possiblePositions.get(k));
+                        }
+                    }
+                }
+            }
+        }
+
+        //Once we got all the pp to delete
+        king.possiblePositions.removeAll(deleteFromKing);
+
+        if(king.possiblePositions.size() == 0){
+            if(isCheck()){
+                ///King is checkmate, game is over
+            }
+        }
+    }
+
+    public boolean isCheck(){ ///if the king is menaced on its current position
+        Point kingPosW = new Point();
+        Point kingPosB = new Point();
+        Piece kingW = null;
+        Piece kingB = null;
+
+        //In this loop we find the kings
+        for(Piece p : this.m_pieces){
+
+            if(p.pieceName.contains("King") && p.color){ //If it's a king we keep its position
+                kingPosW = p.getPosition();
+                kingW = p;
+            }
+            if(p.pieceName.contains("King") && !p.color){ //If it's a king we keep its position
+                kingPosB = p.getPosition();
+                kingB = p;
+            }
+        }
+
+        //In this loop we check if a piece has a King's position in its PP
+        for(Piece p : this.m_pieces){
+            p.UpdatePossiblePositions(b_game); //We update all PP
+
+            if (p.color) { //if the menacing piece is white
+                for(int j = 0; j < p.possiblePositions.size(); j++){
+                    //if the piece has a possibility to eat the king
+                    if(p.possiblePositions.get(j).x == kingPosB.x && p.possiblePositions.get(j).y == kingPosB.y){
+                        System.out.println("Next turn the King can be eaten. Check. Move your King");
+                        menacingPieces.add(p);
+                        menacedKing = kingB;
+                        return true; //king is in check
+                    }
+                }
+            }
+
+            if (!p.color) { //if the menacing piece is black
+                for(int j = 0; j < p.possiblePositions.size(); j++){
+                    //if the piece has a possibility to eat the king
+                    if(p.possiblePositions.get(j).x == kingPosW.x && p.possiblePositions.get(j).y == kingPosW.y){
+                        System.out.println("Next turn the King can be eaten. Check. Move your King");
+                        menacingPieces.add(p);
+                        menacedKing = kingW;
+                        return true; //king is in check
+                    }
+                }
+            }
+
+        }
+
+        if(this.menacingPieces.size() > 1){
+            ///CHECKMATE
+        }
+        return false; //in case no opposing piece has a king in check
+    }
+
+    public boolean isCheckmate(){
+        //if every PP of the king is menaced
+
+        Point kingPosW = new Point();
+        Point kingPosB = new Point();
+        ArrayList<Point> PPW = new ArrayList<>();
+        ArrayList<Point> PPB = new ArrayList<>();
+
+        //In this loop we find the kings
+        for(Piece p : this.m_pieces){
+
+            if(p.pieceName.contains("King") && p.color){ //If it's a king we keep its position
+                kingPosW = p.getPosition();
+                PPW = p.possiblePositions;
+            }
+            if(p.pieceName.contains("King") && !p.color){ //If it's a king we keep its position
+                kingPosB = p.getPosition();
+                PPB = p.possiblePositions;
+            }
+        }
+
+        for(Piece p : this.m_pieces){
+            if(!p.pieceName.contains("King")){ //for every piece that is not a king
+
+                if(p.color){ //if the piece is white
+                    //We compare the next moves it can do and if they collide with ppb
+                    for(int i = 0; i < p.possiblePositions.size(); i++){
+                        for(int j = 0; j < PPB.size(); j++){
+
+                            if(p.possiblePositions.get(i) == PPB.get(j)){ //if they both have the position
+                                //delete the pos from PPB
+                            }
+                        }
+                    }
+                }
+
+
+            }else{ //case where king vs king
+
+            }
+        }
+        return false; //no king is in check
+    }
 
    //This method manages the rounds and turns
    //It also will manage the different situations of the game ending
