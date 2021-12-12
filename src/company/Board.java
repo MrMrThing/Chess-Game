@@ -240,11 +240,6 @@ public class Board extends JPanel {
             selected.emptyPossiblePositions();
             //We force selected to be either a savior or the king
             selected = canSomeoneSave();
-
-        }else if(this.isCheckmate()){
-            //King can't be move bc in danger everywhere
-            //game is over
-
         }
 
         if(selected != null){ //if something has been selected
@@ -331,7 +326,7 @@ public class Board extends JPanel {
                         selected.setPosition(clickedX, clickedY); //we move the knight there
 
                         if(k + 1 == m_pieces.size()){
-                            System.out.println("This is shit" + current_turn_color);
+                            System.out.println("current turn color: " + current_turn_color);
                             current_turn_color = !current_turn_color;
                             menacingPieces.clear();
                         }
@@ -398,7 +393,7 @@ public class Board extends JPanel {
         return null;
     }
 
-    //This method stops the king from putting itself in danger
+    //This method stops the king from putting itself in danger: it modifies its PP
     public void DontGoInCheck(Piece king){
         ArrayList<Point> deleteFromKing = new ArrayList<>();
 
@@ -425,6 +420,9 @@ public class Board extends JPanel {
         if(king.possiblePositions.size() == 0){
             if(isCheck()){
                 ///King is checkmate, game is over
+                if(this.isCheckmate()){
+                    b_game.isOver = true;
+                }
             }
         }
     }
@@ -477,63 +475,40 @@ public class Board extends JPanel {
             }
 
         }
-
-        if(this.menacingPieces.size() > 1){
-            ///CHECKMATE
-        }
         return false; //in case no opposing piece has a king in check
     }
 
+    //called when king can't move and no one can save him
     public boolean isCheckmate(){
         //if every PP of the king is menaced
 
-        Point kingPosW = new Point();
-        Point kingPosB = new Point();
-        ArrayList<Point> PPW = new ArrayList<>();
-        ArrayList<Point> PPB = new ArrayList<>();
+        //We verify that: king can't move AND no one can save
 
-        //In this loop we find the kings
-        for(Piece p : this.m_pieces){
+        if(this.menacedKing.possiblePositions.isEmpty()){ //if king can't move
 
-            if(p.pieceName.contains("King") && p.color){ //If it's a king we keep its position
-                kingPosW = p.getPosition();
-                PPW = p.possiblePositions;
-            }
-            if(p.pieceName.contains("King") && !p.color){ //If it's a king we keep its position
-                kingPosB = p.getPosition();
-                PPB = p.possiblePositions;
-            }
-        }
+            for(Piece m : this.menacingPieces){ //for every menacing piece
 
-        for(Piece p : this.m_pieces){
-            if(!p.pieceName.contains("King")){ //for every piece that is not a king
-
-                if(p.color){ //if the piece is white
-                    //We compare the next moves it can do and if they collide with ppb
-                    for(int i = 0; i < p.possiblePositions.size(); i++){
-                        for(int j = 0; j < PPB.size(); j++){
-
-                            if(p.possiblePositions.get(i) == PPB.get(j)){ //if they both have the position
-                                //delete the pos from PPB
+                //We check if an ally of the king can eat it
+                for(Piece p : this.m_pieces){
+                    if(p.color == this.menacedKing.color){ //if ally to the king
+                        for(int i = 0; i < p.possiblePositions.size(); i++){ //we go through pp
+                            if(p.possiblePositions.get(i) == m.position){ //if p can go eat m
+                                return false; //not a checkmate
                             }
                         }
                     }
                 }
-
-
-            }else{ //case where king vs king
-
             }
+            return true; //game is over, no piece can eat to save the king
         }
-        return false; //no king is in check
+        return false; //this king can save himself
     }
 
    //This method manages the rounds and turns
    //It also will manage the different situations of the game ending
    public void playGame(Game g) { ///WHERE TO CALL IT? take care when all pieces move well
-        boolean gameOver = false;
-        
-        while (!gameOver) { //while the game isn't over
+
+        while (!g.isOver) { //while the game isn't over
             g.m_round++;
 
             if (g.m_round % 2 == 0) { //if round is even, player2 is playing

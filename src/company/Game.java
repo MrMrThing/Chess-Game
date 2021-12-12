@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Game extends JPanel{
     float m_round;
+    boolean isOver;
     Player player2; //the one playing from down
     Player player; //the one playing from up
     public ArrayList<Point> m_positionsTaken = new ArrayList<>(); //all the positions taken arranged in a certain order
@@ -52,6 +53,7 @@ public class Game extends JPanel{
         this.add(panel1);
 */
 
+        this.isOver = false;
         this.m_round = 0;
         player=new Player();
         player2 = new Player();
