@@ -235,14 +235,17 @@ public class Board extends JPanel {
     //This method moves the selected piece on the board to the new clicked position if its available
     public void move(){
 
-        //First we verify if there is check or checkmate happening
-        if(this.isCheck()){ //King is in check
-            selected.emptyPossiblePositions();
-            //We force selected to be either a savior or the king
-            selected = canSomeoneSave();
-        }
-
+        
         if(selected != null){ //if something has been selected
+
+            //First we verify if there is check or checkmate happening
+
+            if(this.isCheck()){ //King is in check
+                selected.emptyPossiblePositions();
+                //We force selected to be either a savior or the king
+                selected = canSomeoneSave();
+            }
+
 
             //If we are not in check
             if(!this.isCheck()){
