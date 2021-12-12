@@ -19,7 +19,7 @@ public class Board extends JPanel {
     private BufferedImage BPawn;
     private BufferedImage BQueen;
     private BufferedImage BRook;
-    
+
     private BufferedImage WKnight;
     private BufferedImage WBishop;
     private BufferedImage WKing;
@@ -39,12 +39,14 @@ public class Board extends JPanel {
     Point drawPoint;
     JFrame frame;
     boolean current_turn_color;
+    int turn;
+    int turn2;
 
     Game b_game; //the board is connected to the game
     ArrayList<Piece> menacingPieces = new ArrayList<>();
     Piece menacedKing;
 
-    
+
 
     //Creation of the board
     public Board(JFrame frame){
@@ -110,8 +112,8 @@ public class Board extends JPanel {
             e.printStackTrace();
         }
 
-        addMouseListener(new MouseAdapter() { 
-            public void mousePressed(MouseEvent me) { 
+        addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
                 m_pieces = b_game.getPieces();
                 clickedX = me.getX()/100;
                 clickedY = me.getY()/100;
@@ -126,11 +128,11 @@ public class Board extends JPanel {
                     selected.emptyPossiblePositions();
                     selected.UpdatePossiblePositions(b_game);
                 }
-            } 
+            }
           });
     }
 
-    
+
     public void paint(Graphics g){
         boolean color = false;
         Color white = new Color(239,223,187);
@@ -160,7 +162,7 @@ public class Board extends JPanel {
             }
             else if(color){
                 g.setColor(white);
-                color = false;  
+                color = false;
             } else{
                 g.setColor(black);
                 color = true;
@@ -177,7 +179,7 @@ public class Board extends JPanel {
                 else
                     color = true;
             }
-            
+
             //Drawing the pieces
             for(int k = 0; k < m_pieces.size(); k++){
 
@@ -224,10 +226,10 @@ public class Board extends JPanel {
             } else{
                 tempx++;
             }
-            
+
 
         }
-        
+
 
     }
 
@@ -235,7 +237,7 @@ public class Board extends JPanel {
     //This method moves the selected piece on the board to the new clicked position if its available
     public void move(){
 
-        
+
         if(selected != null){ //if something has been selected
 
             //First we verify if there is check or checkmate happening
@@ -270,21 +272,23 @@ public class Board extends JPanel {
                 for(int k = 0; k < m_pieces.size(); k++){
 
                     if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
-                        // if the turn is player and not the ai, then stop ai countdown and start player countdown + 10 seconds.
-                        if(current_turn_color){
+                        // if player = false, then start timer and stop the other timer. Else reverse.
+                        if(!current_turn_color){
                             countdown.timer.start();
                             countdown.timer2.stop();
-                            countdown.elapsedTime += 10000;
-
+                            //increment player turns
+                            turn++;
                         }else {
                             countdown.timer2.start();
                             countdown.timer.stop();
+                            turn2++;
+                        }
+                        //if player = true and over first turn, then increment with 10 seconds. else reverse.
+                        if(current_turn_color && turn>=1){
+                            countdown.elapsedTime+=10000;
+                        } else if (!current_turn_color && turn2>=1){
                             countdown.elapsedTime2 += 10000;
                         }
-
-                        //if(b_game.m_round == 40){
-                        //    countdown.elapsedTime+=1000;
-                        //}
 
 
                         //System.out.println(m_pieces.get(k).getColor());

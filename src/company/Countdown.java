@@ -14,8 +14,8 @@ public class Countdown {
     static JLabel scoreCounter2 = new JLabel();
     static JLabel eatScore = new JLabel();
 
-    int elapsedTime = 890000;
-    int elapsedTime2 = 890000;
+    int elapsedTime = 900000;
+    int elapsedTime2 = 900000;
     int second_down = 1000;
     int points = 0;
     int points2 = 0;
@@ -48,9 +48,7 @@ public class Countdown {
                 timer.stop();
                 System.out.println("You run out of time!");
             }
-
         }
-
     });
     // The same as time above
     Timer timer2 = new Timer(1000, new ActionListener() {
@@ -68,8 +66,8 @@ public class Countdown {
                 timer2.stop();
                 System.out.println("You run out of time!");
             }
-        }    });
-
+        }
+    });
 
     Countdown() {
         counterLabel.setLayout(null);
