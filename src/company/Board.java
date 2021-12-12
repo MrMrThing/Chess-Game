@@ -38,7 +38,7 @@ public class Board extends JPanel {
     Point tempPoint;
     Point drawPoint;
     JFrame frame;
-    boolean current_turn_color = true;
+    boolean current_turn_color;
 
     Game b_game; //the board is connected to the game
     ArrayList<Piece> menacingPieces = new ArrayList<>();
@@ -267,18 +267,16 @@ public class Board extends JPanel {
                 for(int k = 0; k < m_pieces.size(); k++){
 
                     if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
-                        // if the turn is player and not the ai, then stop ai countdown and start player coundown + 10 seconds.
-                        if(current_turn_color == false){
-                            countdown.elapsedTime+=10000;
-                            countdown.timer1.stop();
+                        // if the turn is player and not the ai, then stop ai countdown and start player countdown + 10 seconds.
+                        if(current_turn_color){
                             countdown.timer.start();
-                            System.out.println("value of piece: "+ m_pieces.get(k).value);
-                        }else {
-                            countdown.elapsedTime+=10000;
-                            countdown.timer.stop();
-                            countdown.timer1.start();
-                            System.out.println("value of piece1: "+ m_pieces.get(k).value);
+                            countdown.timer2.stop();
+                            countdown.elapsedTime += 10000;
 
+                        }else {
+                            countdown.timer2.start();
+                            countdown.timer.stop();
+                            countdown.elapsedTime2 += 10000;
                         }
 
                         //if(b_game.m_round == 40){
@@ -301,7 +299,7 @@ public class Board extends JPanel {
                                 }
                             }
                             // if player eat, get points accordingly to the pieces value
-                            if(current_turn_color == false){
+                            if(current_turn_color){
                                 countdown.points += m_pieces.get(k).value;
                                 // if ai eat, get points accordingly to the pieces value
                             }else {

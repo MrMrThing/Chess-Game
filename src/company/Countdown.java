@@ -14,12 +14,14 @@ public class Countdown {
     static JLabel scoreCounter2 = new JLabel();
     static JLabel eatScore = new JLabel();
 
-    int elapsedTime = 900000 - 10000;
+    int elapsedTime = 890000;
+    int elapsedTime2 = 890000;
     int second_down = 1000;
     int points = 0;
     int points2 = 0;
     int second = 0;
     int minute = 0;
+
     // Format the string with 2
     String secondString = String.format("%02d", second);
     String minuteString = String.format("%02d", minute);
@@ -30,7 +32,6 @@ public class Countdown {
         public void actionPerformed(ActionEvent e) {
             //elapsed time, count down with 1000 miliseconds
             elapsedTime = elapsedTime - second_down;
-
             //format the time to militarytime. 
             minute = (elapsedTime / 60000) % 60;
             second = (elapsedTime / 1000) % 60;
@@ -52,29 +53,22 @@ public class Countdown {
 
     });
     // The same as time above
-    Timer timer1 = new Timer(1000, e -> {
-
-        elapsedTime = elapsedTime - 1000;
-        minute = (elapsedTime / 60000) % 60;
-        second = (elapsedTime / 1000) % 60;
-        secondString = String.format("%02d", second);
-        minuteString = String.format("%02d", minute);
-        counterLabel.setText(minuteString + ":" + secondString);
-        scoreCounter2.setText("" + points2);
-
-        if (minute == 0 && second == 0) {
-            timer.stop();
-            System.out.println("You run out of time!");
-        }
-    });
-
-    /*Timer scoreboard = new Timer(1, new ActionListener() {
+    Timer timer2 = new Timer(1000, new ActionListener() {
 
         public void actionPerformed(ActionEvent e) {
-            scoreCounter.setText("" + points);
+            elapsedTime2 = elapsedTime2 - second_down;
+            minute = (elapsedTime2 / 60000) % 60;
+            second = (elapsedTime2 / 1000) % 60;
+            secondString = String.format("%02d", second);
+            minuteString = String.format("%02d", minute);
+            counterLabel2.setText(minuteString + ":" + secondString);
             scoreCounter2.setText("" + points2);
 
-        }});*/
+            if (minute == 0 && second == 0) {
+                timer2.stop();
+                System.out.println("You run out of time!");
+            }
+        }    });
 
 
     Countdown() {
