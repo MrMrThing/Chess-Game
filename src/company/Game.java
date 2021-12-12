@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class Game extends JPanel{
     float m_round;
     boolean isOver;
-    Player player2; //the one playing from down
-    Player player; //the one playing from up
+    Player player2; //the one playing from up
+    Player player; //the one playing from down
     public ArrayList<Point> m_positionsTaken = new ArrayList<>(); //all the positions taken arranged in a certain order
     public ArrayList<Piece> m_pieces = new ArrayList<>(); //all pieces on the board
     //when a piece is taken of the board, we just delete it from the arrayList
