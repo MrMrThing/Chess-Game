@@ -312,6 +312,10 @@ public class Board extends JPanel {
                             }else {
                                 countdown.points2 += m_pieces.get(k).value;
                             }
+                            // eat queen = eat king !!!
+                            System.out.println(m_pieces.get(k).pieceName);
+                            System.out.println(m_pieces.get(k).value);
+
 
                             selected.setPosition(clickedX, clickedY); //we move the piece here
                             System.out.println("Hello world");
