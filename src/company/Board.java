@@ -187,31 +187,31 @@ public class Board extends JPanel {
 
                     if(m_pieces.get(k).getColor()){
                         if(m_pieces.get(k).toString().contains("Pawn")){
-                            g.drawImage(WPawn, tempx*100 + 20, tempy*100 + 20, null);
+                            g.drawImage(WPawn, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
                         } else if (m_pieces.get(k).toString().contains("King")){
-                            g.drawImage(WKing, tempx*100 + 20, tempy*100 + 20, null);
+                            g.drawImage(WKing, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
                         } else if (m_pieces.get(k).toString().contains("Knight")){
-                            g.drawImage(WKnight, tempx*100 + 20, tempy*100 + 20, null);
+                            g.drawImage(WKnight, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
                         } else if (m_pieces.get(k).toString().contains("Queen")){
-                            g.drawImage(WQueen, tempx*100 + 20, tempy*100 + 20, null);
+                            g.drawImage(WQueen, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
                         } else if (m_pieces.get(k).toString().contains("Bishop")){
-                            g.drawImage(WBishop, tempx*100 + 20, tempy*100 + 20, null);
+                            g.drawImage(WBishop, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
                         } else if (m_pieces.get(k).toString().contains("Rook")){
-                            g.drawImage(WRook, tempx*100 + 20, tempy*100 + 20, null);
+                            g.drawImage(WRook, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
                         }
                     } else{
                         if(m_pieces.get(k).toString().contains("Pawn")){
-                            g.drawImage(BPawn, tempx*100 + 20, tempy*100 + 20, null);
+                            g.drawImage(BPawn, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
                         } else if (m_pieces.get(k).toString().contains("King")){
-                            g.drawImage(BKing, tempx*100 + 20, tempy*100 + 20, null);
+                            g.drawImage(BKing, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
                         } else if (m_pieces.get(k).toString().contains("Knight")){
-                            g.drawImage(BKnight, tempx*100 + 20, tempy*100 + 20, null);
+                            g.drawImage(BKnight, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
                         } else if (m_pieces.get(k).toString().contains("Queen")){
-                            g.drawImage(BQueen, tempx*100 + 20, tempy*100 + 20, null);
+                            g.drawImage(BQueen, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
                         } else if (m_pieces.get(k).toString().contains("Bishop")){
-                            g.drawImage(BBishop, tempx*100 + 20, tempy*100 + 20, null);
+                            g.drawImage(BBishop, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
                         } else if (m_pieces.get(k).toString().contains("Rook")){
-                            g.drawImage(BRook, tempx*100 + 20, tempy*100 + 20, null);
+                            g.drawImage(BRook, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
                         }
                     }
 
