@@ -101,6 +101,7 @@ class Pawn extends Piece {
     @Override
     void loadBasicPossiblePositions() { //the basic movements of a pawn
 
+
        /* for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
 
@@ -926,6 +927,18 @@ class Queen extends Piece {
             uld_x--; //we decrease y
         }while(uld_y >= 0 && uld_x >= 0);
 
+        //If there is a same color piece on one of the possible positions, it's not a possible one anymore
+        for (Piece p : pieces) {
+            //if there is a piece at one of the possible positions
+            if (this.possiblePositions.contains(p.getPosition())) {
+
+                //if it's the same color
+                if (p.getColor() == this.color) {
+                    //System.out.println("We are removing this position: " + p.getPositionX() + ", " + p.getPositionY() + "\n");
+                    this.possiblePositions.remove(p.getPosition()); //we remove that position from the possibilities
+                }
+            }
+        }
 
         this.displayPossiblePositions(); //testing
     }

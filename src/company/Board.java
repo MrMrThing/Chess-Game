@@ -334,7 +334,7 @@ public class Board extends JPanel {
                             }
                             selected.setPosition(clickedX, clickedY); //we move the knight there
 
-                            if(k + 1 == m_pieces.size()){
+                            if(k + 1 == m_pieces.size()){ ///PROBLEM
                                 System.out.println("current turn color: " + current_turn_color);
                                 current_turn_color = !current_turn_color;
                                 menacingPieces.clear();

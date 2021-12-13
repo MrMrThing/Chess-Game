@@ -5,12 +5,10 @@ import java.util.Random;
 
 public class AI {
     Random m_randomMove;
-    //ArrayList<Piece> m_AIPieces;
     boolean m_color, m_turn;
 
     public AI(){
         this.m_randomMove = new Random();
-        //this.m_AIPieces = new ArrayList<>();
         this.m_turn = false;
     }
 
