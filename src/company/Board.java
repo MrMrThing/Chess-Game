@@ -266,42 +266,42 @@ public class Board extends JPanel {
                 DontGoInCheck(selected);
             }
 
+            if(selected.beSelected){ //if the piece can be selected because no other move is being forced
+                if(selected.contains(tempPoint, selected.possiblePositions)){ //if tempPoint is in PP
 
-            if(selected.contains(tempPoint, selected.possiblePositions)){ //if tempPoint is in PP
+                    for(int k = 0; k < m_pieces.size(); k++){
 
-                for(int k = 0; k < m_pieces.size(); k++){
-
-                    if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
-                        // if player = false, then start timer and stop the other timer. Else reverse.
-                        if(!current_turn_color){
-                            countdown.timer.start();
-                            countdown.timer2.stop();
-                            //increment player turns
-                            turn++;
-                        }else {
-                            countdown.timer2.start();
-                            countdown.timer.stop();
-                            turn2++;
-                        }
-                        //if player = true and over first turn, then increment with 10 seconds. else reverse.
-                        if(current_turn_color && turn>=1){
-                            countdown.elapsedTime+=10000;
-                        } else if (!current_turn_color && turn2>=1){
-                            countdown.elapsedTime2 += 10000;
-                        }
+                        if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
+                            // if player = false, then start timer and stop the other timer. Else reverse.
+                            if(!current_turn_color){
+                                countdown.timer.start();
+                                countdown.timer2.stop();
+                                //increment player turns
+                                turn++;
+                            }else {
+                                countdown.timer2.start();
+                                countdown.timer.stop();
+                                turn2++;
+                            }
+                            //if player = true and over first turn, then increment with 10 seconds. else reverse.
+                            if(current_turn_color && turn>=1){
+                                countdown.elapsedTime+=10000;
+                            } else if (!current_turn_color && turn2>=1){
+                                countdown.elapsedTime2 += 10000;
+                            }
 
 
-                        //System.out.println(m_pieces.get(k).getColor());
-                        //System.out.println(selected.getColor());
+                            //System.out.println(m_pieces.get(k).getColor());
+                            //System.out.println(selected.getColor());
 
-                        if(m_pieces.get(k).getColor() != selected.getColor()){ //if the color of the piece is different from our knight
-                            m_pieces.remove(m_pieces.get(k)); //we delete the piece
+                            if(m_pieces.get(k).getColor() != selected.getColor()){ //if the color of the piece is different from our knight
+                                m_pieces.remove(m_pieces.get(k)); //we delete the piece
 
-                            if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
-                                if(selected.getFirstMove()){ //if it's its first move
-                                    //if the future position is 2 squares upward or downward, it was the first move of the pawn
+                                if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
+                                    if(selected.getFirstMove()){ //if it's its first move
+                                        //if the future position is 2 squares upward or downward, it was the first move of the pawn
 
-                                    selected.setFirstMove(false); //first move was played, not gonna be available anymore
+                                        selected.setFirstMove(false); //first move was played, not gonna be available anymore
 
                                 }
                             }
@@ -317,34 +317,34 @@ public class Board extends JPanel {
                             System.out.println(m_pieces.get(k).value);
 
 
-                            selected.setPosition(clickedX, clickedY); //we move the piece here
-                            System.out.println("Hello world");
-                            current_turn_color = !current_turn_color;
-                            menacingPieces.clear();
-                            break;
-                        }
-                    } else {
-                        if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
-                            if(selected.getFirstMove()){ //if it's its first move
-                                //if the future position is 2 squares upward or downward, it was the first move of the pawn
-
-                                selected.setFirstMove(false); //first move was played, not gonna be available anymore
-
+                                selected.setPosition(clickedX, clickedY); //we move the piece here
+                                System.out.println("Hello world");
+                                current_turn_color = !current_turn_color;
+                                menacingPieces.clear();
+                                break;
                             }
-                        }
-                        selected.setPosition(clickedX, clickedY); //we move the knight there
+                        } else {
+                            if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
+                                if(selected.getFirstMove()){ //if it's its first move
+                                    //if the future position is 2 squares upward or downward, it was the first move of the pawn
 
-                        if(k + 1 == m_pieces.size()){
-                            System.out.println("current turn color: " + current_turn_color);
-                            current_turn_color = !current_turn_color;
-                            menacingPieces.clear();
+                                    selected.setFirstMove(false); //first move was played, not gonna be available anymore
+
+                                }
+                            }
+                            selected.setPosition(clickedX, clickedY); //we move the knight there
+
+                            if(k + 1 == m_pieces.size()){
+                                System.out.println("current turn color: " + current_turn_color);
+                                current_turn_color = !current_turn_color;
+                                menacingPieces.clear();
+                            }
                         }
                     }
                 }
-
-
-
             }
+
+
             selected = null; //we say that nothing has been selected
 
         }else{ //if nothing has been selected
@@ -388,7 +388,7 @@ public class Board extends JPanel {
                 //if the piece isn't a savior or the king
                 if(!p.equals(savior) && !p.pieceName.contains("King")){
                     //The piece cannot be selected
-                    return null;
+                    p.beSelected = false;
                 }
             }
         }
