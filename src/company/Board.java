@@ -241,6 +241,8 @@ public class Board extends JPanel {
 
         if(selected != null){ //if something has been selected
 
+            hasColorChanged = false;
+
             //First we verify if there is check or checkmate happening
 
             if(this.isCheck()){ //King is in check
