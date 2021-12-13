@@ -927,6 +927,7 @@ class Queen extends Piece {
             uld_x--; //we decrease y
         }while(uld_y >= 0 && uld_x >= 0);
 
+
         //If there is a same color piece on one of the possible positions, it's not a possible one anymore
         for (Piece p : pieces) {
             //if there is a piece at one of the possible positions
