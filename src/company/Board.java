@@ -391,6 +391,7 @@ public class Board extends JPanel {
                     p.beSelected = false;
                 }
             }
+
         }
 
         //If there is no savior, only the king can save himself

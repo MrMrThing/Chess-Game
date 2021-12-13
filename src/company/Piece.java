@@ -11,6 +11,7 @@ public abstract class Piece{
     String pieceName;
     Boolean first_move;
     Boolean beSelected; //whether the piece can be selected by the player or not
+
     ArrayList<Point> possiblePositions = new ArrayList<>(); //this is the array where we'll put the positions our piece
     //can take regardless of the positions already taken
 
