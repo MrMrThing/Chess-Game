@@ -39,6 +39,7 @@ public class Board extends JPanel {
     Point drawPoint;
     JFrame frame;
     boolean current_turn_color;
+    boolean hasColorChanged;
     int turn;
     int turn2;
 
@@ -269,9 +270,11 @@ public class Board extends JPanel {
             if(selected.beSelected){ //if the piece can be selected because no other move is being forced
                 if(selected.contains(tempPoint, selected.possiblePositions)){ //if tempPoint is in PP
 
-                    for(int k = 0; k < m_pieces.size(); k++){
+                    for(Piece k: m_pieces){
 
-                        if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
+                    //for(int k = 0; k < m_pieces.size(); k++){
+
+                        if(k.getPositionX() == clickedX && k.getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
                             // if player = false, then start timer and stop the other timer. Else reverse.
                             if(!current_turn_color){
                                 countdown.timer.start();
@@ -294,8 +297,8 @@ public class Board extends JPanel {
                             //System.out.println(m_pieces.get(k).getColor());
                             //System.out.println(selected.getColor());
 
-                            if(m_pieces.get(k).getColor() != selected.getColor()){ //if the color of the piece is different from our knight
-                                m_pieces.remove(m_pieces.get(k)); //we delete the piece
+                            if(k.getColor() != selected.getColor()){ //if the color of the piece is different from our knight
+                                m_pieces.remove(k); //we delete the piece
 
                                 if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
                                     if(selected.getFirstMove()){ //if it's its first move
@@ -307,19 +310,19 @@ public class Board extends JPanel {
                             }
                             // if player eat, get points accordingly to the pieces value
                             if(current_turn_color){
-                                countdown.points += m_pieces.get(k).value;
+                                countdown.points += k.value;
                                 // if ai eat, get points accordingly to the pieces value
                             }else {
-                                countdown.points2 += m_pieces.get(k).value;
+                                countdown.points2 += k.value;
                             }
                             // eat queen = eat king !!!
-                            System.out.println(m_pieces.get(k).pieceName);
-                            System.out.println(m_pieces.get(k).value);
+                            System.out.println(k.pieceName);
+                            System.out.println(k.value);
 
 
                                 selected.setPosition(clickedX, clickedY); //we move the piece here
                                 System.out.println("Hello world");
-                                current_turn_color = !current_turn_color;
+                                //current_turn_color = !current_turn_color;
                                 menacingPieces.clear();
                                 break;
                             }
@@ -334,9 +337,10 @@ public class Board extends JPanel {
                             }
                             selected.setPosition(clickedX, clickedY); //we move the knight there
 
-                            if(k + 1 == m_pieces.size()){ ///PROBLEM
+                            if(hasColorChanged == false){
                                 System.out.println("current turn color: " + current_turn_color);
                                 current_turn_color = !current_turn_color;
+                                hasColorChanged = true;
                                 menacingPieces.clear();
                             }
                         }
