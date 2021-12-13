@@ -10,6 +10,8 @@ public abstract class Piece{
     Boolean color;
     String pieceName;
     Boolean first_move;
+    Boolean beSelected; //whether the piece can be selected by the player or not
+
     ArrayList<Point> possiblePositions = new ArrayList<>(); //this is the array where we'll put the positions our piece
     //can take regardless of the positions already taken
 
@@ -18,6 +20,7 @@ public abstract class Piece{
         this.position = pos;
         this.color = color;
         this.first_move = false; //for all pieces except pawn, first move is always false
+        this.beSelected = true;
     }
 
     public boolean getColor(){return this.color; }
@@ -639,7 +642,7 @@ class Rook extends Piece {
     }
 }
 
-///WORK ON QUEEN -> only when rook, bishop and king have been tested
+
 class Queen extends Piece {
     //A queen has the same moves as a king, a bishop and a rook
 
