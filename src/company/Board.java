@@ -438,6 +438,9 @@ public class Board extends JPanel {
                 ///King is checkmate, game is over
                 if(this.isCheckmate()){
                     b_game.isOver = true;
+                    if (b_game.isOver){
+                        frame.dispose();
+                    }
                 }
             }
         }
