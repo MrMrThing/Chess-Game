@@ -16,11 +16,17 @@ import java.util.regex.Pattern;
 
 public class Player extends JPanel{
     Scanner in;
+    //name of the player, his password and the number of points that the player has in his file before the game
     String m_name, m_password, m_pointsString;
+    //number of points updated during the game
     int m_points;
-    boolean m_turn, m_win, m_help=true;
-    boolean m_color;
+    //helps us avoid creating the same file over and over and the color that the player is playing: helps us determine the turns
+    boolean m_help=true, m_color;
+    //manages the turns, determines who's round it is
+    boolean m_turn, m_win; //m_win is never used, but otherwise it would be needed to upload the new number of points on the file
+    //determines if the player already exists or not, is true if we already now the name of the player before accessing upload and/or collect
     boolean m_exists=false, m_c=false;
+    //stores all the players name
     Vector<String> players= new Vector<>();
 
     //In the constructor we make our first choice
@@ -30,29 +36,40 @@ public class Player extends JPanel{
         //JFrame function: does not work for some reason
         //paint(frame);
 
+        //stores the information the player enters
         String choice;
+        //make the menu run over and over if the wrong value is entered
         boolean menu=true;
 
-        //Menu from which you decide to load or create a new player
+        //Menu from which you decide to load or create a new player or just access as guest
         while (menu){
-            System.out.println("If you want to create a new user tap 1 if you want to access an existing one click 2?");
+            System.out.println("If you want to create a new user tap 1, if you want to access an existing one click 2, if you want to access as guest tap 3");
             choice=in.nextLine();
             switch (choice) {
+                //Creates a new username
                 case "1": {
                     this.m_c = true;
                     upload();
                     menu = false;
                     break;
                 }
+                //Uploads an existing one
                 case "2": {
                     this.m_c = true;
                     collect();
                     menu = false;
                     break;
                 }
-                default:
+                //Access as guest
+                case "3": {
+                    guest();
+                    menu= false;
+                    break;
+                }
+                default: {
                     System.out.println("You didn't click the correct number, try again");
                     break;
+                }
             }
         }
     }
@@ -60,6 +77,7 @@ public class Player extends JPanel{
     //Methode that calls upon all the necessary ones to create a new player
     void upload(){
         if(this.m_c) {
+            //make the menu run over and over if the username chosen has spaces
             boolean menu=true;
             while (menu) {
                 System.out.println("What's your username? ");
@@ -114,12 +132,13 @@ public class Player extends JPanel{
         else {
             String choice;
             boolean menu=true;
+            //make the menu run over and over if the wrong value is entered
             while (menu){
                 System.out.println("Profile name doesn't exists sorry... Do you want to load an other one (tap 1) or create a new one with that name (tap 2) ?");
                 choice=in.nextLine();
                 switch (choice) {
+                    //Uploads
                     case "1" : {
-
                         this.players.remove(this.m_name);
                         this.m_c = true;
                         this.m_exists = false;
@@ -127,6 +146,7 @@ public class Player extends JPanel{
                         menu = false;
                         break;
                     }
+                    //Creates
                     case "2" : {
                         this.m_exists = false;
                         this.players.remove(this.m_name); //we need to free the space in which this name was being stock otherwise it will think this username already exists
@@ -142,6 +162,11 @@ public class Player extends JPanel{
             }
 
         }
+    }
+
+    //access as guest and as such has no personal data stores
+    void guest(){
+        System.out.println("Welcome");
     }
 
     void CreateFile(){
@@ -161,12 +186,16 @@ public class Player extends JPanel{
             FileWriter myW = new FileWriter("profile.txt",true); //do not overwrite
             //if it already exists we go back to the menu option
             if (this.m_exists) {
+                //stores the information the player enters
                 String choice;
+                //make the menu run over and over if the wrong value is entered
                 boolean menu=true;
+                //Menu from which you decide to load or create a new player or just access as guest
                 while (menu){
                     System.out.println("Profile name already exists sorry... Do you want to load that one (tap 1) or create a new one(tap 2)?");
                     choice=in.nextLine();
                     switch (choice) {
+                        //upload
                         case "1": {
                             this.m_exists = true;
                             this.m_c = false;
@@ -175,6 +204,7 @@ public class Player extends JPanel{
                             menu = false;
                             break;
                         }
+                        //create
                         case "2" : {
                             this.m_name = "";
                             this.m_exists = false;
@@ -192,6 +222,7 @@ public class Player extends JPanel{
             else {
                 myW.write(this.m_name+"\n");
             }
+            //we close the writer file before accessing the reader method
             myW.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -217,6 +248,7 @@ public class Player extends JPanel{
                     }
                 }
             }
+            //if the file is new we add the first name
             if(br.readLine() == null) {
                 this.players.add(this.m_name);
             }
@@ -227,10 +259,13 @@ public class Player extends JPanel{
             e.printStackTrace();
         }
     }
-    //Once you create a new user
+
+    //Once you create a new username
     void CreateEachProfileFile(){
+        //the name of the new file
         String doc=this.m_name + ".txt";
         File EachFile= new File(doc);
+        //Create a new file for each name
         try {
             if (EachFile.createNewFile())
                 System.out.println("File " + EachFile.getName() + " created");
@@ -241,6 +276,7 @@ public class Player extends JPanel{
         InitializeEachFile(doc);
     }
 
+    //Reads each line of the new file
     void ReadEachFile(String doc) {
         Path filePath = Paths.get(doc);
         List<String> lines;
@@ -249,16 +285,17 @@ public class Player extends JPanel{
             lines.forEach(line -> {
                 // split each line by an arbitrary number of whitespaces
                 String[] lineValues = line.split("\\s+");
-                // and do what you want with the results, e.g. create an edge of the graph
-                this.m_password= lineValues[0];
-                this.m_pointsString= lineValues[1];
-                this.m_points=Integer.parseInt(this.m_pointsString);
+                // the results are stocked as such:
+                this.m_password= lineValues[0]; //before the space
+                this.m_pointsString= lineValues[1]; //after the space
+                this.m_points=Integer.parseInt(this.m_pointsString); //converts the sting into an int
             });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    //When we create the new file the player must choose a password and his points are null
     void InitializeEachFile(String doc){
         try {
             FileWriter myW = new FileWriter(doc,true);
@@ -272,6 +309,7 @@ public class Player extends JPanel{
         }
     }
 
+    //If it's an existing account we check that the password is correct
     void TestPsw() {
         String doc = this.m_name + ".txt";
         String test_password;
@@ -280,10 +318,13 @@ public class Player extends JPanel{
         System.out.println("What is your password? ");
         while (menu) {
             test_password = in.nextLine();
+            //If the player is correct we simply end the while
             if (this.m_password.equals(test_password)) {
                 System.out.println("Hi " + this.m_name + " it's nice to see you again!\nYou currently have " + this.m_pointsString + " points\n\n");
                 menu = false;
-            } else {
+            }
+            //however, if he doesn't remember it after 3 tries we ask him to change the password
+            else {
                 if(i<2)
                 {
                     System.out.println("Incorrect password... Try again: ");
@@ -292,7 +333,7 @@ public class Player extends JPanel{
                 else if (i == 2) {
                     System.out.println("You have forgotten your password... ");
                     try {
-                        FileWriter myW = new FileWriter(doc, false);
+                        FileWriter myW = new FileWriter(doc, false); //it will be overwritten
                         System.out.println("Choose a new password: ");
                         this.m_password = in.nextLine();
                         myW.write(this.m_password + " " + this.m_points);
@@ -323,6 +364,7 @@ public class Player extends JPanel{
 
     }
 
+    //Doesn't work but, should be used in order to avoid using the console
     void paint(JFrame frame){
         this.setVisible(true);
         JPanel panel1 = new JPanel();
