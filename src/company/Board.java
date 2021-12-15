@@ -243,11 +243,10 @@ public class Board extends JPanel {
 
             hasColorChanged = false;
 
-            //First we verify if there is check or checkmate happening
-
-            if(this.isCheck()){ //King is in check
+            /*
+            //If a king is in check, we empty selected and find a piece that can save him
+            if(this.isCheck()){
                 selected.emptyPossiblePositions();
-                //We force selected to be either a savior or the king
                 selected = canSomeoneSave();
             }
 
@@ -256,13 +255,17 @@ public class Board extends JPanel {
             if(!this.isCheck()){
                 selected.emptyPossiblePositions();
                 selected.UpdatePossiblePositions(b_game); //Selected is a piece. We update its possible positions
-            }
+            }*/
+
+            selected.emptyPossiblePositions();
+            selected.UpdatePossiblePositions(b_game); //Selected is a piece. We update its possible positions
 
             System.out.println("size of PP: " + selected.getPossiblePositions().size());
             System.out.println(" piece selected is " +selected);
 
 
             System.out.println(selected.getPossiblePositions());
+
 
             //If selected is a king, we make sure he can't get in danger
             if(selected.pieceName.contains("King")){
@@ -302,24 +305,24 @@ public class Board extends JPanel {
                             if(k.getColor() != selected.getColor()){ //if the color of the piece is different from our knight
                                 m_pieces.remove(k); //we delete the piece
 
-                                if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
+                                //If the piece selected is a pawn
+                                if(Objects.equals(selected.pieceName, "Pawn")){
                                     if(selected.getFirstMove()){ //if it's its first move
-                                        //if the future position is 2 squares upward or downward, it was the first move of the pawn
-
-                                        selected.setFirstMove(false); //first move was played, not gonna be available anymore
-
+                                        //first move was played, it's not going to be available anymore
+                                        selected.setFirstMove(false);
+                                    }
                                 }
-                            }
-                            // if player eat, get points accordingly to the pieces value
-                            if(current_turn_color){
-                                countdown.points += k.value;
-                                // if ai eat, get points accordingly to the pieces value
-                            }else {
-                                countdown.points2 += k.value;
-                            }
-                            // eat queen = eat king !!!
-                            System.out.println(k.pieceName);
-                            System.out.println(k.value);
+
+                                // if player eat, get points accordingly to the pieces value
+                                if(current_turn_color){
+                                    countdown.points += k.value;
+                                    // if ai eat, get points accordingly to the pieces value
+                                }else {
+                                    countdown.points2 += k.value;
+                                }
+                                // eat queen = eat king !!!
+                                System.out.println(k.pieceName);
+                                System.out.println(k.value);
 
 
                                 selected.setPosition(clickedX, clickedY); //we move the piece here
@@ -369,6 +372,7 @@ public class Board extends JPanel {
         }
     }
 
+    /*
     //This method is called when king is in danger
     //It verifies if another piece can eat the menacing piece so that the king is no longer in danger
     public Piece canSomeoneSave(){
@@ -407,9 +411,9 @@ public class Board extends JPanel {
         }
 
         return null;
-    }
+    }*/
 
-    //This method stops the king from putting itself in danger: it modifies its PP
+    //This method stops the king from putting itself in danger: it modifies its possible positions
     public void DontGoInCheck(Piece king){
         ArrayList<Point> deleteFromKing = new ArrayList<>();
 
@@ -433,6 +437,8 @@ public class Board extends JPanel {
         //Once we got all the pp to delete
         king.possiblePositions.removeAll(deleteFromKing);
 
+        /*
+        //if the king can't move and is in check, it's a checkmate. The game is over
         if(king.possiblePositions.size() == 0){
             if(isCheck()){
                 ///King is checkmate, game is over
@@ -443,10 +449,12 @@ public class Board extends JPanel {
                     }
                 }
             }
-        }
+        }*/
     }
 
-    public boolean isCheck(){ ///if the king is menaced on its current position
+    /*
+    //This methods verifies if aking is in check. If yes, it returns true
+    public boolean isCheck(){
         Point kingPosW = new Point();
         Point kingPosB = new Point();
         Piece kingW = null;
@@ -495,12 +503,11 @@ public class Board extends JPanel {
 
         }
         return false; //in case no opposing piece has a king in check
-    }
+    }*/
 
+    /*
     //called when king can't move and no one can save him
     public boolean isCheckmate(){
-        //if every PP of the king is menaced
-
         //We verify that: king can't move AND no one can save
 
         if(this.menacedKing.possiblePositions.isEmpty()){ //if king can't move
@@ -521,9 +528,13 @@ public class Board extends JPanel {
             return true; //game is over, no piece can eat to save the king
         }
         return false; //this king can save himself
-    }
+    }*/
 
-   //This method manages the rounds and turns
+
+    ///--- DELETE THIS METHOD if we have another way of closing the game
+
+    /*
+    //This method manages the rounds and turns
    //It also will manage the different situations of the game ending
    public void playGame(Game g) { ///WHERE TO CALL IT? take care when all pieces move well
 
@@ -571,5 +582,5 @@ public class Board extends JPanel {
                 }
             }
         }
-   }
+   }*/
 }
