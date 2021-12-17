@@ -84,6 +84,7 @@ public class Board extends JPanel {
 
         this.b_game = new Game();
         current_turn_color = b_game.player.m_color;
+        // add Jlabels to frame from Countdown
         frame.add(Countdown.counterLabel);
         frame.add(Countdown.counterLabel2);
         frame.add(Countdown.scoreCounter);
