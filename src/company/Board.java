@@ -40,8 +40,6 @@ public class Board extends JPanel {
     JFrame frame;
     boolean current_turn_color;
     boolean hasColorChanged;
-    int turn;
-    int turn2;
 
     Game b_game; //the board is connected to the game
     ArrayList<Piece> menacingPieces = new ArrayList<>();
@@ -91,6 +89,8 @@ public class Board extends JPanel {
         frame.add(Countdown.scoreCounter);
         frame.add(Countdown.scoreCounter2);
         frame.add(Countdown.eatScore);
+        frame.add(Countdown.Player1);
+        frame.add(Countdown.Player2);
 
 
         this.frame = frame;
@@ -285,16 +285,16 @@ public class Board extends JPanel {
                                 countdown.timer.start();
                                 countdown.timer2.stop();
                                 //increment player turns
-                                turn++;
+                                countdown.turn++;
                             }else {
                                 countdown.timer2.start();
                                 countdown.timer.stop();
-                                turn2++;
+                                countdown.turn2++;
                             }
                             //if player = true and over first turn, then increment with 10 seconds. else reverse.
-                            if(current_turn_color && turn>=1){
+                            if(current_turn_color && countdown.turn>=1){
                                 countdown.elapsedTime+=10000;
-                            } else if (!current_turn_color && turn2>=1){
+                            } else if (!current_turn_color && countdown.turn2>=1){
                                 countdown.elapsedTime2 += 10000;
                             }
 

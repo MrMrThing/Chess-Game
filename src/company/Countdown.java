@@ -10,6 +10,8 @@ public class Countdown {
 
     static JLabel counterLabel = new JLabel();
     static JLabel counterLabel2 = new JLabel();
+    static JLabel Player1 = new JLabel();
+    static JLabel Player2 = new JLabel();
     static JLabel scoreCounter = new JLabel();
     static JLabel scoreCounter2 = new JLabel();
     static JLabel eatScore = new JLabel();
@@ -21,6 +23,8 @@ public class Countdown {
     int points2 = 0;
     int second = 0;
     int minute = 0;
+    int turn;
+    int turn2;
 
     // Format the string with 2
     String secondString = String.format("%02d", second);
@@ -85,6 +89,18 @@ public class Countdown {
         counterLabel2.setBounds(900, 400, 100, 50);
         counterLabel2.setFont(new Font("Arial", Font.PLAIN, 35));
         counterLabel2.setOpaque(true);
+
+        Player1.setLayout(null);
+        Player1.setText("Player 1");
+        Player1.setBounds(800, 350, 100, 50);
+        Player1.setFont(new Font("Arial", Font.PLAIN, 24));
+        Player1.setOpaque(true);
+
+        Player2.setLayout(null);
+        Player2.setText("Player 2");
+        Player2.setBounds(900, 350, 100, 50);
+        Player2.setFont(new Font("Arial", Font.PLAIN, 24));
+        Player2.setOpaque(true);
 
         scoreCounter.setLayout(null);
         scoreCounter.setText("" + points);
