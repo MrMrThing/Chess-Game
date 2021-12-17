@@ -282,7 +282,7 @@ public class Board extends JPanel {
 
                         if(k.getPositionX() == clickedX && k.getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
                             // if player = false, then start timer and stop the other timer. Else reverse.
-                            if(!current_turn_color){
+                            if(current_turn_color){
                                 countdown.timer1.start();
                                 countdown.timer2.stop();
                                 //increment player turns
@@ -293,9 +293,9 @@ public class Board extends JPanel {
                                 countdown.turn2++;
                             }
                             //if player = true and over first turn, then increment with 10 seconds. else reverse.
-                            if(current_turn_color && countdown.turn>=1){
+                            if(current_turn_color && countdown.turn>=2){
                                 countdown.elapsedTime+=10000;
-                            } else if (!current_turn_color && countdown.turn2>=1){
+                            } else if (!current_turn_color && countdown.turn2>=2){
                                 countdown.elapsedTime2 += 10000;
                             }
 
