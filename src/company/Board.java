@@ -85,9 +85,9 @@ public class Board extends JPanel {
         this.b_game = new Game();
         current_turn_color = b_game.player.m_color;
         // add Jlabels to frame from Countdown
-        frame.add(Countdown.counterLabel);
-        frame.add(Countdown.counterLabel2);
-        frame.add(Countdown.scoreCounter);
+        frame.add(Countdown.counter1);
+        frame.add(Countdown.counter2);
+        frame.add(Countdown.scoreCounter1);
         frame.add(Countdown.scoreCounter2);
         frame.add(Countdown.eatScore);
         frame.add(Countdown.Player1);
@@ -283,13 +283,13 @@ public class Board extends JPanel {
                         if(k.getPositionX() == clickedX && k.getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
                             // if player = false, then start timer and stop the other timer. Else reverse.
                             if(!current_turn_color){
-                                countdown.timer.start();
+                                countdown.timer1.start();
                                 countdown.timer2.stop();
                                 //increment player turns
                                 countdown.turn++;
                             }else {
                                 countdown.timer2.start();
-                                countdown.timer.stop();
+                                countdown.timer1.stop();
                                 countdown.turn2++;
                             }
                             //if player = true and over first turn, then increment with 10 seconds. else reverse.

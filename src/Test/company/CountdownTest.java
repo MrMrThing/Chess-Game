@@ -19,9 +19,9 @@ class CountdownTest {
         void CountdownTest1() {
             Countdown testCoundtown=new Countdown();
             // assert that following JLabels isn't null
-            assertNotNull(testCoundtown.counterLabel);
-            assertNotNull(testCoundtown.counterLabel2);
-            assertNotNull(testCoundtown.scoreCounter);
+            assertNotNull(testCoundtown.counter1);
+            assertNotNull(testCoundtown.counter2);
+            assertNotNull(testCoundtown.scoreCounter1);
             assertNotNull(testCoundtown.scoreCounter2);
             assertNotNull(testCoundtown.eatScore);
         }
