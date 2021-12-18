@@ -254,7 +254,7 @@ public class Board extends JPanel {
 
         if(selected != null){ //if something has been selected
 
-            hasColorChanged = false;
+            hasColorChanged = false; //using this to only change color once per for loop
 
             /*
             //If a king is in check, we empty selected and find a piece that can save him
@@ -375,10 +375,12 @@ public class Board extends JPanel {
                             }
                             selected.setPosition(clickedX, clickedY); //we move the knight there
 
+                            //We only wants to change the color once, for the for loop
+                            //So we keep track of it with hasColorChanged
                             if(hasColorChanged == false){
                                 System.out.println("current turn color: " + current_turn_color);
-                                current_turn_color = !current_turn_color;
-                                hasColorChanged = true;
+                                current_turn_color = !current_turn_color; //Change the color
+                                hasColorChanged = true; //Setting to true, so that we don't change color again
                                 menacingPieces.clear();
                             }
                         }
