@@ -13,7 +13,7 @@ class CountdownTest {
     void CountdownTest() {
         Countdown testCoundtown = new Countdown();
         // find out if the milliseconds is eqeal the countdowns elapsedTime.
-        assertEquals(900000, testCoundtown.elapsedTime);
+        assertEquals(900000, testCoundtown.elapsedTime1);
     }
         @Test
         void CountdownTest1() {

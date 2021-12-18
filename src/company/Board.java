@@ -286,15 +286,15 @@ public class Board extends JPanel {
                                 countdown.timer1.start();
                                 countdown.timer2.stop();
                                 //increment player turns
-                                countdown.turn++;
+                                countdown.turn1++;
                             }else {
                                 countdown.timer2.start();
                                 countdown.timer1.stop();
                                 countdown.turn2++;
                             }
                             //if player = true and over first turn, then increment with 10 seconds. else reverse.
-                            if(current_turn_color && countdown.turn>=2){
-                                countdown.elapsedTime+=10000;
+                            if(current_turn_color && countdown.turn1>=2){
+                                countdown.elapsedTime1+=10000;
                             } else if (!current_turn_color && countdown.turn2>=2){
                                 countdown.elapsedTime2 += 10000;
                             }
@@ -316,7 +316,7 @@ public class Board extends JPanel {
 
                                 // if player eat, get points accordingly to the pieces value
                                 if(current_turn_color){
-                                    countdown.points += k.value;
+                                    countdown.points1 += k.value;
                                     // if ai eat, get points accordingly to the pieces value
                                 }else {
                                     countdown.points2 += k.value;

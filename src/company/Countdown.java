@@ -16,14 +16,14 @@ public class Countdown {
     static JLabel scoreCounter2 = new JLabel();
     static JLabel eatScore = new JLabel();
 
-    int elapsedTime = 900000;
+    int elapsedTime1 = 900000;
     int elapsedTime2 = 900000;
     int second_down = 1000;
-    int points = 0;
+    int points1 = 0;
     int points2 = 0;
     int second = 0;
     int minute = 0;
-    int turn;
+    int turn1;
     int turn2;
 
     // Format the string with 2 decimals
@@ -35,16 +35,16 @@ public class Countdown {
 
         public void actionPerformed(ActionEvent e) {
             //elapsed time, count down with 1000 miliseconds
-            elapsedTime = elapsedTime - second_down;
+            elapsedTime1 = elapsedTime1 - second_down;
             //format the time to militarytime. 
-            minute = (elapsedTime / 60000) % 60;
-            second = (elapsedTime / 1000) % 60;
+            minute = (elapsedTime1 / 60000) % 60;
+            second = (elapsedTime1 / 1000) % 60;
             //format the string to have 2 decimals
             secondString = String.format("%02d", second);
             minuteString = String.format("%02d", minute);
             // Insert the variables in to the label.
             counter1.setText(minuteString + ":" + secondString);
-            scoreCounter1.setText("" + points);
+            scoreCounter1.setText("" + points1);
 
 
             // stop the timer, if player 1 or player 2 has run of time.
@@ -103,7 +103,7 @@ public class Countdown {
         Player2.setOpaque(true);
 
         scoreCounter1.setLayout(null);
-        scoreCounter1.setText("" + points);
+        scoreCounter1.setText("" + points1);
         scoreCounter1.setBounds(800, 500, 100, 50);
         scoreCounter1.setFont(new Font("Arial", Font.PLAIN, 35));
         scoreCounter1.setOpaque(true);
