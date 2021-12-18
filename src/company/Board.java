@@ -174,10 +174,14 @@ public class Board extends JPanel {
 
             //Drawing each rect 
             g.fillRect(x, y, size, size);
+            //updating x, with the rect size
             x = x + size;
+            //seeing if we have hit the end / have we drawn 8 rects this row
             if(i%8 == 0){
-                y = y + size;
-                x = 0;
+                y = y + size; //set it to the next row
+                x = 0; //restarting the row
+
+                //We do this, else we get some weird colors every new row
                 if(color)
                     color = false;
                 else
@@ -187,8 +191,12 @@ public class Board extends JPanel {
             //Drawing the pieces
             for(int k = 0; k < m_pieces.size(); k++){
 
+                //Checking if there is a piece here
                 if(m_pieces.get(k).getPositionX() == tempx && m_pieces.get(k).getPositionY() == tempy){
 
+                    //Checing if the color is white 
+                    //and then checking what piece it is
+                    //And drawing them
                     if(m_pieces.get(k).getColor()){
                         if(m_pieces.get(k).toString().contains("Pawn")){
                             g.drawImage(WPawn, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
@@ -203,6 +211,8 @@ public class Board extends JPanel {
                         } else if (m_pieces.get(k).toString().contains("Rook")){
                             g.drawImage(WRook, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
                         }
+
+                    //Doing the same for black
                     } else{
                         if(m_pieces.get(k).toString().contains("Pawn")){
                             g.drawImage(BPawn, tempx*100 + 10, tempy*100 + 10, 75, 75, null);
