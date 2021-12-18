@@ -72,9 +72,7 @@ public class EndGame extends JPanel  {
         close.setFont(f2);
 
         //Add actionListener for button
-        close.addActionListener(e1 -> {
-            System.exit(0);
-        });
+        close.addActionListener(e1 -> System.exit(0));
 
         //Add button to JPanel
         panel1.add(close,gbc);
