@@ -136,7 +136,7 @@ public class Board extends JPanel {
     public void paint(Graphics g){
         boolean color = false;
         Color white = new Color(239,223,187);
-        Color black = new Color(59,47,47);
+        Color black = new Color(79,67,67);
         Color green = new Color(138,154,91);
         int x = 0;
         int y = 0;
