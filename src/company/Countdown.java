@@ -27,7 +27,7 @@ public class Countdown extends JPanel{
     int turn1;
     int turn2;
 
-    // Format the string with 2 decimals
+    // Format the string with 2 decimals.
     String secondString = String.format("%02d", second);
     String minuteString = String.format("%02d", minute);
 
