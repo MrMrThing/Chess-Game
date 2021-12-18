@@ -34,7 +34,6 @@ public class Countdown extends JPanel{
 
     // creates an object that initialise every 1000 miliseconds
     Timer timer1 = new Timer(1000, new ActionListener() {
-
         public void actionPerformed(ActionEvent e) {
             //elapsed time, count down with 1000 miliseconds
             elapsedTime1 = elapsedTime1 - second_down;
@@ -47,7 +46,6 @@ public class Countdown extends JPanel{
             // Insert the variables in to the label.
             counter1.setText(minuteString + ":" + secondString);
             scoreCounter1.setText("" + points1);
-
 
             // stop the timer, if player 1 or player 2 has run of time.
             if (minute == 0 && second == 0) {
