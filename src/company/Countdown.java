@@ -16,6 +16,7 @@ public class Countdown extends JPanel{
     static JLabel scoreCounter2 = new JLabel();
     static JLabel eatScore = new JLabel();
 
+
     // add the variables
     int elapsedTime1 = 600000;
     int elapsedTime2 = 600000;
@@ -72,7 +73,7 @@ public class Countdown extends JPanel{
         }
     });
 
-    Countdown() {
+    public Countdown(Game b_game) {
         counter1.setLayout(null);
         //Insert the text into counter1
         counter1.setText(minuteString + ":" + secondString);
@@ -90,13 +91,13 @@ public class Countdown extends JPanel{
         counter2.setOpaque(true);
 
         Player1.setLayout(null);
-        Player1.setText("Player 1");
+        Player1.setText(b_game.player.m_name);
         Player1.setBounds(800, 350, 100, 50);
         Player1.setFont(new Font("Arial", Font.PLAIN, 24));
         Player1.setOpaque(true);
 
         Player2.setLayout(null);
-        Player2.setText("Player 2");
+        Player2.setText(b_game.player2.m_name);
         Player2.setBounds(900, 350, 100, 50);
         Player2.setFont(new Font("Arial", Font.PLAIN, 24));
         Player2.setOpaque(true);

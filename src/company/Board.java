@@ -28,7 +28,7 @@ public class Board extends JPanel {
     private BufferedImage WQueen;
     private BufferedImage WRook;
 
-    Countdown countdown = new Countdown();
+
 
     ArrayList<Piece> m_pieces = new ArrayList<>();
     int clicked = 0;
@@ -42,11 +42,11 @@ public class Board extends JPanel {
     boolean current_turn_color;
     boolean hasColorChanged;
 
-    Game b_game; //the board is connected to the game
+    Game b_game = new Game(); //the board is connected to the game
     ArrayList<Piece> menacingPieces = new ArrayList<>();
     Piece menacedKing;
 
-
+    Countdown countdown = new Countdown(b_game);
 
     //Creation of the board
     public Board(JFrame frame){
@@ -83,7 +83,8 @@ public class Board extends JPanel {
 
         this.add(panel1);*/
 
-        this.b_game = new Game();
+        //this.b_game = new Game();
+
         current_turn_color = b_game.player.m_color;
         // add Jlabels to frame from Countdown
         frame.add(Countdown.counter1);
