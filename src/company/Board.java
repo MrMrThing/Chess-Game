@@ -2,6 +2,7 @@ package company;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -306,6 +307,22 @@ public class Board extends JPanel {
 
                             if(k.getColor() != selected.getColor()){ //if the color of the piece is different from our knight
                                 m_pieces.remove(k); //we delete the piece
+
+                                if(k.pieceName.contains("King")){
+                                    //End game
+                                    EndGame e= new EndGame(k, b_game);
+                                    //frame.setVisible(false);
+                                    frame.getContentPane().add(e);
+                                    setVisible(false);
+                                    Countdown.counter1.setVisible(false);
+                                    Countdown.counter2.setVisible(false);
+                                    Countdown.scoreCounter2.setVisible(false);
+                                    Countdown.scoreCounter1.setVisible(false);
+                                    Countdown.eatScore.setVisible(false);
+                                    Countdown.Player1.setVisible(false);
+                                    Countdown.Player2.setVisible(false);
+                                    e.setVisible(true);
+                                }
 
                                 //If the piece selected is a pawn
                                 if(Objects.equals(selected.pieceName, "Pawn")){

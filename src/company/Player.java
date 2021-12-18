@@ -74,7 +74,7 @@ public class Player extends JPanel{
         }
     }
 
-    //Methode that calls upon all the necessary ones to create a new player
+    //Method that calls upon all the necessary ones to create a new player
     void upload(){
         if(this.m_c) {
             //make the menu run over and over if the username chosen has spaces
@@ -92,7 +92,7 @@ public class Player extends JPanel{
                 } else if (found) {
                     System.out.println("You can't use spaces in your username, try again: ");
                 } else {
-                    m_name = in.nextLine();
+                    m_name = temp;
                     menu = false;
                 }
             }
@@ -167,6 +167,7 @@ public class Player extends JPanel{
     //access as guest and as such has no personal data stores
     void guest(){
         System.out.println("Welcome");
+        m_name="Guest";
     }
 
     void CreateFile(){

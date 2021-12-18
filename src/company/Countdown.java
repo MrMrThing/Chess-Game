@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class Countdown {
+public class Countdown extends JPanel{
 
     static JLabel counter1 = new JLabel();
     static JLabel counter2 = new JLabel();
