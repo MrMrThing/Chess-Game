@@ -2,6 +2,7 @@ package company;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -27,7 +28,7 @@ public class Board extends JPanel {
     private BufferedImage WQueen;
     private BufferedImage WRook;
 
-    Countdown countdown = new Countdown();
+
 
     ArrayList<Piece> m_pieces = new ArrayList<>();
     int clicked = 0;
@@ -39,14 +40,13 @@ public class Board extends JPanel {
     Point drawPoint;
     JFrame frame;
     boolean current_turn_color;
-    int turn;
-    int turn2;
+    boolean hasColorChanged;
 
-    Game b_game; //the board is connected to the game
+    Game b_game = new Game(); //the board is connected to the game
     ArrayList<Piece> menacingPieces = new ArrayList<>();
     Piece menacedKing;
 
-
+    Countdown countdown = new Countdown(b_game);
 
     //Creation of the board
     public Board(JFrame frame){
@@ -83,13 +83,17 @@ public class Board extends JPanel {
 
         this.add(panel1);*/
 
-        this.b_game = new Game();
+        //this.b_game = new Game();
+
         current_turn_color = b_game.player.m_color;
-        frame.add(Countdown.counterLabel);
-        frame.add(Countdown.counterLabel2);
-        frame.add(Countdown.scoreCounter);
+        // add Jlabels to frame from Countdown
+        frame.add(Countdown.counter1);
+        frame.add(Countdown.counter2);
+        frame.add(Countdown.scoreCounter1);
         frame.add(Countdown.scoreCounter2);
         frame.add(Countdown.eatScore);
+        frame.add(Countdown.Player1);
+        frame.add(Countdown.Player2);
 
 
         this.frame = frame;
@@ -240,11 +244,12 @@ public class Board extends JPanel {
 
         if(selected != null){ //if something has been selected
 
-            //First we verify if there is check or checkmate happening
+            hasColorChanged = false;
 
-            if(this.isCheck()){ //King is in check
+            /*
+            //If a king is in check, we empty selected and find a piece that can save him
+            if(this.isCheck()){
                 selected.emptyPossiblePositions();
-                //We force selected to be either a savior or the king
                 selected = canSomeoneSave();
             }
 
@@ -253,13 +258,17 @@ public class Board extends JPanel {
             if(!this.isCheck()){
                 selected.emptyPossiblePositions();
                 selected.UpdatePossiblePositions(b_game); //Selected is a piece. We update its possible positions
-            }
+            }*/
+
+            selected.emptyPossiblePositions();
+            selected.UpdatePossiblePositions(b_game); //Selected is a piece. We update its possible positions
 
             System.out.println("size of PP: " + selected.getPossiblePositions().size());
             System.out.println(" piece selected is " +selected);
 
 
             System.out.println(selected.getPossiblePositions());
+
 
             //If selected is a king, we make sure he can't get in danger
             if(selected.pieceName.contains("King")){
@@ -269,24 +278,27 @@ public class Board extends JPanel {
             if(selected.beSelected){ //if the piece can be selected because no other move is being forced
                 if(selected.contains(tempPoint, selected.possiblePositions)){ //if tempPoint is in PP
 
-                    for(int k = 0; k < m_pieces.size(); k++){
+                    for(Piece k: m_pieces){
 
-                        if(m_pieces.get(k).getPositionX() == clickedX && m_pieces.get(k).getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
+                    //for(int k = 0; k < m_pieces.size(); k++){
+
+                        if(k.getPositionX() == clickedX && k.getPositionY() == clickedY){ //we check if a piece is on the selected position the player wants to go to
                             // if player = false, then start timer and stop the other timer. Else reverse.
-                            if(!current_turn_color){
-                                countdown.timer.start();
+                            if(current_turn_color){
+                                countdown.timer1.start();
                                 countdown.timer2.stop();
                                 //increment player turns
-                                turn++;
+                                countdown.turn1++;
                             }else {
                                 countdown.timer2.start();
-                                countdown.timer.stop();
-                                turn2++;
+                                countdown.timer1.stop();
+                                countdown.turn2++;
                             }
+
                             //if player = true and over first turn, then increment with 10 seconds. else reverse.
-                            if(current_turn_color && turn>=1){
-                                countdown.elapsedTime+=10000;
-                            } else if (!current_turn_color && turn2>=1){
+                            if(current_turn_color && countdown.turn1>=2){
+                                countdown.elapsedTime1+=10000;
+                            } else if (!current_turn_color && countdown.turn2>=2){
                                 countdown.elapsedTime2 += 10000;
                             }
 
@@ -294,32 +306,51 @@ public class Board extends JPanel {
                             //System.out.println(m_pieces.get(k).getColor());
                             //System.out.println(selected.getColor());
 
-                            if(m_pieces.get(k).getColor() != selected.getColor()){ //if the color of the piece is different from our knight
-                                m_pieces.remove(m_pieces.get(k)); //we delete the piece
+                            if(k.getColor() != selected.getColor()){ //if the color of the piece is different from our knight
+                                m_pieces.remove(k); //we delete the piece
 
-                                if(Objects.equals(selected.pieceName, "Pawn")){ //if the piece is a pawn
-                                    if(selected.getFirstMove()){ //if it's its first move
-                                        //if the future position is 2 squares upward or downward, it was the first move of the pawn
-
-                                        selected.setFirstMove(false); //first move was played, not gonna be available anymore
-
+                                if(k.pieceName.contains("King")){
+                                    //End game
+                                    EndGame e= new EndGame(k, b_game);
+                                    //frame.setVisible(false);
+                                    frame.getContentPane().add(e);
+                                    setVisible(false);
+                                    Countdown.counter1.setVisible(false);
+                                    Countdown.counter2.setVisible(false);
+                                    Countdown.scoreCounter2.setVisible(false);
+                                    Countdown.scoreCounter1.setVisible(false);
+                                    Countdown.eatScore.setVisible(false);
+                                    Countdown.Player1.setVisible(false);
+                                    Countdown.Player2.setVisible(false);
+                                    e.setVisible(true);
                                 }
-                            }
-                            // if player eat, get points accordingly to the pieces value
-                            if(current_turn_color){
-                                countdown.points += m_pieces.get(k).value;
-                                // if ai eat, get points accordingly to the pieces value
-                            }else {
-                                countdown.points2 += m_pieces.get(k).value;
-                            }
-                            // eat queen = eat king !!!
-                            System.out.println(m_pieces.get(k).pieceName);
-                            System.out.println(m_pieces.get(k).value);
+
+                                //If the piece selected is a pawn
+                                if(Objects.equals(selected.pieceName, "Pawn")){
+                                    if(selected.getFirstMove()){ //if it's its first move
+                                        //first move was played, it's not going to be available anymore
+                                        selected.setFirstMove(false);
+                                    }
+                                }
+
+                                // if player eat, get points accordingly to the pieces value
+                                if(current_turn_color){
+                                    countdown.points1 += k.value;
+                                    // if ai eat, get points accordingly to the pieces value
+                                }else {
+                                    countdown.points2 += k.value;
+                                }
+                                // Update points from scoreboard
+                                countdown.points1=countdown.points1;
+                                countdown.points2=countdown.points2;
+                                // print name and value of piece
+                                System.out.println(k.pieceName);
+                                System.out.println(k.value);
 
 
                                 selected.setPosition(clickedX, clickedY); //we move the piece here
                                 System.out.println("Hello world");
-                                current_turn_color = !current_turn_color;
+                                //current_turn_color = !current_turn_color;
                                 menacingPieces.clear();
                                 break;
                             }
@@ -334,9 +365,10 @@ public class Board extends JPanel {
                             }
                             selected.setPosition(clickedX, clickedY); //we move the knight there
 
-                            if(k + 1 == m_pieces.size()){
+                            if(hasColorChanged == false){
                                 System.out.println("current turn color: " + current_turn_color);
                                 current_turn_color = !current_turn_color;
+                                hasColorChanged = true;
                                 menacingPieces.clear();
                             }
                         }
@@ -363,6 +395,7 @@ public class Board extends JPanel {
         }
     }
 
+    /*
     //This method is called when king is in danger
     //It verifies if another piece can eat the menacing piece so that the king is no longer in danger
     public Piece canSomeoneSave(){
@@ -401,9 +434,9 @@ public class Board extends JPanel {
         }
 
         return null;
-    }
+    }*/
 
-    //This method stops the king from putting itself in danger: it modifies its PP
+    //This method stops the king from putting itself in danger: it modifies its possible positions
     public void DontGoInCheck(Piece king){
         ArrayList<Point> deleteFromKing = new ArrayList<>();
 
@@ -427,17 +460,24 @@ public class Board extends JPanel {
         //Once we got all the pp to delete
         king.possiblePositions.removeAll(deleteFromKing);
 
+        /*
+        //if the king can't move and is in check, it's a checkmate. The game is over
         if(king.possiblePositions.size() == 0){
             if(isCheck()){
                 ///King is checkmate, game is over
                 if(this.isCheckmate()){
                     b_game.isOver = true;
+                    if (b_game.isOver){
+                        frame.dispose();
+                    }
                 }
             }
-        }
+        }*/
     }
 
-    public boolean isCheck(){ ///if the king is menaced on its current position
+    /*
+    //This methods verifies if aking is in check. If yes, it returns true
+    public boolean isCheck(){
         Point kingPosW = new Point();
         Point kingPosB = new Point();
         Piece kingW = null;
@@ -486,12 +526,11 @@ public class Board extends JPanel {
 
         }
         return false; //in case no opposing piece has a king in check
-    }
+    }*/
 
+    /*
     //called when king can't move and no one can save him
     public boolean isCheckmate(){
-        //if every PP of the king is menaced
-
         //We verify that: king can't move AND no one can save
 
         if(this.menacedKing.possiblePositions.isEmpty()){ //if king can't move
@@ -512,9 +551,13 @@ public class Board extends JPanel {
             return true; //game is over, no piece can eat to save the king
         }
         return false; //this king can save himself
-    }
+    }*/
 
-   //This method manages the rounds and turns
+
+    ///--- DELETE THIS METHOD if we have another way of closing the game
+
+    /*
+    //This method manages the rounds and turns
    //It also will manage the different situations of the game ending
    public void playGame(Game g) { ///WHERE TO CALL IT? take care when all pieces move well
 
@@ -562,5 +605,5 @@ public class Board extends JPanel {
                 }
             }
         }
-   }
+   }*/
 }

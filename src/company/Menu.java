@@ -39,18 +39,20 @@ public class Menu extends JPanel implements ActionListener {
 
         setBorder(new EmptyBorder(150, 10, 10, 10));
 
+        //Set color of background
         this.setBackground(new Color(239,223,187));
 
+        //Where the text is to be shown
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.NORTH;
 
         //Add Title
-
         JLabel menuTitle = new JLabel("AI CHESS");
         menuTitle.setForeground(Color.DARK_GRAY);
         menuTitle.setFont(f1);
         add(menuTitle,gbc);
 
+        //Making the layout prettier by adding spaces, ect.
         Label a= new Label("");
         add(a,gbc);
 
@@ -85,12 +87,14 @@ public class Menu extends JPanel implements ActionListener {
             setVisible(false);
             b1.setVisible(true);
         });
+
         rules.addActionListener(e12 -> {
             Rules b12 = new Rules(frame);
             frame.getContentPane().add(b12);
             setVisible(false);
             b12.setVisible(true);
         });
+
         exit.addActionListener(e13 -> System.exit(0));
 
         JPanel buttons = new JPanel(gbl);

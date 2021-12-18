@@ -6,14 +6,17 @@ import java.awt.*;
 
 public class Rules extends JPanel{
     public Rules(JFrame frame){
+
         JPanel panel1 = new JPanel();
         setBorder(new EmptyBorder(100, 10, 10, 10));
         this.setBackground(new Color(239,223,187));
 
+        //Font
         Font f1= new Font(Font.SERIF,  Font.BOLD, 35);
         Font f2= new Font(Font.SERIF,  Font.BOLD, 20);
         Font f3= new Font(Font.SERIF, Font.PLAIN,  15);
 
+        //Writing the rules down
         Label a= new Label("You should have looked it up online you lazy player! ", JLabel.CENTER);
         a.setFont(f1);
         Label b= new Label("But since we are nice here are the basics:", JLabel.CENTER);
@@ -47,7 +50,9 @@ public class Rules extends JPanel{
         GridBagConstraints gbc = new GridBagConstraints();
         panel1.setBackground(new Color(239,223,187));
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        panel1.add(a, gbc); //adds in all the labels to panels
+
+        //add all the labels to panels
+        panel1.add(a, gbc);
         panel1.add(b, gbc);
         panel1.add(q, gbc);
         panel1.add(c, gbc);
@@ -67,11 +72,13 @@ public class Rules extends JPanel{
         panel1.add(r,gbc);
         panel1.add(s,gbc);
 
+        //button to go back to menu
         JButton close= new JButton("Back");
         close.setBackground(new Color(59,47,47));
         close.setForeground(new Color(239,223,187));
         close.setFont(f2);
 
+        //Add actionListener for button
         close.addActionListener(e1 -> {
             Menu b1 = new Menu(frame);
             frame.getContentPane().add(b1);
@@ -79,6 +86,7 @@ public class Rules extends JPanel{
             b1.setVisible(true);
         });
 
+        //Add button to JPanel
         panel1.add(close,gbc);
 
         this.add(panel1);
