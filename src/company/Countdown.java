@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 public class Countdown extends JPanel{
 
+    //add the JLabel
     static JLabel counter1 = new JLabel();
     static JLabel counter2 = new JLabel();
     static JLabel Player1 = new JLabel();
@@ -16,8 +17,9 @@ public class Countdown extends JPanel{
     static JLabel scoreCounter2 = new JLabel();
     static JLabel eatScore = new JLabel();
 
-    int elapsedTime1 = 900000;
-    int elapsedTime2 = 900000;
+    // add the variables
+    int elapsedTime1 = 600000;
+    int elapsedTime2 = 600000;
     int second_down = 1000;
     int points1 = 0;
     int points2 = 0;
@@ -75,13 +77,13 @@ public class Countdown extends JPanel{
 
     Countdown() {
         counter1.setLayout(null);
-        //Insert the text into counterLabel
+        //Insert the text into counter1
         counter1.setText(minuteString + ":" + secondString);
-        //Manipulate the cordinates and size for counterlabel
+        //Manipulate the cordinates and size for counter1
         counter1.setBounds(800, 400, 100, 50);
-        //counterlabel use selected font
+        //counter1 use selected font
         counter1.setFont(new Font("Arial", Font.PLAIN, 35));
-        //paint the counterlabel, allowing the underlying pixels to show through
+        //paint the counter1, allowing the underlying pixels to show through
         counter1.setOpaque(true);
 
         counter2.setLayout(null);
