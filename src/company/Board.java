@@ -292,9 +292,6 @@ public class Board extends JPanel {
                                 countdown.timer1.stop();
                                 countdown.turn2++;
                             }
-                            // Update points from scoreboard
-                            countdown.points1=countdown.points1;
-                            countdown.points2=countdown.points2;
 
                             //if player = true and over first turn, then increment with 10 seconds. else reverse.
                             if(current_turn_color && countdown.turn1>=2){
@@ -325,6 +322,9 @@ public class Board extends JPanel {
                                 }else {
                                     countdown.points2 += k.value;
                                 }
+                                // Update points from scoreboard
+                                countdown.points1=countdown.points1;
+                                countdown.points2=countdown.points2;
                                 // print name and value of piece
                                 System.out.println(k.pieceName);
                                 System.out.println(k.value);
